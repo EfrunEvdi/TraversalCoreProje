@@ -1,0 +1,80 @@
+﻿# 2 Ders
+N Katmanlı Mimari (N Tİer Arc.)
+--------------------------------
+Entity Layer: 
+* Bu katmanda Entityler tanımlanacak. 
+* SQL de Table olarak tutulan datalar C# ta Class olarak, SQL de Column olarak tutalan datalar da C# ta prooerty olarak tutulacak.
+--> Code First: Tamamen kod öncelikli ilerlemek.
+--------------------------------
+Data Access Layer:
+* Bu katmanda veri tabanı crud işlemleri için CRUD işlemleri alt yapısı oluşturulacak. Repository Desing Pattern kullanacağız.
+* CREAT-READ-UPDATE-DELETE
+--------------------------------
+Business Layer:
+* Validasyonların kontrolü 
+--> Lokasyon max 50 karakter olmalı
+--> Fiyat mutlaka sayısal veri olmalı vb.
+--------------------------------
+Presentation Layer:
+* Sunum katmanı Controller tarafındaki backend kodları ve projenin Uİ kısmı bu katmanda yer alır.
+
+# 3 Ders
+- Solition üstüne sağ tık add new project diyoruz ve 3 katmanı ekliyoruz.
+* Concrete: Somut ifadelerin tutulduğu klasör.
+* Abstarct: Soyut ifadelerin tutulduğu klasör.
+
+- EntityLayer: 
+Class -> Table
+Property -> Column
+*Lokasyon, Hakkımızda, Müşteriler, Admin gibi
+
+EntityLayer içine new folder Concrete ekliyoruz.
+Conctere içine new class Destination + About
+
+# 4 Ders
+EntityLayer içine Conctere içine new class Feature + Feature2 + SubAbout + Testimonial + Newsletter
+
+# 5 Ders
+EntityLayer içine Conctere içine new class About2 + Guide + Contact
+
+# 6 Ders
+Bütün katmanlara aşağıdaki paketleri yüklüyoruz.
+Microsoft.EntityFrameworkCore (5.0.12)
+Microsoft.EntityFrameworkCore.Desing (5.0.12)
+Microsoft.EntityFrameworkCore.SqlServer (5.0.12)
+Microsoft.EntityFrameworkCore.Tools (5.0.12)
+
+# 7 Ders
+DataAccessLayer içine new folder
+* Abstract
+
+* Concrete
+  + Context
+
+* EntityFramework
+
+* Repository
+
+EntityLayer - DataAccessLayer - BusinessLayer - PresentationLayer
+
+Bu sıralama önemli 
+Entity -> Hepsine 
+DataAccess -> Busines + Presentation
+Business -> Presentation
+referans olarak verilir.( Bu işlem add Project Reference olarak yapılır.)
+
+Context doldurulduktan sonra EntityLayerdaki classlara [Key] attribute u koyuldu.
+
+# 8 Ders
+İlk migration umuzu yapıyoruz.
+
+# 9 Ders
+EntityLayer içine Abstract içine new interface IGuideDal + IDestinationDal
+DRY yapmıyoruz. Bu yüzden generic yapı kullanacağız.
+IGenericDal interfacesini açıp diğer interfacelere kalıtım yoluyla miras veriyoruz.
+
+# 10 Ders
+EntityLayer içine Abstract içine new interface IAboutDal + IAbout2Dal + IContactDal + IFeatureDal + IFeature2Dal + INewsletterDal + SubAboutDal + ITestimonialDal ve miras verme işlemini yapıyoruz.
+Daha sonra EntityLayer içindeki Repository içine new class GenericRepository deyip imğlement interface diiyor ve içlerini dolduruyoruz.
+
+
