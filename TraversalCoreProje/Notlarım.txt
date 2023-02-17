@@ -69,12 +69,27 @@ Context doldurulduktan sonra EntityLayerdaki classlara [Key] attribute u koyuldu
 İlk migration umuzu yapıyoruz.
 
 # 9 Ders
-EntityLayer içine Abstract içine new interface IGuideDal + IDestinationDal
+DataAccessLayer içine Abstract içine new interface IGuideDal + IDestinationDal
 DRY yapmıyoruz. Bu yüzden generic yapı kullanacağız.
 IGenericDal interfacesini açıp diğer interfacelere kalıtım yoluyla miras veriyoruz.
 
 # 10 Ders
-EntityLayer içine Abstract içine new interface IAboutDal + IAbout2Dal + IContactDal + IFeatureDal + IFeature2Dal + INewsletterDal + SubAboutDal + ITestimonialDal ve miras verme işlemini yapıyoruz.
-Daha sonra EntityLayer içindeki Repository içine new class GenericRepository deyip imğlement interface diiyor ve içlerini dolduruyoruz.
+DataAccessLayer içine Abstract içine new interface IAboutDal + IAbout2Dal + IContactDal + IFeatureDal + IFeature2Dal + INewsletterDal + SubAboutDal + ITestimonialDal ve miras verme işlemini yapıyoruz.
+Daha sonra DataAccessLayer içindeki Repository içine new class GenericRepository deyip imğlement interface diiyor ve içlerini dolduruyoruz.
 
+# 11 Ders
+DataAccessLayer içine içine EntityFramework içine new class EfAboutDal + EfAbout2Dal + EfContactDal + EfDestinationDal + EfFeatureDal + EfFeature2Dal + EfGuideDal + EfNewsletterDal + EfSubAboutDal + EfTestimonialDal
 
+# 12 Ders
+BusinessLayer içine new folder Abstract + Concrete + ValidationRule
+Abstract içine new interface IGenericService + IAboutService + IAbout2Service + IContactService + IDestinationService + IFeatureService + IFeature2Service + IGuideService + INewsletterService + ISubAboutService + ITestimonialService
+Concrete içine new class  AboutManager ( implement interface ediyoruz.) İçini dolduruyoruz diğerlerini zamanı gelince oluşturacağız.
+
+# 13 Ders
+BusinessLayer ve Presentation içine aşağıdaki paketleri yüklüyoruz.
+FluentValidation (10.3.6)
+FluentValidation.AspNetCore (10.3.6)
+
+BusinessLayer içine ValidationRules içine new class AboutValidator
+
+UI katmanına new controller DefaultController + shared içide _UILayout ekliyoruz. DefaultController dan Index açıyoruz.
