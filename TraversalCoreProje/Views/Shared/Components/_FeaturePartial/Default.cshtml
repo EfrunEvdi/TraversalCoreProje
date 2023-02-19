@@ -1,0 +1,69 @@
+﻿@using EntityLayer.Concrete
+@model List<Feature>
+
+<div class="best-rooms py-5">
+    <div class="container py-md-5">
+        <div class="ban-content-inf row">
+            @foreach (var big in Model)
+            {
+                @if (big.FeatureID == 1)
+                {
+                    <div class="maghny-gd-1 col-lg-6">
+                        <div class="maghny-grid">
+                            <figure class="effect-lily border-radius  m-0">
+                                <img class="img-fluid" src="@big.Post1Image" alt="" />
+                                <figcaption>
+                                    <div>
+                                        <h4>@big.Post1Title</h4>
+                                        <p>Başlayan Fiyatlarla @big.Post1Description</p>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                }
+            }
+
+            <div class="maghny-gd-1 col-lg-6 mt-lg-0 mt-4">
+                <div class="row">
+                    @foreach (var small in Model)
+                    {
+                        @if (small.FeatureID == 2 || small.FeatureID == 3)
+                        {
+                            <div class="maghny-gd-1 col-6">
+                                <div class="maghny-grid">
+                                    <figure class="effect-lily border-radius">
+                                        <img class="img-fluid" src="@small.Post1Image" alt="" />
+                                        <figcaption>
+                                            <div>
+                                                <h4>@small.Post1Title</h4>
+                                                <p>Başlayan Fiyatlarla @small.Post1Description</p>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            </div>
+                        }
+                        @if (small.FeatureID == 4 || small.FeatureID == 5)
+                        {
+                            <div class="maghny-gd-1 col-6 mt-4">
+                                <div class="maghny-grid">
+                                    <figure class="effect-lily border-radius">
+                                        <img class="img-fluid" src="@small.Post1Image" alt="" />
+                                        <figcaption>
+                                            <div>
+                                                <h4>@small.Post1Title</h4>
+                                                <p>Başlayan Fiyatlarla @small.Post1Description</p>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -93,3 +93,49 @@ FluentValidation.AspNetCore (10.3.6)
 BusinessLayer içine ValidationRules içine new class AboutValidator
 
 UI katmanına new controller DefaultController + shared içide _UILayout ekliyoruz. DefaultController dan Index açıyoruz.
+
+# 14 Ders
+UILayout'ta template'daki indexi kopyalayıp layout kısmını aldık geri kalanı Default index in içine attık. Uzantıları düzelttik @RenderBody() kodunu indexin gelmesini istediğimiz yere koyduk.
+Layout u tamamladıktan sonra Partiallamak için Views içine new folder LayoutPartial içine new view razor view partial seçilecek _HeaderPartial.
+@await Html.PartialAsync("/Views/LayoutPartial/HeaderPartial.cshtml") kodu ile partial kısmı çalışacak.
+Bu işlemi _NavbarPartial.cshtml ve _FooterPartial.cshtml içinde yapıyoruz.
+
+# 15 Ders
+Partiallayama _ScriptPartial.cshtml için ed yapıyoruz.
+Daha sonrasında Partialları türkçeleştirdik.
+Default/Index'teki alanları ViewComponent yapmaya karar verdik.
+UI katmanı içine new folder ViewComponents açıyoruz.
+Bu klasör içine new folder Default içine new class _SliderPartial.cs açıyoruz.
+
+---------------------------------------------------------
+- Partial View’de bir veri bize döndürücekse bunu mutlaka Contollerden alması gerekmektedir.
+- Her bir View’in Partiala Controller üzerinden veri göndermek hem Controller maliyetini attırııcaktır hem de Controllera amacını saptıracaktır.
+- PartialView yapılanması ihtiyacı olan dataları Controller üzerinden elde edeceği için Controller’daki maliyeti artırmakta ve SOLID prensiplerine aykırı davranılmasına sebebiyet verebilmektedir.
+- PartiView yapısal olarak controller üzerinden beslenmektedir.
+- *ViewCompenent* ihtiyacı olan dataları controller üzerinden değil direkt kendi cs.dosyasında elde edebilmektedir.Böylece controllerdaki luzumsuz maliyeti ortadan kaldırmış olmaktayız.
+---------------------------------------------------------
+
+Daha sonra Shared içine new folder _SliderPartial bu klasörün içine de Default.cshtml ekliyoruz. Default a istediğimiz yeri yapıştırdıktan sonra @await Component.InvokeAsync("_SliderPartial") ile bu Componenti çağırıyoruz. Sonrasında sayfayı türkçeleştiriyoruz.
+
+# 16 Ders
+Bir önceki Component işlemini _PopularDestinationsPartial içinde yapıyoruz.
+BusinessLayer içine DestinationManager classını açıyoruz. Sadece GetList kısmını doldurup _PopularDestinationsPartial da 
+ DestinationManager destinationManager = new DestinationManager(new EfDestinationDal()); ile yeni bir nesne türetiyoruz.public kısmının içine de var values = destinationManager.TGetList(); ile listeleme işlemini gerçekleştiriyoruz (return View(values);).
+ Sonrada PopularDestination un Default unu foreach'a soktuk.
+
+# 17 Ders
+Bu derste diğer bir Component olan _StatisticsPartial ı yapıyoruz. Bu sayfayı türkçeleştirip ViewBag lerle istatistikleri getiriyoruz.
+Feature Componenti açıyoruz ama bu componentte listeleme yapacağımız için BusinessLayer içindeki concrete içine new class ekliyoruz FeatureManager GetList kısmını doldurduktan sonra Component işlemlerini tamamlıyoruz.
+
+# 18 Ders
+Bu Feature kısmının verilerini getirmek için if kullandım.
+Daha sonrasında SubAbout için aynı Component işlemlerini tekrarladık.
+Testimonial kısmınıda bu şekilde oluşturuyoruz.
+
+# 19 Ders
+Testimonial i türkçeleştirip foreach e soktuk. Daha sonrasında footer ıda türkçeleştirdik.
+
+# 20 Ders
+Template in tam halini indirdik.
+DestinationController açtık. Index ekledik(Razor view + Loyout).
+services.html sayfasından yararlanarak Destination/Index i doldurup, türkçeleştirip, foreach a sokuyoruz.
