@@ -1,39 +1,14 @@
-﻿<script src="~/Traversal-Starter/assets/js/jquery-3.3.1.min.js"></script>
-<script src="~/Traversal-Starter/assets/js/theme-change.js"></script>
-<script src="~/Traversal-Starter/assets/js/jquery.min.js"></script>
-<script src="~/Traversal-Starter/assets/js/modernizr-2.6.2.min.js"></script>
-<script src="~/Traversal-Starter/assets/js/jquery.zoomslider.min.js"></script>
-<script src="~/Traversal-Starter/assets/js/owl.carousel.js"></script>
-<script>
-    $(document).ready(function () {
-        $("#owl-demo1").owlCarousel({
-            loop: true,
-            margin: 20,
-            nav: false,
-            responsiveClass: true,
-            responsive: {
-                0: {
-                    items: 1,
-                    nav: false
-                },
-                736: {
-                    items: 1,
-                    nav: false
-                },
-                1000: {
-                    items: 1,
-                    nav: false,
-                    loop: true
-                }
-            }
-        })
-    })
-</script>
-<script src="~/Traversal-Starter/assets/js/jquery.waypoints.min.js"></script>
-<script src="~/Traversal-Starter/assets/js/jquery.countup.js"></script>
+﻿ <!-- Template JavaScript -->
+<script src="~/Traversal-Liberty/assets/js/jquery-3.3.1.min.js"></script>
+<script src="~/Traversal-Liberty/assets/js/theme-change.js"></script>
+<!-- stats number counter-->
+<script src="~/Traversal-Liberty/assets/js/jquery.waypoints.min.js"></script>
+<script src="~/Traversal-Liberty/assets/js/jquery.countup.js"></script>
 <script>
     $('.counter').countUp();
 </script>
+<!-- //stats number counter -->
+<!--/MENU-JS-->
 <script>
     $(window).on("scroll", function () {
         var scroll = $(window).scrollTop();
@@ -45,6 +20,7 @@
         }
     });
 
+    //Main navigation Active Class Add Remove
     $(".navbar-toggler").on("click", function () {
         $("header").toggleClass("active");
     });
@@ -59,5 +35,6 @@
         });
     });
 </script>
+<!--//MENU-JS-->
 
-<script src="~/Traversal-Starter/assets/js/bootstrap.min.js"></script>
+<script src="~/Traversal-Liberty/assets/js/bootstrap.min.js"></script>

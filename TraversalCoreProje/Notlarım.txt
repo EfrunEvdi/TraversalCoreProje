@@ -139,3 +139,46 @@ Testimonial i türkçeleştirip foreach e soktuk. Daha sonrasında footer ıda t
 Template in tam halini indirdik.
 DestinationController açtık. Index ekledik(Razor view + Loyout).
 services.html sayfasından yararlanarak Destination/Index i doldurup, türkçeleştirip, foreach a sokuyoruz.
+
+# 21 Ders
+DestinationDetails için DestinationControllerda  HttpGet ve HttpPost controller satırları oluşturduk. Template de ilgi sayfayı bu details sayfasına ekledik. Düzgün çalışmadığı için layout katmanında köklü bir değişiklik yaptık.
+
+# 22 Ders
+* Anasayfa slider fotorafları gelmiyor.
+Bu derste DestinationDetails sayfası için 2 tablo olmaması adına Destination Entitysine eklemeler yaptık. Daha sonra GetByID kısmı yoktu bizde DataAccessLayerda onu yazdık ve DestinationManager da içini doldurduk. Controller tarafındada HttpGette bu id yi getirme kodunu kullandık. Devamında @Model.Details1 istediğimiz satırı çağırdık. DestinationDetailste sadeleştirmeler yaptık.
+
+# 23 Ders
+Bu derste DestinationDetails kısmındaki yorum kısmı için yeni bir tablo oluşturduk ve bu tabloyu Destination tablosuna bağladık.Migration yaptık.
+_CommentListPartial için bir component yapıyoruz.
+_AddCommentPartial İçin de component işlemini yapıyoruz.
+
+# 24 Ders
+Yorumları listeleyebilmek için IGenericDal'a List<T> GetListByFilter(Expression<Func<T,bool>> filter); yazdık. Bu işlemi yaptıktan sonra GenericReposityor'de
+
+ public List<T> GetListByFilter(Expression<Func<T, bool>> filter)
+        {
+            using var c = new Context();
+            return c.Set<T>().Where(filter).ToList();
+        }
+
+ile implemen interface ediyoruz.
+ICommentDal ve EfCommentDal'ı ekledik. Ardından ICommentService ve CommentManager ı ekliyoruz. Daha sonra CommentManager da
+
+ public List<Comment> TGetDestinationByID(int id)
+        {
+            return _commentDal.GetListByFilter(x => x.DestinationID == id);
+        }
+
+ve ICommentService'e
+
+        List<Comment> TGetDestinationByID(int id);
+
+kodu ile id ye göre getirme işlemini yapıyoruz.
+
+id ile işlem yapacağımız için @await Component.InvokeAsync("_CommentListPartial",new { id = ViewBag.DestinationID }) ile id yi alıyoruz.
+
+# 25 Ders
+Yorum yap alanını türkçeleştirdik.
+Bu alanı componentte yapmaya çalıştık fakat olmadı bu yüzden CommentController açtık partialview olarak yapacağız.
+Controllerda HttpGet ve Post işlemlerini tamamladıktan sonra açtığımız AddComment view inde sayfa düzgün bir şekilde geldi fakat yorum yaptırmadı bu işlemi Ajaxla yapmaya karar verdik. 26 derste...
+
