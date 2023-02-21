@@ -182,3 +182,94 @@ Yorum yap alanını türkçeleştirdik.
 Bu alanı componentte yapmaya çalıştık fakat olmadı bu yüzden CommentController açtık partialview olarak yapacağız.
 Controllerda HttpGet ve Post işlemlerini tamamladıktan sonra açtığımız AddComment view inde sayfa düzgün bir şekilde geldi fakat yorum yaptırmadı bu işlemi Ajaxla yapmaya karar verdik. 26 derste...
 
+# 26 Ders
+Bu ders çok önemli Ajax işleminden vazgeçtik. CommentController tarafında aynı methodu hem bir partial view hemde Iactionresult olarak tanımladık.
+
+[HttpGet]
+public PartialViewResult AddComment()
+  {
+       return PartialView();
+  }
+[HttpPost]
+public IActionResult AddComment(Comment comment)
+  {
+       comment.CommentDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+       comment.CommentStatus = true;
+       comment.DestinationID = 3;
+       commentManager.TAdd(comment);
+       return RedirectToAction("Index", "Destination");
+  }
+bu kalıp çok önemli.
+
+Bu dersin devamında comment.DestinationID = 3; ile hangi sayfaya yorum yaparsak yapalım id=3 olanrotaya yorum yapar bunu dzeltmek adına şu işlemleri yapıyoruz.
+
+Öncelikle DestinationDetails'de ;
+
+@await Html.PartialAsync("~/Views/Comment/AddComment.cshtml",new { id = ViewBag.DestinationID }) olarak güncelledim.
+
+CommentController'ın HttpPost kısmını ;
+
+[HttpPost]
+        public IActionResult AddComment(Comment comment)
+        {
+            comment.CommentDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+            comment.CommentStatus = true;
+
+            commentManager.TAdd(comment);
+            return RedirectToAction("DestinationDetails", "Destination", new { id = comment.DestinationID });
+        } 
+olarak yazdım son kod bizi ilgili detay sayfasına atayacak.
+
+AddComment kısmında da ;
+
+<div class="form-group col-lg-6">
+            <input type="hidden" name="DestinationID" class="form-control" value="@ViewBag.DestinationID" required="" />
+</div> 
+olarak id yi kayıt ettirdim.
+
+# 27 Ders
+Bu derste identity paketlerini yüklüyoruz.
+BusinessLayer hariç tüm katmanlara yüklediğimiz paketler;
+- Microsoft.AspNetCore.Identity (2.2.0)
+- Microsoft.AspNetCore.Identity.EntityFrameworkCore (5.0.12)
+
+Daha sonra EntityLayer a AppUser ve AppRole classı açıyoruz. Bu işlemleri yaptıktan sonra public class Context : IdentityDbContext<AppUser, AppRole, int> olarak Context'i güncelliyoruz. Daha sonra migration yapıyoruz.
+
+# 28 Ders
+Giriş ve kullanıcı templatelerini yükledikten sonra LoginController açıyoruz.
+Daha sonra SingUp ve SingIn controllerlarını tanımladıktan sonra SingUp için bire view ekliyoruz. ( Partial değil Layoutsuz.) SingIn içinde aynı işlemi yapıyoruz.
+İndirdiğimiz templatelari bu view dosyalarına koyup türkçeleştiriyoruz.
+
+# 29 Ders
+startup.cs te 28. satıra services.AddDbContext<Context>(); yazdık.
+29. satıra services.AddIdentity<AppUser,AppRole>().AddEntityFrameworkStores<Context>(); yazdık.
+34-38 arası services.AddMvc(config =>
+            {
+                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            }); yazdık.
+40. satıra services.AddMvc(); yazdık.
+58. satıra  app.UseAuthentication(); yazdık.
+
+Bu bölümde slider kısmı düzeltildi.
+
+Sonrasında LoginController'a
+private readonly UserManager<AppUser> _userManager;
+
+        public LoginController(UserManager<AppUser> userManager)
+        {
+            _userManager = userManager;
+        }
+        yazdık.
+HttpPost kısmını şu şekilde güncelledik.
+[HttpPost]
+        public async Task<IActionResult> SingUp(UserRegisterViewModel p)
+        {
+            return View();
+        }
+Daha sonrasında UserRegisterViewModel modelini oluşturduk.
+
+Devamında modelden gelen değerlerle elimizdeki AppUser tablosunu eşleştirdik. Bunları yaptıktan sonra  kaydetme işlemi gerçekleşti.
+
+# 30 Ders
+SingUp templat i işimize yaramıyacağı için yeni bir template indirdik ve bunu tekrardan modelimize uydurduk, türkçeleştirdik.

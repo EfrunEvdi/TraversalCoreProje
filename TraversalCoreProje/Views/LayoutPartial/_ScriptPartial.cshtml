@@ -2,8 +2,14 @@
 <script src="~/Traversal-Liberty/assets/js/jquery-3.3.1.min.js"></script>
 <script src="~/Traversal-Liberty/assets/js/theme-change.js"></script>
 <!-- stats number counter-->
+<script src="~/Traversal-Liberty/assets/js/jquery.min.js"></script>
+<script src="~/Traversal-Liberty/assets/js/modernizr-2.6.2.min.js"></script>
+<script src="~/Traversal-Liberty/assets/js/jquery.zoomslider.min.js"></script>
+<script src="~/Traversal-Liberty/assets/js/owl.carousel.js"></script>
 <script src="~/Traversal-Liberty/assets/js/jquery.waypoints.min.js"></script>
 <script src="~/Traversal-Liberty/assets/js/jquery.countup.js"></script>
+
+
 <script>
     $('.counter').countUp();
 </script>
@@ -38,3 +44,31 @@
 <!--//MENU-JS-->
 
 <script src="~/Traversal-Liberty/assets/js/bootstrap.min.js"></script>
+
+<script>
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function () {
+        scrollFunction()
+    };
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("movetop").style.display = "block";
+        } else {
+            document.getElementById("movetop").style.display = "none";
+        }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+</script>
+<script>
+    $(function () {
+        $('.navbar-toggler').click(function () {
+            $('body').toggleClass('noscroll');
+        })
+    });
+</script>
