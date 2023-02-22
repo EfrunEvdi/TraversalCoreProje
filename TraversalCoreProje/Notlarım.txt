@@ -273,3 +273,98 @@ Devamında modelden gelen değerlerle elimizdeki AppUser tablosunu eşleştirdik
 
 # 30 Ders
 SingUp templat i işimize yaramıyacağı için yeni bir template indirdik ve bunu tekrardan modelimize uydurduk, türkçeleştirdik.
+
+# 31 Ders
+<div class="text-danger" asp-validation-summary="ModelOnly">
+                            
+</div> 
+kodu ile şifredeki kuralları görebiliyoruz. Ama ingilizce olarak geliyor. Bu yapıyı türkçeleştirmemiz lazım. Türkçeleştirmek için Bir model ekliyoruzz bu model önemli CustomIdentityValidator.
+daha sonrasında bu modelin çalışabilmesi için startup'ın 32. satırını
+services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>().AddErrorDescriber<CustomIdentityValidator>().AddEntityFrameworkStores<Context>();
+
+# 32 Ders
+Dashbord template si indirdik. Kullanıcı için bir layout oluşturup adını _UserLayout koyduk. Areas adında yeni bir klasör oluşturduk. Sağ tık add area diyip mvc area seçip adını Member koyduk. Bu işlemle birlikte gelen Scaffolding sayfasındaki
+
+app.UseEndpoints(endpoints =>
+        {
+          endpoints.MapControllerRoute(
+            name : "areas",
+            pattern : "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+          );
+        });
+
+kodunu startupda 82. satıra yapıştırdık.
+Daha sonra açtığımız bu Areanın içindeki Controller klasörüne 3 tane controller ekledik.
+-> CommentController
+-> MessageController
+-> ProfileController
+   
+*** Areadaki controller in çalışması için [Area("Member")] yazmalıyız. ***
+[AllowAnonymous] de yazıyoruz ki giriş istemesin.
+_UserLayoutu düzenledik ve partiallara ayırmaya başladık.
+Bu Partialları oluşturmak için MemberLayouPartial adlı klasörün içine açıyoruz.
+-> _HeaderPartial
+-> _NavbarPartial
+
+# 33 Ders
+-> _Navbar2Partial
+-> _RightbarPartial
+-> _FooterPartial
+-> _ScriptPartial partial larınıda oluşturduk.
+
+Daha sonrasında DestinationController ekliyoruz Member daki controller'a. Açtığımız bu controller için index açtık layoutu _UserLayout.
+Bu indexi aktif tur rotalarımız olarak kullandık. Dashboard tan gelen tabloyu kullandım ben.
+
+# 34 Ders
+        private readonly SignInManager<AppUser> _singInManager;
+Login işlemi için LoginController'a 
+private readonly SignInManager<AppUser> _singInManager; 
+kodunu ekledik.
+Altındaki Constructor metodunu da 
+
+public LoginController(UserManager<AppUser> userManager, SignInManager<AppUser> singInManager)
+        {
+            _userManager = userManager;
+            _singInManager = singInManager;
+        }
+
+şeklinde güncelliyoruz.
+Sonrasında UserSingInViewModel i oluşturuyoruz.
+Devamında LoginController'da SinIn kısmının post kısmını yazıyoruz.
+
+Daha sonra SingIn de @model TraversalCoreProje.Models.UserSingInViewModel kodu ile form içini düzenliyoruz.
+Sisteme otantike olmuş olduk.
+
+# 35 Ders
+Bu bölümde prfil düzenleme kısmını yapacağız öncelikle area içindeki ProfileController dan index açıyorum, devamında area içinde ki model klasörüne UserEditViewModel ini ekliyoruz. Açtığımız index sayfasında bir form kodu yazıyoruz bu kodları @model TraversalCoreProje.Areas.Member.Models.UserEditViewModel ile eşleştiriyoruz.
+Bu işlemlerden sonra ProfileController ın son hali 
+
+[Area("Member")]
+[Route("Member/[controller]/[action]")]
+    public class ProfileController : Controller
+    {
+        private readonly UserManager<AppUser> _userManager;
+
+        public ProfileController(UserManager<AppUser> userManager)
+        {
+            _userManager = userManager;
+        }
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            UserEditViewModel userEditViewModel = new UserEditViewModel();
+            userEditViewModel.Name = values.Name;
+            userEditViewModel.Surname = values.Surname;
+            userEditViewModel.PhoneNumber = values.PhoneNumber;
+            userEditViewModel.Mail = values.Email;
+            return View(userEditViewModel);
+        }
+
+oluyor.
+
+Çok Önemli
+------------------------------------
+[Route("Member/[controller]/[action]")] kodu ile login controllerdaki yönlendirme kodu olan return RedirectToAction("Index", "Profile", new { area = "Member" }); çalışır.
+
+Bu yönlendirme sağlandıktan sonra Dashboard template'inden beğendiğim kısımla birlikte hocanın yaptığı form kısmını birleştirip güzel bir profil düzenleme kısmı yaptım.

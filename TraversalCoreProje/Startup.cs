@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TraversalCoreProje.Models;
 
 namespace TraversalCoreProje
 {
@@ -28,7 +29,7 @@ namespace TraversalCoreProje
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<Context>();
-            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>();
+            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>().AddErrorDescriber<CustomIdentityValidator>().AddEntityFrameworkStores<Context>();
             services.AddControllersWithViews();
 
             services.AddMvc(config =>
@@ -57,16 +58,16 @@ namespace TraversalCoreProje
             app.UseStaticFiles();
             app.UseAuthentication();
             // Bu kodu app.UseAuthorization(); den önce kullanmamýzýn sebebi ;
-           
-             /* Authentication,bir kullanýcýnýn herhangi bir kaynaða eriþimde kimliðinin doðrulanmasý iþlemidir. 
-            Kullanýcýya Kimsin sorusu sorulur? Bu sorunun cevabý genellikle kullanýcýnýn kullanýcý  adý ve  þifre þeklinde cevap vermesiyle yanýtlanýr.
-            Authentication,authorization'dan önce gelmektedir.
-            Authorization ise,kimliði doðrulanan kullanýcýnýn eriþmek istediði kaynak üzerindeki yetkilerini tanýmlar.
-            Peki authentication iþlemi yapýlmadan authorization iþlemi yapýlamaz mý?
 
-            Kimsin sorusunun sorulmamasý demek herhangi birisi anlamýna gelir. 
-            Dolayýsý ile kimliði doðrulanmayan yani anonim kullanýcýlara izin verileceði durumlarda bu iþlem gerçekleþtirilir. */
-           
+            /* Authentication,bir kullanýcýnýn herhangi bir kaynaða eriþimde kimliðinin doðrulanmasý iþlemidir. 
+           Kullanýcýya Kimsin sorusu sorulur? Bu sorunun cevabý genellikle kullanýcýnýn kullanýcý  adý ve  þifre þeklinde cevap vermesiyle yanýtlanýr.
+           Authentication,authorization'dan önce gelmektedir.
+           Authorization ise,kimliði doðrulanan kullanýcýnýn eriþmek istediði kaynak üzerindeki yetkilerini tanýmlar.
+           Peki authentication iþlemi yapýlmadan authorization iþlemi yapýlamaz mý?
+
+           Kimsin sorusunun sorulmamasý demek herhangi birisi anlamýna gelir. 
+           Dolayýsý ile kimliði doðrulanmayan yani anonim kullanýcýlara izin verileceði durumlarda bu iþlem gerçekleþtirilir. */
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -76,6 +77,14 @@ namespace TraversalCoreProje
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                  name: "areas",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
             });
         }
     }

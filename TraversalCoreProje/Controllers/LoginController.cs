@@ -11,10 +11,12 @@ namespace TraversalCoreProje.Controllers
     public class LoginController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _singInManager;
 
-        public LoginController(UserManager<AppUser> userManager)
+        public LoginController(UserManager<AppUser> userManager, SignInManager<AppUser> singInManager)
         {
             _userManager = userManager;
+            _singInManager = singInManager;
         }
 
         [HttpGet]
@@ -54,6 +56,23 @@ namespace TraversalCoreProje.Controllers
         [HttpGet]
         public IActionResult SingIn()
         {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> SingIn(UserSingInViewModel p)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _singInManager.PasswordSignInAsync(p.UserName, p.Password, false, true);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Profile", new { area = "Member" });
+                }
+                else
+                {
+                    return RedirectToAction("SingIn", "Login");
+                }
+            }
             return View();
         }
     }

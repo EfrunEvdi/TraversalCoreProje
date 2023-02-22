@@ -1,4 +1,6 @@
-﻿@{
+﻿@model TraversalCoreProje.Models.UserSingInViewModel
+
+@{
     Layout = null;
 }
 
@@ -34,21 +36,23 @@
                     <img src="~/Login_v1/images/img-01.png" alt="IMG">
                 </div>
 
-                <form class="login100-form validate-form">
+                <form method="post" class="login100-form validate-form">
                     <span class="login100-form-title">
                         Misafir Giriş Sayfası
                     </span>
 
-                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="text" name="email" placeholder="Email">
+                    <div class="wrap-input100 validate-input">
+                        <input class="input100" type="text" asp-for="UserName" placeholder="Kullanıcı Adı">
+                        <span asp-validation-for="UserName"></span>
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
                         </span>
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input class="input100" type="password" name="pass" placeholder="Şifre">
+                    <div class="wrap-input100 validate-input">
+                        <input class="input100" type="password" asp-for="Password" placeholder="Şifre">
+                        <span asp-validation-for="Password"></span>
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>

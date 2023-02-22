@@ -30,6 +30,7 @@ Author URL: http://w3layouts.com
     <!-- //Meta tag Keywords -->
     <!--/Style-CSS -->
     <link rel="stylesheet" href="~/web/css/style.css" type="text/css" media="all" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!--//Style-CSS -->
 </head>
 
@@ -79,13 +80,16 @@ Author URL: http://w3layouts.com
                         </div>
                         <div class="form-input">
                             <label>Şifre :</label>
-                            <input type="password" asp-for="Password" />
+                            <input type="password" asp-for="Password" required />
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
                         <div class="form-input">
                             <label>Şifre Tekrar :</label>
                             <input type="password" asp-for="ConfirmPassword" />
                             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        <div class="text-danger" asp-validation-summary="ModelOnly">
+                            
                         </div>
 
                         <label class="container">

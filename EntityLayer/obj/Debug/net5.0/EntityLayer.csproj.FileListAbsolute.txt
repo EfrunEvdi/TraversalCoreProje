@@ -1,0 +1,30 @@
+C:\Users\efrun\OneDrive\Desktop\TraversalCoreProje\EntityLayer\bin\Debug\net5.0\EntityLayer.deps.json
+C:\Users\efrun\OneDrive\Desktop\TraversalCoreProje\EntityLayer\bin\Debug\net5.0\EntityLayer.runtimeconfig.json
+C:\Users\efrun\OneDrive\Desktop\TraversalCoreProje\EntityLayer\bin\Debug\net5.0\EntityLayer.runtimeconfig.dev.json
+C:\Users\efrun\OneDrive\Desktop\TraversalCoreProje\EntityLayer\bin\Debug\net5.0\EntityLayer.dll
+C:\Users\efrun\OneDrive\Desktop\TraversalCoreProje\EntityLayer\bin\Debug\net5.0\EntityLayer.pdb
+C:\Users\efrun\OneDrive\Desktop\TraversalCoreProje\EntityLayer\obj\Debug\net5.0\EntityLayer.csproj.AssemblyReference.cache
+C:\Users\efrun\OneDrive\Desktop\TraversalCoreProje\EntityLayer\obj\Debug\net5.0\EntityLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\efrun\OneDrive\Desktop\TraversalCoreProje\EntityLayer\obj\Debug\net5.0\EntityLayer.AssemblyInfoInputs.cache
+C:\Users\efrun\OneDrive\Desktop\TraversalCoreProje\EntityLayer\obj\Debug\net5.0\EntityLayer.AssemblyInfo.cs
+C:\Users\efrun\OneDrive\Desktop\TraversalCoreProje\EntityLayer\obj\Debug\net5.0\EntityLayer.csproj.CoreCompileInputs.cache
+C:\Users\efrun\OneDrive\Desktop\TraversalCoreProje\EntityLayer\obj\Debug\net5.0\EntityLayer.dll
+C:\Users\efrun\OneDrive\Desktop\TraversalCoreProje\EntityLayer\obj\Debug\net5.0\refint\EntityLayer.dll
+C:\Users\efrun\OneDrive\Desktop\TraversalCoreProje\EntityLayer\obj\Debug\net5.0\EntityLayer.pdb
+C:\Users\efrun\OneDrive\Desktop\TraversalCoreProje\EntityLayer\obj\Debug\net5.0\EntityLayer.genruntimeconfig.cache
+C:\Users\efrun\OneDrive\Desktop\TraversalCoreProje\EntityLayer\obj\Debug\net5.0\ref\EntityLayer.dll
+C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\EntityLayer\bin\Debug\net5.0\EntityLayer.deps.json
+C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\EntityLayer\bin\Debug\net5.0\EntityLayer.runtimeconfig.json
+C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\EntityLayer\bin\Debug\net5.0\EntityLayer.runtimeconfig.dev.json
+C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\EntityLayer\bin\Debug\net5.0\EntityLayer.dll
+C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\EntityLayer\bin\Debug\net5.0\EntityLayer.pdb
+C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\EntityLayer\obj\Debug\net5.0\EntityLayer.csproj.AssemblyReference.cache
+C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\EntityLayer\obj\Debug\net5.0\EntityLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\EntityLayer\obj\Debug\net5.0\EntityLayer.AssemblyInfoInputs.cache
+C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\EntityLayer\obj\Debug\net5.0\EntityLayer.AssemblyInfo.cs
+C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\EntityLayer\obj\Debug\net5.0\EntityLayer.csproj.CoreCompileInputs.cache
+C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\EntityLayer\obj\Debug\net5.0\EntityLayer.dll
+C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\EntityLayer\obj\Debug\net5.0\refint\EntityLayer.dll
+C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\EntityLayer\obj\Debug\net5.0\EntityLayer.pdb
+C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\EntityLayer\obj\Debug\net5.0\EntityLayer.genruntimeconfig.cache
+C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\EntityLayer\obj\Debug\net5.0\ref\EntityLayer.dll
