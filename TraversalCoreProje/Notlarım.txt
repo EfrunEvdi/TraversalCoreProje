@@ -368,3 +368,128 @@ oluyor.
 [Route("Member/[controller]/[action]")] kodu ile login controllerdaki yönlendirme kodu olan return RedirectToAction("Index", "Profile", new { area = "Member" }); çalışır.
 
 Bu yönlendirme sağlandıktan sonra Dashboard template'inden beğendiğim kısımla birlikte hocanın yaptığı form kısmını birleştirip güzel bir profil düzenleme kısmı yaptım.
+
+# 36 Ders
+Bu derste amacımız kullanıcan profil resmi almak. Bu işlem için sırayla şunları yapıyoruz ;
+
+UserEditViewModel e 
+
+public IFormFile Image { get; set; } 
+
+kodunu ekiyoruz. Dosya alacağız çünkü kullanıcıdan.
+
+Devamında Profile controller da 
+
+[HttpPost]
+        public async Task<IActionResult> Index(UserEditViewModel p)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            if (p.Image != null)
+            {
+                var resource = Directory.GetCurrentDirectory();
+                var extension = Path.GetExtension(p.Image.FileName);
+                var imagename = Guid.NewGuid() + extension;
+                var savelocation = resource + "/wwwroot/userimages/" + imagename;
+                var stream = new FileStream(savelocation, FileMode.Create);
+                await p.Image.CopyToAsync(stream);
+                user.ImageUrl = "/userimages/" + imagename;
+            }
+            user.Name = p.Name;
+            user.Surname = p.Surname;
+            user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, p.Password);
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("SingIn", "Login");
+            }
+            return View();
+        }
+
+ekliyoruz.
+
+Son olarak Profile/Indecte form kısmını <form method="post" enctype="multipart/form-data"> olarak güncelledik.
+
+# 37 Ders
+Bu derste rezervasyon kısmıyla ilgileneceğiz.
+Bunun için EntityLayer da class oluşturuyoruz. Reservation classını context tede tanımlıyıp migration yapıyoruz. 
+Devamında Memberde yeni bir controller açıyoruz. ReservationController. Bu controller ın içinde ;
+MyCurrentReservation, MyOldReservation ve Getli Postlu NewRezervation controller larını oluşturuyoruz. Sonrasında NewRezervation için bir layoutlu View ekliyoruz.
+
+# 38 Ders
+Bu derste il olarak ReservationController'da
+[HttpGet]
+        public IActionResult NewRezervation()
+        {
+            List<SelectListItem> values = (from x in destinationManager.TGetList()
+                                           select new SelectListItem
+                                           {
+                                               Text = x.City,
+                                               Value = x.DestinationID.ToString()
+                                           }).ToList();
+            ViewBag.v = values;
+            return View();
+        }
+[HttpGet] kısmını bu şekilde güncelledik. Daha sonra DataAccessLayer'da Abstract içine new interface IReservationDal, EntityFramework içine new class EfReservationDal'ı oluşturduk. BusinessLayer'da  Abstract içine new interface IReservationService, devamında Concrete içine new class ReservationManager ekliyoruz. İçinde sadece TAdd kısmını güncelledik.
+Sonrasında ReservationController'a dönüp HttpPost kısmını ;
+[HttpPost]
+        public IActionResult NewRezervation(Reservation p)
+        {
+            p.AppUserID = 1;
+            reservationManager.TAdd(p);
+            return RedirectToAction("MyCurrentReservation");
+        }
+olarak güncelledik. Id yi daha sonra dinamik hale getircez.
+NewReservation sayfasında form oluşturduk. Bu form ile yeni bir rezervasyon sqlde eklendi fakat gittiği sayfa olmadığı için hata verdi.
+
+# 39 Ders
+Bu derste ilk olarak ReservationController'da p.Status = "Onay bekliyor..."; olarak güncelledik.
+MyCurrentReservation için bir index ekledik. MyOldReservation içinde bir index ekledik. Sonrasında sidebar a bu sayfaların linkini verdik.
+
+# 40 Ders
+ReservationController'a 
+public IActionResult MyApprovalReservation()
+        {
+            return View();
+        }
+        ekliyoruz.
+Bir Index ekliyoruz Onay bekleyen rezervasyonlar olarak başlık attık.
+Sonrasında 
+
+private readonly UserManager<AppUser> _userManager;
+
+        public ReservationController(UserManager<AppUser> userManager)
+        {
+            _userManager = userManager;
+        }
+olarak controllera ekleme yaptık. 
+
+MyApprovalReservation kısmını şu şekilde güncelledik.
+
+public async Task<IActionResult> MyApprovalReservation()
+       {
+           var values = await _userManager.FindByNameAsync(User.Identity.Name);
+           ViewBag.v = values.Id;
+           return View();
+       }
+
+Devamında navbarda link verdik.
+        
+IReservationService'e List<Reservation> GetListApprovalReservation(int id); satırını ekledik.
+ReservationManagerda implrmrnt ettikten sonra
+public List<Reservation> GetListApprovalReservation(int id)
+        {
+            return _reservationDal.GetListByFilter(x => x.AppUserID == id);
+        }
+içini bu şekilde dolduruyoruz.
+Bu işlemden sonra ReservationController da
+
+public async Task<IActionResult> MyApprovalReservation()
+        {
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            var valuesList = reservationManager.GetListApprovalReservation(values.Id);
+            return View(valuesList);
+        }
+
+işlemini yapıyoruz.
+Daha sonra bu controllerin indeksinde bir tablo oluşturduk.
+Bu şekilde giriş yapmış kullanıcının tüm rezervasyon sitesi gelmiş oldu gelecek ders onu düzelticez.
