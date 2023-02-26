@@ -7,24 +7,33 @@
 }
 
 <h1>Onay Bekleyen Rezervasyonlarım</h1>
+<hr />
+<br />
 
-<table class="table table-bordered">
-    <tr>
-        <th>#</th>
-        <th>Lokasyon</th>
-        <th>Kişi Sayısı</th>
-        <th>Rezervasyon Tarihi</th>
-        <th>Durum</th>
-    </tr>
-    @foreach (var item in Model)
-    {
+@if (Model.Count == 0)
+{
+    <h4>Hiç onay bekleyen rezervasyonunuz bulunmamaktadır.</h4>
+}
+else
+{
+    <table class="table table-borderless text-center">
         <tr>
-            <th>@item.ReservationID</th>
-            <td>@item.Destination</td>
-            <td>@item.PersonCount</td>
-            <td>@item.ReservationDate</td>
-            <td>@item.Status</td>
+            <th>#</th>
+            <th>Lokasyon</th>
+            <th>Kişi Sayısı</th>
+            <th>Rezervasyon Tarihi</th>
+            <th>Durum</th>
         </tr>
-    }
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th>@item.ReservationID</th>
+                <td>@item.Destination.City</td>
+                <td>@item.PersonCount</td>
+                <td>@item.ReservationDate</td>
+                <td>@item.Status</td>
+            </tr>
+        }
+    </table>
+}
 

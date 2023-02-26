@@ -493,3 +493,90 @@ public async Task<IActionResult> MyApprovalReservation()
 işlemini yapıyoruz.
 Daha sonra bu controllerin indeksinde bir tablo oluşturduk.
 Bu şekilde giriş yapmış kullanıcının tüm rezervasyon sitesi gelmiş oldu gelecek ders onu düzelticez.
+
+# 41 Ders
+Öncelikle onay bekleyen rezarvosyanların gelmesi için ReservationManager'da
+
+public List<Reservation> GetListApprovalReservation(int id)
+        {
+            return _reservationDal.GetListByFilter(x => x.AppUserID == id && x.Status == "Onay bekliyor...");
+        }
+
+bu değişikliği yaptık.
+Bu değişiklikten sonra Onay bekliyor olan tüm rezervasyonlar geldi bunda sıkıntı yok devamında bu gelen tabloda destination kısmında Id yerine isim gelmesini istediğimiz için ilişki kurmaya IReservationDal'da 
+public interface IResevationDal : IGenericDal<Reservation>
+    {
+        List<Reservation> GetListWithReservationByWaitApproval(int id);
+        List<Reservation> GetListWithReservationByAccepted(int id);
+        List<Reservation> GetListWithReservationByPrevious(int id);
+    }
+
+değişikliğini yaptık bunda da sıkıntı yok.
+Bu yaptığımız değişiklikten sonra EfReservatiınDal da bu değişikliklerim implemen edip içlerini dolduracakken reservation ve destination arasında bir ilişki kurmadığımızı farkettik bu sebeple;
+1)EntityLayerdaki Reservation sınıfında public string Destination { get; set; } satırını yorum satır yapıp hata çıkarak yerleri yorum satıra aldık. ( Bu kısım kullanıldığı ve yok ettiğimiz için hata fırlattı.) Devamında migration yaptık.
+2)İlişkiyi kurmak için destination'a 
+
+public List<Reservation> Reservations { get; set; } 
+
+ve reservation'a 
+
+public int DestinationID { get; set; }
+public Destination Destination { get; set; }
+
+satırlarını ekleyip migration yaptık. FAKAT RESERVATİON SAYFASINA ZATEN APPUSER TABLOSU BAĞLI OLDUĞU İÇİN 2. TABLOYU BAĞLAYAMAZSIN DİYE HATA VERDİ.
+
+# 42 Ders
+Aldığımız hatayı düzeltmek için tabloyu sıfırlıyoruz.
+truncate table Reservations kodunu sql'e yazıp update database dedik ve oldu. :)))
+
+Sqlde tabloyu sıfırladığımız için 3 tane data girdik. (Reservation)
+Daha sonra EfReservationDal'da 
+
+public List<Reservation> GetListWithReservationByWaitApproval(int id)
+        {
+            using (var context = new Context())
+            {
+                return context.Reservations.Include(x => x.Destination).Where(x => x.Status == "Onay bekliyor..." && x.AppUserID == id).ToList();
+            }
+        }
+
+IReservationService'de
+
+ public interface IReservationService : IGenericService<Reservation>
+    {
+        List<Reservation> GetListWithReservationByWaitApproval(int id);
+    }
+
+ReservationManager'da
+
+ public List<Reservation> GetListWithReservationByWaitApproval(int id)
+        {
+            return _reservationDal.GetListWithReservationByWaitApproval(id);
+        }
+
+güncellemelerini yapıyoruz.
+
+Daha sonrasında ReservationController'da
+
+ public async Task<IActionResult> MyApprovalReservation()
+        {
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            var valuesList = reservationManager.GetListWithReservationByWaitApproval(values.Id);
+            return View(valuesList);
+        }
+
+değişikliğini yapıp Viewinde <td>@item.Destination.City</td> yazdığımızda artık Destinationda ki city ismi geliyor..
+Şimdi diğerleri içinde aynı şeyi yapacağız. Diğer kısımları da tamamladıktan sonra hepsi istediğimiz gibi geliyor. İf else kullanarak eğer herhangi bir veri yoksa bu durumu h4 etiketiyle yazdırdım.
+
+# 43 Ders
+Bu derste profil kısmını güncellemeye karar verdik. Bunun için DahsboardController açıyoruz. Dashboard template'inde profile.html sayfasını  kullandık ordan işimize yarayan kısmı aldık ve Controllerdan açtığımız indexe yapıştırıyoruz. Daha conra controllerda oluşturduğumuz Viewbagler ile istediğimiz bilgiyi çektik. Devamını 44. derste yapacağız.
+
+# 44 Ders
+Oluşturduğumuz Index'i Componente ayırmaya karar verdik ama bu Componenti Memberin dışında oluşturduk.
+    
+ViewComponent içine new folder MemberDashboar içine new class _ProfileInformation ve Component içine new folder _ProfileInformation içine new view Default açtık. Bu default sayfasına istediğimiz yeri kestik ve yerne @await kodunu yazdık devamında Viewbagler ile istediğimiz bilgiyi çektik.
+
+# 45 Ders
+Bu derste profilin içinde yeni bir component açacağız. _GuideList classını açıyoruz MemberDashboard içine.
+GuideManager olmadığı için öncelikle BusinessLayer içindeki Concrete klasörü içine bu classı oluşturuyoruz. Sadece GetList kısmını doldurduk. Daha sonra Component içine _GuideList klasörü devamında Default view ini oluşturduk.
+Bunları yaptıktan sonra Guide tablosuna 5 rehber ekledik.
