@@ -579,4 +579,35 @@ ViewComponent içine new folder MemberDashboar içine new class _ProfileInformat
 # 45 Ders
 Bu derste profilin içinde yeni bir component açacağız. _GuideList classını açıyoruz MemberDashboard içine.
 GuideManager olmadığı için öncelikle BusinessLayer içindeki Concrete klasörü içine bu classı oluşturuyoruz. Sadece GetList kısmını doldurduk. Daha sonra Component içine _GuideList klasörü devamında Default view ini oluşturduk.
-Bunları yaptıktan sonra Guide tablosuna 5 rehber ekledik.
+Bunları yaptıktan sonra Guide tablosuna 5 rehber ekledik. Bu 5 rehberin listelenmesi için GuideList te Getlist komutunu kullandık.
+Devamında İstediğimiz yeri kesip foreach'e sokmak için sadeleştirdik döngüye soktuk. Bilgiler geldikten sonra dersi bitirdik.
+
+# 46 Ders
+Bu derste componentleme işlemine _PlatformSetting kısmı ile başladık. Gerekli işlemleri yaptıktan sınra türkçeleştirip navbar kısmındaki linkleri de düzelttik.
+
+# 47 Ders
+Admin layoutu indirdik. Yani admin kısmına geçiş yaptık. Dashboard kısmına geri döneceğiz.
+Öncelikle Views klasörü içinde yeni bir view açıyoruz _AdminLayout. devamında areaya yeni bir area ekliyoruz adı Admin. Sonra içine bir controller ekledik. DestinationController ([Area("Admin")] yazdık.) ve ardından Index e Razor view ekledik. Layout'u AdminLayout seçtik. Layoutta hata almamak için Renderbody kodunu yazdık. Areayı ekledikten sonra gelen Scaffolding içindeki koduda startup'ta en sona yapıştırdık.
+Yaptığımız işlemlerden sonra Index sayfası geldi.
+Layout'u düzenledik.
+
+# 48 Ders
+Bu derste öncelikle açtığımız DestinationController'da Getlist metodu ile listelemek için kodumuzu yazdık. Daha sonra indexinde tablo yapısı oluşturduk. Daha sonra CRUD işlemleri için controllerı doldurduk ADD ve UPDATE için yeni viewler oluşturup add için bir form yapısı oluşturduk eklerken hata verdi çünkü TAdd metodunun içi dolu değildi. Doldurunca düzeldi.
+
+# 49 Ders
+Bu derste Indexte oluşturduğumuz forma linkler verdik. Deavmında UpdateDestination sayfasını oluşturduk. DestinationManagerdaki içleri boş olan ama bize gerekli olan kısmını doldurduk. RedirecToAction kısmını düzelttik. Herşey olması gerektiği gibi oldu.
+
+Daha sonra AdminLayout'u partiallara ayırmaya karar verdik. Bunin için AdminController oluşturup;
+-> PartialHeader
+-> PartialAppBrandDemo controllerların oluşturup partial view ekledik. İlgili alanı kesip @await kodu ile Partial'ı çağırdık. Navbar kısmını 50. Derse bıraktık.
+
+# 50 Ders
+Bu derste partial'lamaya devam ediyoruz.
+-> PartialSideBar
+-> PartialNavbar
+-> PartialFooter
+-> PartialScript
+
+Bu partialları oluşturduktan sonra side bar partial'ı bize uygun hale getirdik.
+
+CRUD işlemlerinin formlarını ve listeleme kısmındaki tabloyu templateden çekerek düzenledim.

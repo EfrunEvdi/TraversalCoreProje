@@ -1,0 +1,52 @@
+﻿@using EntityLayer.Concrete
+@model List<Destination>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div class="card">
+    <h5 class="card-header">Tur Rotaları  </h5>
+    <div class="table-responsive text-nowrap">
+        <table class="table table-hover text-center">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ŞEHİR</th>
+                    <th>FİYAT</th>
+                    <th>KAPASİTE</th>
+                    <th>İŞLEM SEÇİNİZ</th>
+                </tr>
+            </thead>
+
+            <tbody class="table-border-bottom-0 text-center">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.DestinationID</td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@item.City</strong></td>
+                        <td>@item.Price ₺</td>
+                        <td>@item.Capacity</td>
+
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <i class="bx bx-plus"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="/Destination/DestinationDetails/@item.DestinationID"><i class="bx bx-log-out-circle"></i> Sitede Gör!</a>
+                                    <a class="dropdown-item" href="/Admin/Destination/UpdateDestination/@item.DestinationID"><i class="bx bx-edit-alt me-1"></i> Güncelle</a>
+                                    <a class="dropdown-item" href="/Admin/Destination/DeleteDestination/@item.DestinationID"><i class="bx bx-trash me-1"></i> Sil</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <a href="/Admin/Destination/AddDestination/" class="btn btn-outline-primary">Yeni Tur Rotası Oluştur!</a>
+</div>

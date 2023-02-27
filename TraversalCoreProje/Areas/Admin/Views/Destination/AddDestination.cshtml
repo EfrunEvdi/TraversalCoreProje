@@ -1,0 +1,78 @@
+﻿@model EntityLayer.Concrete.Destination
+
+@{
+    ViewData["Title"] = "AddDestination";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card mb-4">
+    <h5 class="card-header">Yeni Rota Oluşturma Sayfası</h5>
+    <form method="post">
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="form-label">ŞEHİR :</label>
+                <input class="form-control"
+                       type="text"
+                       asp-for="City"
+                       placeholder="Tur hangi şehire düzenliyor?" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">GECE / GÜN :</label>
+                <input class="form-control"
+                       type="text"
+                       asp-for="DayNight"
+                       placeholder="Tur kaç gün kaç geceden oluşuyor?" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">FİYAT :</label>
+                <input class="form-control"
+                       type="text"
+                       asp-for="Price"
+                       placeholder="Turun fiyatı nedir?" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">KAPASİTE :</label>
+                <input class="form-control"
+                       type="text"
+                       asp-for="Capacity"
+                       placeholder="Turun kapasite kaç kişilik?" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">KAPAK GÖRSELİ :</label>
+                <input class="form-control"
+                       type="text"
+                       asp-for="CoverImage"
+                       placeholder="Turun anasayfadaki görselini seçiniz." />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">GÖRSEL 1 :</label>
+                <input class="form-control"
+                       type="text"
+                       asp-for="Image"
+                       placeholder="Turun detay sayfasındaki 1. görselini seçiniz." />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">GÖRSEL 2 :</label>
+                <input class="form-control"
+                       type="text"
+                       asp-for="Image2"
+                       placeholder="Turun detay sayfasındaki 2. görselini seçiniz." />
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">AÇIKLAMA :</label>
+                <textarea class="form-control" asp-for="Description" rows="3" placeholder="Turun anasayfadaki mini açıklamasını giriniz."></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">DETAY 1 :</label>
+                <textarea class="form-control" asp-for="Details1" rows="3" placeholder="Turun detay sayfasındaki 1. paragraf yazısını giriniz."></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">DETAY 2 :</label>
+                <textarea class="form-control" asp-for="Details2" rows="3" placeholder="Turun detay sayfasındaki 2. paragraf yazısını giriniz."></textarea>
+            </div>
+            <br />
+            <button class="btn btn-outline-info col-12">Rotayı Oluştur!</button>
+        </div>
+    </form>
+</div>
+
