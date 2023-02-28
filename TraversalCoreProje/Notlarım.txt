@@ -611,3 +611,91 @@ Bu derste partial'lamaya devam ediyoruz.
 Bu partialları oluşturduktan sonra side bar partial'ı bize uygun hale getirdik.
 
 CRUD işlemlerinin formlarını ve listeleme kısmındaki tabloyu templateden çekerek düzenledim.
+
+# 51 Ders
+Bu derste admin side bara yeni ikon ve menü ekledik.
+
+# 52 Ders
+Admin areada yeni bir controller oluşturuyoruz DashbordController ve View ekliyoruz. Daha sonra admin templatedaki index sayfasını alıp kendi indeximize yapıştırıp düzenledik.
+Daha sonra bu dashboard sayfasını componentlere ayırmaya karar verdik. Bunun için ViewComponents içine new folder AdminDashboard ekledik daha sonra içine new class ekledik _DashboardBanner. Devamında shared içindeki Componetns içine new folder _DashboardBanner ve içine Razor Partial View ekledik (Default).
+Daha sonra aynı işlemi
+-> _Card1Statistic içinde yaptık.
+Devamında bu componenti viewbagler ile dinamik hale getirdik.
+
+# 53 Ders
+-> _TotalRevenue
+-> _Card2Statistic
+-> _DestinationStatistic
+-> _Destination2Statistic
+-> _AdminGuideList.cs
+
+Hoca _AdminHeaderPartialda yaptı ama ben içindeki eksik linkleri direk layout partial a koyduğum için yapmadım.
+
+# 54 Ders
+Bu derste Admin içine new controller açıyoruz ismi CommentController. TGetList in içini dolduruyoruz ve Index ekliyoruz. Açtığımız indekte yorumları görebilmek için bir tablo oluşturduk.
+
+Elimizdeki tarih verisinin formatını değiştirebilmek için @(((DateTime)item.CommentDate).ToString("dd-MMM-yyyy")) kodunu yazdık.
+Bu yorumların bağlı olduğu rota ismini yazdırabilmek için 
+
+ ICommentDal'da ;
+ public List<Comment> GetListCommentWithDestination();
+
+ EfCommentDal'da ;
+  public List<Comment> GetListCommentWithDestination()
+        {
+            using (var c = new Context())
+            {
+                return c.Comments.Include(x => x.Destination).ToList();
+            }
+        }
+değişikliklerini yaptık.
+
+ICommentService'de
+List<Comment> TGetListWithDestination();
+
+CommentManager'da
+public List<Comment> TGetListWithDestination()
+        {
+            return _commentDal.GetListCommentWithDestination();
+        }
+
+değişikliklerini yapım Admindeki CommentController'da TGetList'i GetListCommentWithDestination olarak güncelledik.
+
+Ardıncan CommentController'da
+private readonly ICommentService _commentService;
+
+        public CommentController(ICommentService commentService)
+        {
+            _commentService = commentService;
+        }
+bu güncellemeyi yaptık ki her defasında new lemeye gerek kalmasın. Bunu yaptıktan sonra bir hata aldık ve bu hatayı düzeltmek için ;
+startup'ta 
+35 ve 36. satıra
+ services.AddScoped<ICommentService, CommentManager>();
+ services.AddScoped<ICommentDal, EfCommentDal>();
+ kodlarını yazarak bu hatayı çözmüş olduk.
+
+ Devamında yorum silme için controllerda DeleteComment'ı yazdık ve silme işlemini de yaptırdıktan sonra dersi bitirdik. (Manager'da boş alanları doldurduk.)
+
+# 55 Ders
+DestinationController'da
+
+DestinationManager destinationManager = new DestinationManager(new EfDestinationDal()); 
+yerine 
+ private readonly IDestinationService _destinationService;
+
+        public DestinationController(IDestinationService destinationService)
+        {
+            _destinationService = destinationService;
+        }
+yazıyoruz. (_destinationService olarak düzeltiyoruz hatalı yerleri.)
+startuptada 
+services.AddScoped<IDestinationService, DestinationManager>();
+services.AddScoped<IDestinationDal, EfDestinationDal>(); 
+değişikliğini yapıyoruz.
+
+Daha sonra  Sidebardaki Misafirler kısmı için yeni bir controller açıyoruz. UserController bu controllerda kullanıcağımız tablo AppUser olduğu için önce DataAccessLayer içindeki Abstract klasörüne IAppUserDall interface'sini, EntityFramework'in EfAppUserDall classını sonrada BusinessLayer içindeki Abstract klasörü içine IAppUserService interfacesini, Concrete içine de AppUserManager classını ekleyip sadece TGetList kısmını dolduruyoruz.
+
+Daha sonra newlememek için start upda kodları yazıyoruz.
+
+Bu işlemlerden sonra açmış olduğumuz UserController'dan index oluşturduyoruz ve içine tablo yapısını kuruyoruz. Tabloyu oluşturduktan sonra controller ı doldurduk ve dersi bitirdik.

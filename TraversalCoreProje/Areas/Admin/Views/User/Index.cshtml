@@ -1,0 +1,53 @@
+﻿@using EntityLayer.Concrete
+@model List<AppUser>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card">
+    <h5 class="card-header">Kullanıcı Listesi  </h5>
+    <div class="table-responsive text-nowrap">
+        <table class="table table-hover text-center">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>İSİM SOYİSİM</th>
+                    <th>KULLANICI ADI</th>
+                    <th>E-POSTA</th>
+                    <th>İŞLEM SEÇİNİZ</th>
+                </tr>
+            </thead>
+
+            <tbody class="table-border-bottom-0 text-center">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@item.Name @item.Surname</strong></td>
+                        <td>@item.UserName</td>
+                        <td>@item.Email</td>
+
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <i class="bx bx-plus"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="/Admin/Destination/UpdateDestination/@item.Id"><i class="bx bx-book-open me-1"></i> Tur Geçmişi</a>
+                                    <a class="dropdown-item" href="/Admin/User/CommentUser/@item.Id"><i class="bx bx-chat me-1"></i> Yorumlar</a>
+                                    <a class="dropdown-item" href="/Admin/User/EditUser/@item.Id"><i class="bx bx-edit-alt me-1"></i> Düzenle</a>
+                                    <a class="dropdown-item" href="/Admin/User/DeleteUser/@item.Id"><i class="bx bx-trash me-1"></i> Sil</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <a href="/Admin/User/AddUser/" class="btn btn-outline-primary">Yeni Kullanıcı Oluştur!</a>
+</div>
+
+
