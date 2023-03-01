@@ -699,3 +699,59 @@ Daha sonra  Sidebardaki Misafirler kısmı için yeni bir controller açıyoruz.
 Daha sonra newlememek için start upda kodları yazıyoruz.
 
 Bu işlemlerden sonra açmış olduğumuz UserController'dan index oluşturduyoruz ve içine tablo yapısını kuruyoruz. Tabloyu oluşturduktan sonra controller ı doldurduk ve dersi bitirdik.
+
+# 56 Ders
+Bu derste newleme işlemi için startupta yazdığımız
+
+services.AddScoped<IDestinationService, DestinationManager>();
+services.AddScoped<IDestinationDal, EfDestinationDal>(); 
+
+gibi kodları düzenlemek adına BusinessLayer'a Container isimlimli new folder açıyoruz.
+Devamında içine Extensions isimli bir class ekliyoruz. Bu classın içine startupta yazdığımız kodları kesip
+
+ public static class Extensions
+    {
+        public static void ContainerDependencies(this IServiceCollection services)
+        {
+            services.AddScoped<ICommentService, CommentManager>();
+            services.AddScoped<ICommentDal, EfCommentDal>();
+            services.AddScoped<IDestinationService, DestinationManager>();
+            services.AddScoped<IDestinationDal, EfDestinationDal>();
+            services.AddScoped<IAppUserService, AppUserManager>();
+            services.AddScoped<IAppUserDal, EfAppUserDal>();
+        }
+    }
+
+olarak yapıştırıyoruz.
+Bu class'ı startup'ta çağırmak için de kodları kestiğimiz yere
+
+services.ContainerDependencies();
+
+kodunu yazıyoruz.
+
+Devamında UserController'da 
+
+private readonly IReservationService _reservationService;
+
+        public UserController(IAppUserService appUserService, IReservationService reservationService)
+        {
+            _appUserService = appUserService;
+            _reservationService = reservationService;
+        }
+ile IReservationdan bir nesne türetiyoruz ve
+
+public IActionResult ReservationUser(int id)
+        {
+            var values = _reservationService.GetListWithReservationByAccepted(id);
+            return View(values);
+        }
+
+yazıp yeni bir view oluşturuyoruz bu view'i tablo ile dolduruğ grekli bilgileri çekiyoruz. Bu bilgileri çekerken kullanıcı adı ve soyadını kullanamadık onu yapacağız.
+
+Member areasında tablo ve form güncellemesi yaptım.
+
+# 57 Ders
+404 sayfasını kodlamak için önce startup'ta 65. satıra  app.UseStatusCodePagesWithReExecute("/ErrorPage/Error404", "?code{0}"); kodunu yazdık.
+Daha sonra ErrorPage için bir controller ekliyoruz. Devamında add view diyip indirdiğimiz template'i içine kopyalayıp linkleri verdik.
+
+Devamında admin içindeki controller'a GuideController açıyoruz. Bu controller'a view ekleyip tablo ile listelettiriyoruz. Bu tabloda oluşturulan rehberi aktif ve pasif yapma içine ve CRUD işlemleri içinde controller yazıp AddGuide için bir view açıp içine form yapısını kurdum.

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.EntityFramework
 {
-    public class EfReservationDal : GenericRepository<Reservation>, IResevationDal
+    public class EfReservationDal : GenericRepository<Reservation>, IReservationDal
     {
         public List<Reservation> GetListWithReservationByAccepted(int id)
         {

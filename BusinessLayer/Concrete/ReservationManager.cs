@@ -11,9 +11,9 @@ namespace BusinessLayer.Concrete
 {
     public class ReservationManager : IReservationService
     {
-        IResevationDal _reservationDal;
+        IReservationDal _reservationDal;
 
-        public ReservationManager(IResevationDal reservationDal)
+        public ReservationManager(IReservationDal reservationDal)
         {
             _reservationDal = reservationDal;
         }

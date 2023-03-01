@@ -1,0 +1,52 @@
+﻿@model EntityLayer.Concrete.Guide
+
+@{
+    ViewData["Title"] = "EditGuide";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card mb-4">
+    <h5 class="card-header">Rehber Güncelleme Sayfası</h5>
+    <form method="post">
+        @Html.HiddenFor(x=>x.GuideID)
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="form-label">İSİM SOYİSİM :</label>
+                <input class="form-control"
+                       type="text"
+                       asp-for="Name"
+                       placeholder="Rehberin ismi ve soyismi nedir?" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">AÇIKLAMA :</label>
+                <input class="form-control"
+                       type="text"
+                       asp-for="Description"
+                       placeholder="Rehber hangi bölgelere tur düzenliyor?" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">GÖRSEL :</label>
+                <input class="form-control"
+                       type="text"
+                       asp-for="Image"
+                       placeholder="Rehberin görselini seçiniz." />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">TWİTTER URL :</label>
+                <input class="form-control"
+                       type="text"
+                       asp-for="TwitterUrl"
+                       placeholder="Rehberin twitter url'sini giriniz." />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">İNSTAGRAM URL :</label>
+                <input class="form-control"
+                       type="text"
+                       asp-for="InstagramUrl"
+                       placeholder="Rehberin instagram url'sini giriniz." />
+            </div>
+            <button class="btn btn-outline-info col-12">Rehberi Güncelle!</button>
+        </div>
+    </form>
+</div>
+
