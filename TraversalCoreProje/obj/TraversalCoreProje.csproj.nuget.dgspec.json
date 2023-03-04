@@ -336,6 +336,14 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "ClosedXML": {
+              "target": "Package",
+              "version": "[0.100.3, )"
+            },
+            "EPPlus": {
+              "target": "Package",
+              "version": "[6.0.7, )"
+            },
             "FluentValidation": {
               "target": "Package",
               "version": "[10.3.6, )"
@@ -375,6 +383,14 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[5.0.2, )"
+            },
+            "Serilog.Extensions.Logging.File": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "iTextSharp.LGPLv2.Core": {
+              "target": "Package",
+              "version": "[1.9.2, )"
             }
           },
           "imports": [

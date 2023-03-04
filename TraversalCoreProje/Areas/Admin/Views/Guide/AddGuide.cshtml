@@ -15,6 +15,7 @@
                        type="text"
                        asp-for="Name"
                        placeholder="Rehberin ismi ve soyismi nedir?" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label class="form-label">AÇIKLAMA :</label>
@@ -22,6 +23,7 @@
                        type="text"
                        asp-for="Description"
                        placeholder="Rehber hangi bölgelere tur düzenliyor?" />
+                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label class="form-label">GÖRSEL :</label>
@@ -29,6 +31,7 @@
                        type="text"
                        asp-for="Image"
                        placeholder="Rehberin görselini seçiniz." />
+                <span asp-validation-for="Image" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label class="form-label">TWİTTER URL :</label>
@@ -36,6 +39,7 @@
                        type="text"
                        asp-for="TwitterUrl"
                        placeholder="Rehberin twitter url'sini giriniz." />
+                <span asp-validation-for="TwitterUrl" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label class="form-label">İNSTAGRAM URL :</label>
@@ -43,6 +47,7 @@
                        type="text"
                        asp-for="InstagramUrl"
                        placeholder="Rehberin instagram url'sini giriniz." />
+                <span asp-validation-for="InstagramUrl" class="text-danger"></span>
             </div>
             <button class="btn btn-outline-info col-12">Rehberi Oluştur!</button>
         </div>
