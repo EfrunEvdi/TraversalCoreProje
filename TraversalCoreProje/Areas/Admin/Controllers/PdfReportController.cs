@@ -5,6 +5,7 @@ using System.IO;
 
 namespace TraversalCoreProje.Controllers
 {
+    [Area("Admin")]
     public class PdfReportController : Controller
     {
         public IActionResult Index()

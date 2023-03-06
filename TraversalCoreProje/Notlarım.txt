@@ -954,3 +954,130 @@ Devamında
         }
 
 yazarak 2.dosyayı oluşturuyoruz. Bunları daha dinamik hale getirmem lazım.
+
+# 61 Ders
+Bu derste excel ve pdf dosyalarını business'a taşıyacağız.
+BusinessLayer Abstract içine new interface açıyoruz IExcel Service. Daha sonra Concrete içine new class ExcelManager. Daha sonra sında Business katmanına EPPlus (6.0.7) paketini indirip, ExcelManagerı doduruyoruz.
+Devamında ExcelController'da 
+
+private readonly IExcelService _excelService;
+
+        public ExcelController(IExcelService excelService)
+        {
+            _excelService = excelService;
+        }
+
+değişikliklerini yapıp Business'ta Containerda 
+
+services.AddScoped<IExcelService, ExcelManager>();
+
+yaptıktan sonra
+
+public IActionResult StaticExcelReport()
+        {
+            return File(_excelService.ExcelList(DestinationList()), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "YeniExcel.xlsx");
+        }
+
+Viewi çalıştırıp indirdiğimizde excel'in indiğini görüyoruz. Pdf ve excel kısımlarını admin areasına taşıdım.
+Devamında SideBar'da link verme işlemi yaptık. Devamında business katmanında Abstract içine IPdfService Concrete için PdrManager açtıp Containerda 
+            services.AddScoped<IPdfService, PdfManager>();
+ile çağırdık.
+
+Devamında Guide kısmına geçtik eksiklerimizi tamamlamak için edit add ve delete kısmını zaten yapmıştım. Öncelikle DataAccessLayer içindeki Abstract içindeki IGuideDal'da 
+
+void ChangeToTrueByGuide(int id);
+void ChangeToFalseByGuide(int id);
+
+tanımlamalarını yapıp EntityFramework'taki EfGuideDal'da implement interface edip
+
+            Context context = new Context();
+
+public void ChangeToFalseByGuide(int id)
+        {
+            var values = context.Guides.Find(id);
+            values.Status = false;
+            context.SaveChanges();
+        }
+
+        public void ChangeToTrueByGuide(int id)
+        {
+            var values = context.Guides.Find(id);
+            values.Status = true;
+            context.SaveChanges();
+        }
+
+şeklinde dolduruyoruz.
+
+Devamında BusinessLayer'daki Abstract içindeki IGuideService i
+
+void TChangeToTrueByGuide(int id);
+void TChangeToFalseByGuide(int id);
+
+olarak. Concrete içindeki GuideManager'ı
+
+public void TChangeToFalseByGuide(int id)
+        {
+            _guideDal.ChangeToFalseByGuide(id);
+        }
+
+        public void TChangeToTrueByGuide(int id)
+        {
+            _guideDal.ChangeToTrueByGuide(id);
+        }
+
+şeklinde dolduruyoruz. Admin areası içindeki GuideController'a da
+
+public IActionResult ChangeToTrue(int id)
+        {
+            _guideService.TChangeToTrueByGuide(id);
+            return RedirectToAction("Guide", "Admin");
+        }
+
+        public IActionResult ChangeToFalse(int id)
+        {
+            _guideService.TChangeToFalseByGuide(id);
+            return RedirectToAction("Guide", "Admin");
+        }
+
+yazdıktan sonra kontrolü sağladığımızda butonların çalıştığını görüyoruz. Hoca bu derste return RedirectToAction("Guide", "Admin"); kısmında takıldı route falan yazdı ama ben yazmadım çalıştığı için.
+
+# 62 Ders
+Bu derste mail işlemleriyle ilgili işlemler yapacağız.
+İlk olarak Admin Areaya MailController açıyoruz. DEvamında http get ve post olarak IActionResult larını yazdık devamında MailRequest adında bir Model oluşturduk. Modelin ardından UI Katmanına 
+-> MailKit (3.4.1) paketini indirdik. 
+Bu paketi indirdikten sonra MailController'ın Post kısmını doldurup index açtık. İndexte bir form yapısı oluşturduk. traversalcoree@gmail.com Traversal123. adlı mailden 2 faktörlü korumayı açıp uygulama şifreleri kısmını yaparken hata verdi. Farklı bir mail açıp bu işlemleri tekrarladığımızda gönderme işlemi başarı ile tamamlandı. Body kısmını ilk kısımda yapamamıştık daha sonra o kısmı yapıp forma satır ekledik. Mail'in başarılı bir şekilde gönderdi.
+
+# 63 Ders
+Bu derste ajax işmelerine giricez. Öncelikle admin areada CityController açıyoruz. Ardından CityClass modelini ekleyip istediğimiz propertyleri ekliyoruz.
+Ardından CityController'da 
+
+public IActionResult CityList()
+        {
+            var jsonCity = JsonConvert.SerializeObject(cities);
+            return Json(jsonCity);
+        }
+
+
+        public static List<CityClass> cities = new List<CityClass>
+        {
+            new CityClass
+            {
+                CityID= 1,
+                CityName="Üsküp",
+                CityCountry="Makedonya"
+            },
+            new CityClass{
+                CityID= 2,
+                CityName="Roma",
+                CityCountry="İtalya"
+            },
+            new CityClass
+            {
+                CityID= 3,
+                CityName="Londra",
+                CityCountry="İngiltere"
+            }
+        };
+
+düzenlemesini yapıp index açıyoruz. açtığımız indexte bir script yazıyoruz fakat ben bunu template in içinde admin.js içine yazıp script partialında çağırdım. Hocanın yapmış olduğu indexi kendime göre düzenledim. vamında
+düzenlemesini yapıp index açıyoruz. açtığımız indexte bir script yazıyoruz fakat ben bunu template in içinde admin.js içine yazıp script partialında çağırdım. Hocanın yapmış olduğu indexi kendime göre düzenledim. Devamında bir kaç buton daha ekledik bu index sayfasına.

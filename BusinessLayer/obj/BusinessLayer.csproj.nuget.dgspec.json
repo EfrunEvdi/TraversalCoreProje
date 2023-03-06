@@ -52,6 +52,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "EPPlus": {
+              "target": "Package",
+              "version": "[6.0.7, )"
+            },
             "FluentValidation": {
               "target": "Package",
               "version": "[10.3.6, )"

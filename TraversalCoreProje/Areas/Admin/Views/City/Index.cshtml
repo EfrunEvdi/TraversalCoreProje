@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card table-border-bottom-0 text-center">
+    <h5 class="card-header">Şehir Ülke İşlemleri  </h5>
+    <div class="table-responsive text-nowrap">
+        <button type="button" id="cityBtnGetList" class="btn btn-outline-primary col-12">Şehir Listesi</button><br />
+        <button type="button" id="cityBtnGetByID" class="btn btn-outline-info col-12">Şehir Getir</button><br />
+        <button type="button" id="cityBtnAddCity" class="btn btn-outline-success col-12">Şehir Ekle</button><br />
+        <button type="button" id="cityBtnUpdateCity" class="btn btn-outline-warning col-12">Şehir Güncelle</button><br />
+        <button type="button" id="cityBtnDeleteCity" class="btn btn-outline-danger col-12">Şehir Sil</button><br />
+    </div>
+
+    <hr />
+
+    <div class="table-responsive text-nowrap" id="citylist">
+    </div>
+
+</div>
