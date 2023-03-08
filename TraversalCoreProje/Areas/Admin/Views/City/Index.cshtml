@@ -6,16 +6,67 @@
 <div class="card table-border-bottom-0 text-center">
     <h5 class="card-header">Şehir Ülke İşlemleri  </h5>
     <div class="table-responsive text-nowrap">
-        <button type="button" id="cityBtnGetList" class="btn btn-outline-primary col-12">Şehir Listesi</button><br />
-        <button type="button" id="cityBtnGetByID" class="btn btn-outline-info col-12">Şehir Getir</button><br />
-        <button type="button" id="cityBtnAddCity" class="btn btn-outline-success col-12">Şehir Ekle</button><br />
-        <button type="button" id="cityBtnUpdateCity" class="btn btn-outline-warning col-12">Şehir Güncelle</button><br />
-        <button type="button" id="cityBtnDeleteCity" class="btn btn-outline-danger col-12">Şehir Sil</button><br />
+        <button type="button" id="cityBtnGetList" class="btn btn-outline-primary col-12 btn-lg">Şehir Listesi</button>
+        <hr />
+        <div class="d-flex justify-content-center">
+            <button type="button" id="cityBtnGetByID" class="btn btn-outline-info btn-lg me-2">Şehir Getir</button>
+            <button type="button" id="cityBtnAddCity" class="btn btn-outline-success btn-lg me-2">Şehir Ekle</button>
+            <button type="button" id="cityBtnUpdateCity" class="btn btn-outline-warning btn-lg me-2">Şehir Güncelle</button>
+            <button type="button" id="cityBtnDeleteCity" class="btn btn-outline-danger btn-lg">Şehir Sil</button>
+        </div>
+        <hr />
     </div>
-
-    <hr />
 
     <div class="table-responsive text-nowrap" id="citylist">
     </div>
 
+    <div class="table-responsive text-nowrap">
+        <input class="form-control mb-2"
+               type="text"
+               id="txtid"
+               placeholder="Şehirin ID değeri" />
+    </div>
+
+    <div class="table-responsive text-nowrap">
+        <input class="form-control mb-2"
+               type="text"
+               id="txtcityid"
+               placeholder="Silinecek şehirin ID değeri" />
+    </div>
+
+    <div class="table-responsive text-nowrap">
+        <input class="form-control mb-2"
+               type="text"
+               id="txtcityeditid"
+               placeholder="Güncellenecek şehirin ID değeri" />
+        <input class="form-control mb-2"
+               type="text"
+               id="txtcityname"
+               placeholder="Güncellenecek şehirin adı nedir?" />
+        <input class="form-control mb-2"
+               type="text"
+               id="txtcitydaynight"
+               placeholder="Güncellenecek şehirin gün bilgileri nedir?" />
+    </div>
+
+    <div id="destinationListByID"></div>
+
+    <div class="">
+        <input class="form-control mb-2"
+               type="text"
+               id="txtcity"
+               placeholder="Şehirin adı nedir?" />
+        <input class="form-control mb-2"
+               type="text"
+               id="txtdaynight"
+               placeholder="Kalınacak Gece / Gün sayısı ?" />
+        <input class="form-control mb-2"
+               type="text"
+               id="txtprice"
+               placeholder="Bu rotanın fiyatı ne kadar?" />
+        <input class="form-control mb-2"
+               type="text"
+               id="txtcapacity"
+               placeholder="Konaklayacak kişi kapasitesi kaçtır?" />
+    </div>
 </div>

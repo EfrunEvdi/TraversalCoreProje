@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v5.0": {
       "BusinessLayer/1.0.0": {
         "dependencies": {
+          "DTOLayer": "1.0.0",
           "DataAccessLayer": "1.0.0",
           "EPPlus": "6.0.7",
           "EntityLayer": "1.0.0",
@@ -1295,6 +1296,11 @@
           "DataAccessLayer.dll": {}
         }
       },
+      "DTOLayer/1.0.0": {
+        "runtime": {
+          "DTOLayer.dll": {}
+        }
+      },
       "EntityLayer/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Identity": "2.2.0",
@@ -2288,6 +2294,11 @@
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
     },
     "DataAccessLayer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DTOLayer/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

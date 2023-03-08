@@ -38,3 +38,5 @@ C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\BusinessLayer\obj\Debug\net5.0\BusinessLayer.pdb
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\BusinessLayer\obj\Debug\net5.0\BusinessLayer.genruntimeconfig.cache
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\BusinessLayer\obj\Debug\net5.0\ref\BusinessLayer.dll
+C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\BusinessLayer\bin\Debug\net5.0\DTOLayer.dll
+C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\BusinessLayer\bin\Debug\net5.0\DTOLayer.pdb

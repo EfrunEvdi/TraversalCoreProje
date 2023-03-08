@@ -1079,5 +1079,320 @@ public IActionResult CityList()
             }
         };
 
-düzenlemesini yapıp index açıyoruz. açtığımız indexte bir script yazıyoruz fakat ben bunu template in içinde admin.js içine yazıp script partialında çağırdım. Hocanın yapmış olduğu indexi kendime göre düzenledim. vamında
-düzenlemesini yapıp index açıyoruz. açtığımız indexte bir script yazıyoruz fakat ben bunu template in içinde admin.js içine yazıp script partialında çağırdım. Hocanın yapmış olduğu indexi kendime göre düzenledim. Devamında bir kaç buton daha ekledik bu index sayfasına.
+düzenlemesini yapıp index açıyoruz. Açtığımız indexte bir script yazıyoruz fakat ben bunu template in içinde admin.js içine yazıp script partialında çağırdım. Hocanın yapmış olduğu indexi kendime göre düzenledim. Devamında bu index sayfasınanbir kaç buton daha ekledik.
+
+# 64 Ders 
+area admindeki city controllerda
+
+ private readonly IDestinationService _destinationService;
+
+        public CityController(IDestinationService destinationService)
+        {
+            _destinationService = destinationService;
+        }
+
+değişikliklerini yaptıktan sonra
+
+public IActionResult CityList()
+        {
+            var jsonCity = JsonConvert.SerializeObject(_destinationService.TGetList());
+            return Json(jsonCity);
+        }
+
+olrak güncelledik ve tabloyuda düzenledikten sonra destination daki bilgilerin geldiğini gördük.
+
+Daha sonra şehir ekleme kısmı için CityController'da 
+
+[HttpPost]
+        public IActionResult AddCityDestination(Destination destination)
+        {
+            destination.Status = true;
+            _destinationService.TAdd(destination);
+            var values = JsonConvert.SerializeObject(destination);
+            return Json(destination);
+        }
+
+ardından admin.jste
+
+$("#cityBtnAddCity").click(function () {
+    let cityvalues = {
+        City: $("#txtcity").val(),
+        DayNight: $("#txtdaynight").val(),
+        Price: $("#txtprice").val(),
+        Capacity: $("#txtcapacity").val()
+    };
+
+    $.ajax({
+        type: "post",
+        url: "/Admin/City/AddCityDestination/",
+        data: cityvalues,
+        success: function (data) {
+            let result = jQuery.parseJSON(data);
+            alert("Şehir - Rota başarılı bir şekilde eklendi.")
+        }
+    });
+});
+
+güncellemelerini yaptık ve sonra Index'inde
+
+ <div class="">
+        <input class="form-control mb-2"
+               type="text"
+               id="txtcity"
+               placeholder="Şehirin adı nedir?" />
+        <input class="form-control mb-2"
+               type="text"
+               id="txtdaynight"
+               placeholder="Kalınacak Gece / Gün sayısı ?" />
+        <input class="form-control mb-2"
+               type="text"
+               id="txtprice"
+               placeholder="Bu rotanın fiyatı ne kadar?" />
+        <input class="form-control mb-2"
+               type="text"
+               id="txtcapacity"
+               placeholder="Konaklayacak kişi kapasitesi kaçtır?" />
+    </div>
+
+yaptıktan sonra şehirin sql'e eklendiğini gördük.
+
+Devamında id'ye göre getirme işlemi için CityController'da
+
+public IActionResult GetByID(int id)
+        {
+            var values = _destinationService.TGetByID(id);
+            var jsonValues = JsonConvert.SerializeObject(values);
+            return Json(values);
+        }
+
+ardından admin.js'te
+
+$("#cityBtnGetByID").click(x => {
+    let id = $("txtid").val();
+
+    $.ajax({
+        contentType: "application/json",
+        dataType: "json",
+        type: "Get",
+        url: "/Admin/City/GetByID",
+        data: { DestinationID: id },
+        success: function (data) {
+            let result = jQuery.parseJSON(data);
+            console.log(result);
+            let htmlstr = `<table class= table table-hover text - center> <thead><tr><th> ŞEHİR ADI </th> <th> GECE / GÜN </th> <th> FİYAT </th> </tr></thead>
+             <tbody class="table-border-bottom-0 text-center"> <tr><td>${result.City}</td><td>${result.DayNight}</td> <td>${result.Price} ₺</td></tr></tbody>`;
+            $("#destinationListByID").html(htmlstr);
+        }
+    });
+});
+
+ve devamında indexte
+
+<div class="table-responsive text-nowrap" id="citylist">
+        <input class="form-control mb-2"
+               type="text"
+               id="txtid"
+               placeholder="Şehirin ID değeri" />
+    </div>
+
+    <div id="destinationListByID">
+    </div>
+
+yaptık ama gelmedi bir sonraki derste tamamlayacağız.
+
+# 65 Ders
+CityController'ı
+
+public IActionResult GetByID(int DestinationID)
+        {
+            var values = _destinationService.TGetByID(DestinationID);
+            var jsonValues = JsonConvert.SerializeObject(values);
+            return Json(jsonValues);
+        }
+
+şeklinde güncelleyince hata düzeldi.
+
+Şimdi sırada silme işlemi var. Silme ve güncelleme işlemleri için CityController'a
+
+public IActionResult DeleteCity(int id)
+        {
+            var values = _destinationService.TGetByID(id);
+            _destinationService.TDelete(values);
+            return NoContent();
+        }
+
+        public IActionResult UpdateCity(Destination destination)
+        {
+            var values = _destinationService.TGetByID(destination.DestinationID);
+            _destinationService.TUpdate(values);
+            var v = JsonConvert.SerializeObject(values);
+            return Json(v);
+        }
+
+değişikliklerini yapıp admin js te
+
+$("#cityBtnDeleteCity").click(x => {
+    let id = $("#txtcityid").val();
+
+    $.ajax({
+        url: "/Admin/City/DeleteCity/" + id,
+        type: "post",
+        contentType: "application/json",
+        dataType: "json",
+        success: function (data) {
+            alert("Şehir silindi.")
+        }
+    });
+});
+
+yaptıktan sonra update kısmı içinde
+
+$("#cityBtnUpdateCity").click(function () {
+    let values = {
+        DestinationID: $("#txtcityeditid").val(),
+        City: $("#txtcityname").val(),
+        DayNight: $("#txtcitydaynight").val()
+    };
+
+    $.ajax({
+        type: "post",
+        url: "/Admin/City/UpdateCity",
+        data: values,
+        success: function (data) {
+            alert("Güncelleme işlemi yapıldı.")
+        }
+    });
+});
+
+yazıyoruz daha sonrasında index tarafında
+
+<div class="table-responsive text-nowrap">
+        <input class="form-control mb-2"
+               type="text"
+               id="txtcityid"
+               placeholder="Silinecek şehirin ID değeri" />
+    </div>
+
+    <div class="table-responsive text-nowrap">
+        <input class="form-control mb-2"
+               type="text"
+               id="txtcityeditid"
+               placeholder="Güncellenecek şehirin ID değeri" />
+        <input class="form-control mb-2"
+               type="text"
+               id="txtcityname"
+               placeholder="Güncellenecek şehirin adı nedir?" />
+        <input class="form-control mb-2"
+               type="text"
+               id="txtcitydaynight"
+               placeholder="Güncellenecek şehirin gün bilgileri nedir?" />
+    </div>
+
+değişikliklerini yapıyoruz ve dersi bitiriyoruz.
+
+# 66 Ders
+Bu derste DTO katmanı ekleyeceğiz.
+Bu katmanda model klasörü üzerinde çalışmıycaz. Bunların tamamı data transör object katmanında yer alan DTOs klasörünün üzerine çalışıcaz.
+
+Öncelikle Solition üstüne sağ tıkk add new project deyip class library seçiyoruz ve adını DTOLayer koyuyoruz. İçinde default gelen class'ı silip şu klasörleri ve içlerinede şu classları ekliyoruz.
+
+-> AppUserDTOs
+    - AppUserLoginDTOs
+    - AppUserRegisterDTOs
+
+-> CityDTOs
+    - CityAddDTOs
+
+-> ContactDTOs
+    -
+
+-> DestinationDTOs
+    - DestinationAddDTOs
+
+-> MailDTOs
+    - MailRequestDTOs
+
+bu işlemleri yaptıktan sonra BusinessLayer sağ tık add project reference diyip Dto katmanını ekliyoruz.
+
+Devamında BusineesLayer'da ValidationRule işçe new class AppUserRegisterValidator ekliyoruz ve içini Dto katmanındaki AppUserRegisterValidator e göre dolduruyoruz.
+
+Bundan sonra ContactUs kısmına geçiyoruz öncelikle EntityLayerdaki Concrete içine new class ContactUs ekliyoruz. Devamında DataAccessLayer Concrete içindeki Contextte bunu tanımlayıp ardından migration işlemine geçiyoruz.
+Devamında Admin areasına ContactUsController ekleyil DataAccessLayer katmanındaki Absract klasörüne IContactUsDal adlı interfaceyi, EntityFremework klasörünede EfContactUsDal adlı classı ekliyoruz.
+
+Devamında BusniessLayerde Abstract klasörü içine IContactUsService interface ekleyip Concrete içine ConctactUsMAnager classını ekliyoruz ne imlement interface ediyoru ve Containerda tanımlıyoruz(new lememek için).
+
+Sonrasında ContactUsController ında
+
+private readonly IContactUsService _contactUsService;
+
+        public ContactUsController(IContactUsService contactUsService)
+        {
+            _contactUsService = contactUsService;
+        }
+
+        public IActionResult Index()
+        {
+            var values = _contactUsService.TGetList();
+            return View();
+        }
+
+değişikliklerini yapıp add view diyoruz. Açtığımız index'i düzenledikten sonra ContactUs Entitysine Status propertysini ekleyip migration yaptık. Bu işlemden sonra IContacUsDal'da
+
+List<ContactUs> GetListContactUsByTrue();
+List<ContactUs> GetListContactUsByFalse();
+void ContactUsStatusChangeToFalse(int id);
+
+yapıp EfContactUsDal'da
+
+public void ContactUsStatusChangeToFalse(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ContactUs> GetListContactUsByFalse()
+        {
+            using (var context = new Context())
+            {
+                var values = context.ContactUses.Where(x => x.MessageStatus == false).ToList();
+                return values;
+            }
+        }
+
+        public List<ContactUs> GetListContactUsByTrue()
+        {
+            using (var context = new Context())
+            {
+                var values = context.ContactUses.Where(x => x.MessageStatus == true).ToList();
+                return values;
+            }
+        }
+
+yapıyoruz.
+
+Ardında BusinessLayer da IContactUsService'de
+
+List<ContactUs> TGetListContactUsByTrue();
+List<ContactUs> TGetListContactUsByFalse();
+void TContactUsStatusChangeToFalse(int id);
+
+ve devamında ContactUsManager'de implement edip
+
+public List<ContactUs> TGetListContactUsByFalse()
+        {
+            return _contactUsDal.GetListContactUsByFalse();
+        }
+
+        public List<ContactUs> TGetListContactUsByTrue()
+        {
+            return _contactUsDal.GetListContactUsByTrue();
+        }
+
+şeklinde dolduruyoruz. Devamında ContactUsControllerda
+
+public IActionResult Index()
+        {
+            var values = _contactUsService.TGetListContactUsByTrue();
+            return View(values);
+        }
+
+yaptığımızda true olanlar gelecek ve sile bastığımızda durumu false olacak yani silinmiycek.

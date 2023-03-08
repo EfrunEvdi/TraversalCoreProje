@@ -36,6 +36,9 @@
               "C:\\Users\\efrun\\OneDrive\\Desktop\\Yazılım\\Murat Yücedağ MVC\\TraversalCoreProje\\DataAccessLayer\\DataAccessLayer.csproj": {
                 "projectPath": "C:\\Users\\efrun\\OneDrive\\Desktop\\Yazılım\\Murat Yücedağ MVC\\TraversalCoreProje\\DataAccessLayer\\DataAccessLayer.csproj"
               },
+              "C:\\Users\\efrun\\OneDrive\\Desktop\\Yazılım\\Murat Yücedağ MVC\\TraversalCoreProje\\DTOLayer\\DTOLayer.csproj": {
+                "projectPath": "C:\\Users\\efrun\\OneDrive\\Desktop\\Yazılım\\Murat Yücedağ MVC\\TraversalCoreProje\\DTOLayer\\DTOLayer.csproj"
+              },
               "C:\\Users\\efrun\\OneDrive\\Desktop\\Yazılım\\Murat Yücedağ MVC\\TraversalCoreProje\\EntityLayer\\EntityLayer.csproj": {
                 "projectPath": "C:\\Users\\efrun\\OneDrive\\Desktop\\Yazılım\\Murat Yücedağ MVC\\TraversalCoreProje\\EntityLayer\\EntityLayer.csproj"
               }
@@ -179,6 +182,66 @@
               "version": "[5.0.12, )"
             }
           },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\efrun\\OneDrive\\Desktop\\Yazılım\\Murat Yücedağ MVC\\TraversalCoreProje\\DTOLayer\\DTOLayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\efrun\\OneDrive\\Desktop\\Yazılım\\Murat Yücedağ MVC\\TraversalCoreProje\\DTOLayer\\DTOLayer.csproj",
+        "projectName": "DTOLayer",
+        "projectPath": "C:\\Users\\efrun\\OneDrive\\Desktop\\Yazılım\\Murat Yücedağ MVC\\TraversalCoreProje\\DTOLayer\\DTOLayer.csproj",
+        "packagesPath": "C:\\Users\\efrun\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\efrun\\OneDrive\\Desktop\\Yazılım\\Murat Yücedağ MVC\\TraversalCoreProje\\DTOLayer\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\efrun\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
           "imports": [
             "net461",
             "net462",
