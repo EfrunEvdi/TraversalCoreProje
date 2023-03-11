@@ -403,6 +403,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.0, )"
+            },
             "ClosedXML": {
               "target": "Package",
               "version": "[0.100.3, )"

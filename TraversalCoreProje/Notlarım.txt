@@ -1396,3 +1396,425 @@ public IActionResult Index()
         }
 
 yaptığımızda true olanlar gelecek ve sile bastığımızda durumu false olacak yani silinmiycek.
+
+# 67 Ders
+Bu derste öncelikle Entity katmanına Announcement classını ekliyoruz ve context'te bunu tanımladıktan sonra migration yapıyoruz. Migrationdan sonra DataAccessLayer ve BusinessLayer katmanlarında Announcement sınıfının interface ve sınıflarını açıyoruz.
+Bu işlerim yaptıktan sonra Admin areada AnnouncementController açtık ve içini doldurduk daha sonra DTOs katmanına yeni bir dosya ekledik.
+
+-> AnnouncementDTOs
+    - AnnouncementAddDTOs
+
+bu işlemleri yaptıktan sonra Busniness içindeki ValidationRule klasörüne AnnouncementValidator classını ekleyip içini dolduruyoruz. Sonra UI Katmanına 
+-> AutoMapper.Extensions.Microsoft.DependencyInjection(12.0.0) paketini kuruyoruz.
+
+Sonrasında UI Katmanına Mapping adlı klasörü içine AutoMapperProfile adlı klasörü ne onun içine de MapProfile adlı classı'ı ekliyoruz.
+
+startupta 
+services.AddAutoMapper(typeof(Startup));
+services.AddTransient<IValidator<AnnouncementAddDTOs>, AnnouncementValidator>();
+ile güncelleme yaptık.
+Ayrıca bunu güncelledik. services.AddControllersWithViews().AddFluentValidation(); son kısmı yazmıyordu onu ekledik.
+
+Daha sonra Are admindeki model klasörüne AnnouncementListViewModel classını ekledik. Sql de Announcement klasörüne veri girişi yaptık. Daha Sonra area admindeki AnnouncementController da
+
+public IActionResult Index()
+        {
+            List<Announcement> announcements = _announcementService.TGetList();
+            List<AnnouncementListViewModel> model = new List<AnnouncementListViewModel>();
+            foreach (var item in announcements)
+            {
+                AnnouncementListViewModel announcementListViewModel = new AnnouncementListViewModel();
+                announcementListViewModel.ID = item.AnnouncementID;
+                announcementListViewModel.Title = item.Title;
+                announcementListViewModel.Content = item.Content;
+
+                model.Add(announcementListViewModel);
+            }
+            return View(model);
+        }
+
+güncellemesini yapıyoruz. Bu güncellemeden sonra Index ekleyip tablo yapısı kurduk. Verilerin geldiğini gördük.
+
+# 68 Ders
+Şimdi bu derste ilk olarak AnnouncementController de
+
+ private readonly IMapper _mapper;
+
+        public AnnouncementController(IAnnouncementService announcementService, IMapper mapper)
+        {
+            _announcementService = announcementService;
+            _mapper = mapper;
+        }
+
+güncellemesini yapıyoruz. _mapper = mapper; kısmını ctor'a dahil edebilmek için _mapper ctrl+ . diyerek add parameters.. diyoruz. Devamında Dto katmanındaki AnnouncementDTOs'a AnnouncementListDTO class ekliyoruz ve ardından Controller'a dönüp
+
+public IActionResult Index()
+        {
+            var values = _mapper.Map<List<AnnouncementListDTO>>(_announcementService.TGetList());
+            return View(values);
+        }
+
+şeklinde indexi kısmını güncelliyoruz. Daha sonrasında indexe gidip daha önce modelden çağırdığımız kısmı
+
+@model List<DTOLayer.DTOs.AnnouncementDTOs.AnnouncementListDTO>
+
+olarak güncelliyoruz. Bu güncellemeleri yaptıktan sonra Index'i çalıştırınca Id kısmının 0 gelldiğini gördük bunu düzeltmek için AnnouncementListDTO da ID kısmını AnnouncementID olarak güncelliyoruz. Id kısmınında düzeldiğini gördük bu şekilde. Devamında AddAnnouncement kısmı için Announcement controllerda
+
+  [HttpGet]
+        public IActionResult AddAnnouncement()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddAnnouncement(AnnouncementAddDTO model)
+        {
+            if (ModelState.IsValid)
+            {
+                _announcementService.TAdd(new Announcement()
+                {
+                    Content = model.Content,
+                    Title = model.Title,
+                    Date = Convert.ToDateTime(DateTime.Now.ToShortDateString())
+                });
+                return RedirectToAction("Announcement", "Admin");
+            }
+            return View();
+        }
+
+güncellemesini yaptıktan sonra view oluşturup içine form yapısını kuruyoruz. Bu form yapısını çalıştırıp test ettiğimizde eklendiğini gördük. Startup'ta
+
+services.AddTransient<IValidator<AnnouncementAddDTO>, AnnouncementValidator>(); kodunu kesip BusinessLAyerdaki Container içine
+
+  public static void CustomerValidator(this IServiceCollection services)
+        {
+            services.AddTransient<IValidator<AnnouncementAddDTO>, AnnouncementValidator>();
+
+        }
+          
+şeklinde yazarak yerinede services.CustomerValidator(); kodu ile çağırdık.
+
+Sonrasında DeleteAnnouncement kısmını yaptık.
+
+Devamında UptadeAnnouncement için controller'ı yazmadan önce Dto katmanına AnnouncementDTOs içine new class AnnouncementUpdateDTO oluşturduk devamında controller'ını 
+
+[HttpGet]
+        public IActionResult UpdateAnnouncement(int id)
+        {
+            var values = _mapper.Map<AnnouncementUpdateDTO>(_announcementService.TGetByID(id));
+            return View(values);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateAnnouncement(AnnouncementUpdateDTO model)
+        {
+            if (ModelState.IsValid)
+            {
+                _announcementService.TUpdate(new Announcement
+                {
+                    AnnouncementID = model.AnnouncementID,
+                    Content = model.Content,
+                    Title = model.Title,
+                    Date = Convert.ToDateTime(DateTime.Now.ToShortDateString())
+                });
+                return RedirectToAction("Announcement", "Admin");
+            }
+            return View(model);
+
+        }
+
+şeklinde yazdık ve ardında index ekledik. Ardından UI Katmanındaki mapping içine
+
+CreateMap<AnnouncementUpdateDTO, Announcement>();
+CreateMap<Announcement, AnnouncementUpdateDTO>();
+
+ kodlarını ekledik.
+
+ Devamında BusinessLayer içindeki ValidationRule içine AnnouncementValidationRules klasörünü içine AnnouncementUpdateValidator clasını ekleyip kuralları yazdık. Update kısmının İndexini oluşturduktan sonra test ettik ve oldu.
+
+ # 69 Ders
+Yeni bir proje açıyoruz adı TraversalApiProject ve Asp.Net Wep Api seçiyoruz. Confugure kutucuğunu seçili değil yapıyoruz. Sonrasında yeni bir APİ Controller VisitorController ekledik. Bu işlemden sonra projeye 
+
+-> DAL 
+	- VisitorContext (class)
+-> Entities
+	- Visitor (class) (İçini sütun adları ile doldurduk.)
+
+Sonra projeye şu paketleri yükledik.
+
+-> Microsoft.EntityFrameworkCore (5.0.17)
+-> Microsoft.EntityFrameworkCore.Design (5.0.17)
+-> Microsoft.EntityFrameworkCore.SqlServer (5.0.17)
+-> Microsoft.EntityFrameworkCore.Tools (5.0.17)
+
+sonrasında VisitorContext'te yeni bir Database oluşturmak için 
+
+public class VisitorContext : DbContext
+    {
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("server=(localdb)\\MSSQLLOCALDB;initial catalog=TraversalDBApi;integrated security=true;");
+        }
+        public DbSet<Visitor> Visitors { get; set; }
+    }
+
+kodunu yadıktan sonra migration yaptık. Daha sonra sql'de oluşan tabloya veri girişi yapıp VisitorController'da 
+
+[HttpGet]
+        public IActionResult VisitorList()
+        {
+            using (var Context = new VisitorContext())
+            {
+                var values = Context.Visitors.ToList();
+                return Ok(values);
+            }
+        }
+
+kodunu yazdıktantan sonra F5 ile çalıştırıp Execute edince sqldeki bilgilerin ekrane geldiğini gördük. Devamında AddVisitor işlemi için VisitorController'da 
+
+[HttpPost]
+        public IActionResult VisitorAdd(Visitor visitor)
+        {
+            using (var context = new VisitorContext())
+            {
+                context.Add(visitor);
+                context.SaveChanges();
+                return Ok();
+            }
+        }
+
+yazıp çalıştırdık. İlk kısmımda gelen Weather'ı Controller'ında yorum satır yaptık. Az önce sadece GET kısmı gelirken artık POST kısmınında geldiğini gördük. Bu gelen post kısmına tıklayıp Try it out tıkladık ve açılan kısma verileri girdik bu bilgilerin hem GET kısmında hemde sql tablosuna kayıt işleminin başalırılı (200) bir şekilde geldiğini gördük.
+
+Daha sonra idye göre getirme işlemi için VisitorController'da
+
+[HttpGet("{id}")]
+        public IActionResult VisitorGet(int id)
+        {
+            using (var context = new VisitorContext())
+            {
+                var values = context.Visitors.Find(id);
+                if (values == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(values);
+                }
+            }
+        }
+
+yazdık ve F5 ile çalıştırdığımızda try it out diyip istediğimiz verinin geldiğini, sadece sayı yazılabildiğini ve olmayan veri için hata (404(Not Found)) döndüğünü gördük.
+
+Silme işlemi içinde 
+
+[HttpDelete("{id}")]
+        public IActionResult VisitorDelete(int id)
+        {
+            using (var context = new VisitorContext())
+            {
+                var values = context.Visitors.Find(id);
+                if (values == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    context.Remove(values);
+                    context.SaveChanges();
+                    return Ok();
+                }
+            }
+        }
+
+controllerını yazıp yine id'ye göre silme işlemi yaptık.
+
+Son olarak güncelleme işlemi için
+
+[HttpPut]
+        public IActionResult VisitorUpdate(Visitor visitor)
+        {
+            using (var context = new VisitorContext())
+            {
+                var values = context.Find<Visitor>(visitor.VisitorID);
+                if (values == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    values.Name = visitor.Name;
+                    values.Surname = visitor.Surname;
+                    values.City = visitor.City;
+                    values.Country = visitor.Country;
+                    values.Mail = visitor.Mail;
+
+                    context.Update(values);
+                    context.SaveChanges();
+                    return Ok();
+                }
+            }
+        }
+
+yapıp güncellemek istediğimiz bilgileri girdiğimizde güncellendiğini gördük.
+
+# 70 Ders
+Bu ders çok önemli bu derste yeni proje ile eskisini bağlıycaz. Aradaki configurasyon'u sağlamak için
+
+straptupta;
+
+public void ConfigureServices(IServiceCollection services)
+        {
+
+            services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TraversalApiProject", Version = "v1" });
+            });
+
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("TraversalApiCors", opts =>
+                {
+                    opts.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
+        }
+
+-> opt.AddPolicy()
+    - Bir güvenlik politikası oluşturuyor.
+-> opts.AllowAnyOrigin()
+    - Herhangi bir kaynağa izin verir.
+-> AllowAnyHeader()
+    - Herhangi bir içerik türüne (json xml vs.) izin verir.
+-> AllowAnyMethod();
+    - Herhangi bir methoda izin verir.
+
+kısmını güncelliyoruz. ( Burda kod ekledik. 0'dan yazmadık.)
+
+56. Satırada şu kodu ekliyoruz.
+
+app.UseCors("TraversalApiCors");
+
+VisitorController'da da
+
+[EnableCors]
+
+kodu ile startup'ı çağırıyoruz.
+
+Daha sonra TraversalCoreProje'ye geri dönüp startup tarafında 
+
+39. satıra
+
+services.AddHttpClient();
+
+kodunu yazdık. Bu kodun ardından admin aresında bir controller VisitorApiController açtık.
+
+private readonly IHttpClientFactory _httpClientFactory;
+
+        public VisitorApiController(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.GetAsync("http://localhost:54721/api/Visitor");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<>>(jsonData);
+            }
+            return View();
+        }
+
+controller'ı bu şekilde doldurduktan sonra
+
+Admin areadaki model klasörüne VisitorViewModel classını ekleyip içindeki propertyleri Api projesinden aldıktan sonra VisitorApiController'ı
+
+[HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.GetAsync("http://localhost:54721/api/Visitor");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<VisitorViewModel>>(jsonData);
+                return View(values);
+            }
+            return View();
+        }
+
+şeklinde güncelliyoruz. Bu işlemin ardından View ekliyoruz. Açtığımız View'e tablo yapısnı yazıyoruz ve verilerin geldiğini görüyoruz ardından ekleme işlemi için controller tarafında
+
+[HttpGet]
+        public IActionResult AddVisitor()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddVisitor(VisitorViewModel visitorViewModel)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(visitorViewModel);
+            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync("http://localhost:54721/api/Visitor", content);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("VisitorApi", "Admin");
+            }
+            return View();
+        }
+
+controllerını ekliyoruz ve view ekliyoruz. Eklediğimiz bu view'e form yapısını kurduktan sonra ekleme işleminin yapıldığını görüyoruz. Ardından silme işlemi için controller'a
+
+public async Task<IActionResult> DeleteVisitor(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.DeleteAsync($"http://localhost:54721/api/Visitor/{id}");
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("VisitorApi", "Admin");
+            }
+            return View();
+        }
+
+yazdık ve devamında güncelleme işlemi için controller'da
+
+[HttpGet]
+        public async Task<IActionResult> UpdateVisitor(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.GetAsync($"http://localhost:54721/api/Visitor/{id}");
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<VisitorViewModel>(jsonData);
+                return View(values);
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateVisitor(VisitorViewModel visitorViewModel)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(visitorViewModel);
+            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PutAsync("http://localhost:54721/api/Visitor", content);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("VisitorApi", "Admin");
+            }
+            return View();
+        }
+
+kısmını yazdık ve index ekledik index'e add sayfasının formunu kopyaladık ama ID'yi inputla gizledik ve güncelle işlemini de başarı ile tamamladık.

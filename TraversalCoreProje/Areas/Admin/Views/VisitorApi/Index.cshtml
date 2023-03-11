@@ -1,0 +1,54 @@
+﻿@model List<VisitorViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card">
+    <h5 class="card-header">Api Ziyaretçi Listesi  </h5>
+    <div class="table-responsive text-nowrap">
+        <table class="table table-hover text-center">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>İSİM</th>
+                    <th>SOYİSİM</th>
+                    <th>ŞEHİR</th>
+                    <th>ÜLKE</th>
+                    <th>E-POSTA</th>
+                    <th>İŞLEM SEÇİNİZ</th>
+                </tr>
+            </thead>
+
+            <tbody class="table-border-bottom-0 text-center">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.VisitorID</td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@item.Name</strong></td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@item.Surname</strong></td>
+                        <td>@item.City</td>
+                        <td>@item.Country</td>
+                        <td>@item.Mail</td>
+
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <i class="bx bx-plus"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="/Admin/VisitorApi/UpdateVisitor/@item.VisitorID"><i class="bx bx-edit-alt me-1"></i> Güncelle</a>
+                                    <a class="dropdown-item" href="/Admin/VisitorApi/DeleteVisitor/@item.VisitorID"><i class="bx bx-trash me-1"></i> Sil</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <a href="/Admin/VisitorApi/AddVisitor/" class="btn btn-outline-primary">Yeni Ziyaretçi Oluştur!</a>
+</div>
+
+

@@ -1,0 +1,48 @@
+﻿@model List<DTOLayer.DTOs.AnnouncementDTOs.AnnouncementListDTO>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card">
+    <h5 class="card-header">Duyuru Listesi  </h5>
+    <div class="table-responsive text-nowrap">
+        <table class="table table-hover text-center">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>BAŞLIK</th>
+                    <th>İÇERİK</th>
+                    <th>İŞLEM SEÇİNİZ</th>
+                </tr>
+            </thead>
+
+            <tbody class="table-border-bottom-0 text-center">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.AnnouncementID</td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@item.Title</strong></td>
+                        <td>@item.Content</td>
+
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <i class="bx bx-plus"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="///@item.AnnouncementID"><i class="bx bx-detail me-1"></i> Detaylar</a>
+                                    <a class="dropdown-item" href="/Admin/Announcement/UpdateAnnouncement/@item.AnnouncementID"><i class="bx bx-edit-alt me-1"></i> Güncelle</a>
+                                    <a class="dropdown-item" href="/Admin/Announcement/DeleteAnnouncement/@item.AnnouncementID"><i class="bx bx-trash me-1"></i> Sil</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <a href="/Admin/Announcement/AddAnnouncement/" class="btn btn-outline-primary">Yeni Duyuru Oluştur!</a>
+</div>
+
