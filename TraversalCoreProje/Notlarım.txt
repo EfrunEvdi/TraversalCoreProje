@@ -1818,3 +1818,198 @@ yazdık ve devamında güncelleme işlemi için controller'da
         }
 
 kısmını yazdık ve index ekledik index'e add sayfasının formunu kopyaladık ama ID'yi inputla gizledik ve güncelle işlemini de başarı ile tamamladık.
+
+# 71 Ders
+https://rapidapi.com sitesine üye olduk. Devamında App tagına tılayıp add New App dedik ve MyNewApi isimli yeni uygulamayı oluşturduk. Devamında anasayfaya gelip IMDB Top 100 Movies Apisine tıkladık. Daha sonra Subscribe To Test'e tıklayıp ücretsiz kısımdan üye olduk. Devamında en sağdaki kısımdan C# -> HttpClient'i seçtik ve bu kodu kopyalayıp Admin arasında açtığımız ApiMovieController'ın içine yapıştırıyoruz. Ardından bir index ekliyoruz ve Admina areasında ApiMovieViewModel classını oluşturup propertyler yazıp controller tarafını;
+
+public async Task<IActionResult> Index()
+        {
+            List<ApiMovieViewModel> apiMovie = new List<ApiMovieViewModel>();
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("https://imdb-top-100-movies.p.rapidapi.com/"),
+                Headers =
+    {
+        { "X-RapidAPI-Key", "472f5d6472msh5b1ff28add5cf26p150d4djsn92308d4186f5" },
+        { "X-RapidAPI-Host", "imdb-top-100-movies.p.rapidapi.com" },
+    },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(body);
+                apiMovie = JsonConvert.DeserializeObject<List<ApiMovieViewModel>>(body);
+                return View(apiMovie);
+            }
+        }
+
+şeklinde güncelliyoruz.
+
+Eklediğimiz index sayfasına gerekli tablo yapısını kurduktan sonra bu filmlerin geldiğini görüyoruz.
+
+Daha sonra bu api çekme işlemini Booking.com başlıklı kısmından exchange api si için tekrarlayacağız. Öncelikle bu uygulamanın ücretsiz kısmını alıp yine C# -> HttpClient kısmını kopyalayıp admin areasında açtığımız ApiExchangeController 'a yapıştırıyoruz. Sonrasında BookingExchangeViewModel classını model kalsörüne ekleyip isimleri birebir aynı olacak şekilde dolduruyoruz. Controller'ı da
+
+public async Task<IActionResult> Index()
+        {
+            List<BookingExchangeViewModel> bookingExchangeViewModels = new List<BookingExchangeViewModel>();
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("https://booking-com.p.rapidapi.com/v1/metadata/exchange-rates?currency=AED&locale=en-gb"),
+                Headers =
+    {
+                { "X-RapidAPI-Key", "472f5d6472msh5b1ff28add5cf26p150d4djsn92308d4186f5" },
+        { "X-RapidAPI-Host", "booking-com.p.rapidapi.com" },
+    },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(body);
+                bookingExchangeViewModels = JsonConvert.DeserializeObject<List<BookingExchangeViewModel>>(body);
+                return View(bookingExchangeViewModels);
+            }
+        }
+
+şekliden doldurup index ekliyoruz ve hata alıyoruz "Nested??" bu hatayı düzeltmek için
+yeni bir model BookingExchangeViewModel2 oluşturduk ve burdaki kodları Rapid apide en solda ki result tan copy code ye basıp model açıkken Edit -> Paste Special -> Paste JSON as Classes ile yapıştırıp ilk kısmın public ini sildik sadece içindeki propertiler kaldı ve controller'da
+
+ public async Task<IActionResult> Index()
+        {
+            List<BookingExchangeViewModel2> bookingExchangeViewModel2 = new List<BookingExchangeViewModel2>();
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("https://booking-com.p.rapidapi.com/v1/metadata/exchange-rates?currency=AED&locale=en-gb"),
+                Headers =
+    {
+                { "X-RapidAPI-Key", "472f5d6472msh5b1ff28add5cf26p150d4djsn92308d4186f5" },
+        { "X-RapidAPI-Host", "booking-com.p.rapidapi.com" },
+    },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(body);
+                var values = JsonConvert.DeserializeObject<BookingExchangeViewModel2>(body);
+                return View(values.exchange_rates);
+            }
+        }
+
+güncellemesini yapıp index'te bu modeli
+
+@model IEnumerable<BookingExchangeViewModel2.Exchange_Rates>
+
+ile bu array'ı çağırdık ve tablo yapısını oluşturup verilerin geldiğini gördük.
+
+# 72 Ders
+Bu derste öncelikle RapidApi -> Booking.com -> Hotels -> Search Hotels'de gerekli ayarlamaları yapıp C# -> HttpClient i kopyalayıp açtığımız BookingHotelSearchController a yapıştırıyoruz ve ardından BookingHotelSearchViewModel modeline resulttaki kodu kopyalayıp Json türünde özel olarak yapıştırıyoruz. Devamında controller'a
+
+public class BookingHotelSearchController : Controller
+    {
+        public async Task<IActionResult> Index()
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("https://booking-com.p.rapidapi.com/v1/hotels/search?adults_number=2&dest_type=city&filter_by_currency=EUR&checkout_date=2023-03-15&checkin_date=2023-03-14&order_by=popularity&locale=en-gb&dest_id=-1456928&units=metric&room_number=1&categories_filter_ids=class%3A%3A2%2Cclass%3A%3A4%2Cfree_cancellation%3A%3A1&children_number=2&children_ages=5%2C0&include_adjacency=true"),
+                Headers =
+    {
+        { "X-RapidAPI-Key", "472f5d6472msh5b1ff28add5cf26p150d4djsn92308d4186f5" },
+        { "X-RapidAPI-Host", "booking-com.p.rapidapi.com" },
+    },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(body);
+
+
+                var values = JsonConvert.DeserializeObject<BookingHotelSearchViewModel>(body);
+                return View(values.result);
+            }
+        }
+    }
+
+yazıp açtığımız index'e 
+
+@model IEnumerable<BookingHotelSearchViewModel.Result>
+
+olarak modeli çağırıyoruz. Devamında int olan değişkende "." olmasından dolayı hata alıyoruz ve controller'ı
+
+public class BookingHotelSearchController : Controller
+    {
+        public async Task<IActionResult> Index()
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("https://booking-com.p.rapidapi.com/v1/hotels/search?adults_number=2&dest_type=city&filter_by_currency=EUR&checkout_date=2023-03-15&checkin_date=2023-03-14&order_by=popularity&locale=en-gb&dest_id=-1456928&units=metric&room_number=1&categories_filter_ids=class%3A%3A2%2Cclass%3A%3A4%2Cfree_cancellation%3A%3A1&children_number=2&children_ages=5%2C0&include_adjacency=true"),
+                Headers =
+    {
+        { "X-RapidAPI-Key", "472f5d6472msh5b1ff28add5cf26p150d4djsn92308d4186f5" },
+        { "X-RapidAPI-Host", "booking-com.p.rapidapi.com" },
+    },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                var bodyReplace = body.Replace(".", "");
+                var values = JsonConvert.DeserializeObject<BookingHotelSearchViewModel>(bodyReplace);
+                return View(values.result);
+            }
+        }
+    }
+
+olarak güncelledik. İndex tarafında da
+
+@{
+   score = double.Parse(item.review_score.ToString()) / 10;
+ }
+<td>@score</td> 
+
+kodunu yazdık. 
+Kelimeleri türkçeye çevirmek için RapidApi'den V2 Search Hotels Api kısmında locale kısmını açıp çıkan dropdowndan "tr"'yi seçmeniz ve method içerisinde request urlsini buna göre değiştirmeniz yeterli olacaktır, kelimeleri kendisi türkçeleştiriyor.
+
+Devamında şehiri seçebilmek için Controller'da
+
+[HttpGet]
+        public IActionResult GetCityDestID()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetCityDestID(string p)
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"https://booking-com.p.rapidapi.com/v1/hotels/locations?locale=tr&name={p}"),
+                Headers =
+    {
+        { "X-RapidAPI-Key", "472f5d6472msh5b1ff28add5cf26p150d4djsn92308d4186f5" },
+        { "X-RapidAPI-Host", "booking-com.p.rapidapi.com" },
+    },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                return View();
+            }
+        }
+
+yazıyoruz ve index ekleyip dersi bitiriyoruz.
