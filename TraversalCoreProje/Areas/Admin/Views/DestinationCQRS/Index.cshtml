@@ -1,0 +1,53 @@
+﻿@model List<GetAllDestinationQueryResult>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<div class="card">
+    <h5 class="card-header">Tur Rota Verileri (CQRS)  </h5>
+    <div class="table-responsive text-nowrap">
+        <table class="table table-hover text-center">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ŞEHİR</th>
+                    <th>GÜN / GECE</th>
+                    <th>FİYAT</th>
+                    <th>KAPASİTE</th>
+                    <th>İŞLEM SEÇİNİZ</th>
+                </tr>
+            </thead>
+
+            <tbody class="table-border-bottom-0 text-center">
+                @foreach (var item in Model)
+                {
+                    count++;
+                    <tr>
+                        <td>@count</td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@item.city</strong></td>
+                        <td>@item.daynight</td>
+                        <td>@item.price ₺</td>
+                        <td>@item.capacity</td>
+
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <i class="bx bx-plus"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="/Admin/DestinationCQRS/GetDestination/@item.id"><i class="bx bx-edit-alt me-1"></i> Güncelle</a>
+                                    <a class="dropdown-item" href="/Admin/DestinationCQRS/DeleteDestination/@item.id"><i class="bx bx-trash me-1"></i> Sil</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <a href="/Admin/DestinationCQRS/AddDestination/" class="btn btn-outline-primary">Yeni Tur Rotası Oluştur!</a>
+</div>
+

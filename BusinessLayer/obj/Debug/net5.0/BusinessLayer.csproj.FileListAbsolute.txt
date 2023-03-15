@@ -24,8 +24,10 @@ C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\BusinessLayer\bin\Debug\net5.0\BusinessLayer.dll
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\BusinessLayer\bin\Debug\net5.0\BusinessLayer.pdb
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\BusinessLayer\bin\Debug\net5.0\DataAccessLayer.dll
+C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\BusinessLayer\bin\Debug\net5.0\DTOLayer.dll
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\BusinessLayer\bin\Debug\net5.0\EntityLayer.dll
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\BusinessLayer\bin\Debug\net5.0\DataAccessLayer.pdb
+C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\BusinessLayer\bin\Debug\net5.0\DTOLayer.pdb
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\BusinessLayer\bin\Debug\net5.0\EntityLayer.pdb
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\BusinessLayer\obj\Debug\net5.0\BusinessLayer.csproj.AssemblyReference.cache
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\BusinessLayer\obj\Debug\net5.0\BusinessLayer.GeneratedMSBuildEditorConfig.editorconfig
@@ -38,5 +40,3 @@ C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\BusinessLayer\obj\Debug\net5.0\BusinessLayer.pdb
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\BusinessLayer\obj\Debug\net5.0\BusinessLayer.genruntimeconfig.cache
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\BusinessLayer\obj\Debug\net5.0\ref\BusinessLayer.dll
-C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\BusinessLayer\bin\Debug\net5.0\DTOLayer.dll
-C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\BusinessLayer\bin\Debug\net5.0\DTOLayer.pdb

@@ -1,0 +1,48 @@
+﻿@model List<GetAllGuideQueryResult>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card">
+    <h5 class="card-header">Rehber Sayfası (CQRS MediatR)  </h5>
+    <div class="table-responsive text-nowrap">
+        <table class="table table-hover text-center">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>GÖRSEL</th>
+                    <th>İSİM SOYİSİM</th>
+                    <th>AÇIKLAMA</th>
+                    <th>İŞLEM SEÇİNİZ</th>
+                </tr>
+            </thead>
+
+            <tbody class="table-border-bottom-0 text-center">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.GuideID</td>
+                        <td><img src="@item.Image" alt="Avatar" class="rounded-circle avatar avatar-s pull-up" /></td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@item.Name</strong></td>
+                        <td>@item.Description</td>
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <i class="bx bx-plus"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="/Admin/GuideMediatR/GetGuides/@item.GuideID"><i class="bx bx-edit-alt me-1"></i> Düzenle</a>
+                                    <a class="dropdown-item" href="/Admin/GuideMediatR/DeleteGuide/@item.GuideID"><i class="bx bx-trash me-1"></i> Sil</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <a href="/Admin/GuideMediatR/AddGuide/" class="btn btn-outline-primary">Yeni Rehber Oluştur!</a>
+</div>
+

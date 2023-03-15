@@ -1,4 +1,4 @@
-﻿# 2 Ders
+﻿# 2 Ders (Mimariye Genel Bakış)
 N Katmanlı Mimari (N Tİer Arc.)
 --------------------------------
 Entity Layer: 
@@ -18,7 +18,7 @@ Business Layer:
 Presentation Layer:
 * Sunum katmanı Controller tarafındaki backend kodları ve projenin Uİ kısmı bu katmanda yer alır.
 
-# 3 Ders
+# 3 Ders (Katmanların Oluşturulması)
 - Solition üstüne sağ tık add new project diyoruz ve 3 katmanı ekliyoruz.
 * Concrete: Somut ifadelerin tutulduğu klasör.
 * Abstarct: Soyut ifadelerin tutulduğu klasör.
@@ -31,21 +31,22 @@ Property -> Column
 EntityLayer içine new folder Concrete ekliyoruz.
 Conctere içine new class Destination + About
 
-# 4 Ders
+# 4 Ders (Entity Katmanı)
 EntityLayer içine Conctere içine new class Feature + Feature2 + SubAbout + Testimonial + Newsletter
 
-# 5 Ders
+# 5 Ders (Entitylerin Tamamlanması)
 EntityLayer içine Conctere içine new class About2 + Guide + Contact
 
-# 6 Ders
+# 6 Ders (Entity Framework Core Paketleri)
 Bütün katmanlara aşağıdaki paketleri yüklüyoruz.
 Microsoft.EntityFrameworkCore (5.0.12)
 Microsoft.EntityFrameworkCore.Desing (5.0.12)
 Microsoft.EntityFrameworkCore.SqlServer (5.0.12)
 Microsoft.EntityFrameworkCore.Tools (5.0.12)
 
-# 7 Ders
+# 7 Ders (Context Sınıfı)
 DataAccessLayer içine new folder
+
 * Abstract
 
 * Concrete
@@ -65,27 +66,27 @@ referans olarak verilir.( Bu işlem add Project Reference olarak yapılır.)
 
 Context doldurulduktan sonra EntityLayerdaki classlara [Key] attribute u koyuldu.
 
-# 8 Ders
+# 8 Ders (Migration Oluşturma)
 İlk migration umuzu yapıyoruz.
 
-# 9 Ders
+# 9 Ders (Generic Interfaceler İle Çalışmak)
 DataAccessLayer içine Abstract içine new interface IGuideDal + IDestinationDal
 DRY yapmıyoruz. Bu yüzden generic yapı kullanacağız.
 IGenericDal interfacesini açıp diğer interfacelere kalıtım yoluyla miras veriyoruz.
 
-# 10 Ders
+# 10 Ders (Repository Design Pattern)
 DataAccessLayer içine Abstract içine new interface IAboutDal + IAbout2Dal + IContactDal + IFeatureDal + IFeature2Dal + INewsletterDal + SubAboutDal + ITestimonialDal ve miras verme işlemini yapıyoruz.
 Daha sonra DataAccessLayer içindeki Repository içine new class GenericRepository deyip imğlement interface diiyor ve içlerini dolduruyoruz.
 
-# 11 Ders
+# 11 Ders (DAL İşlemlerinin Tamamlanması)
 DataAccessLayer içine içine EntityFramework içine new class EfAboutDal + EfAbout2Dal + EfContactDal + EfDestinationDal + EfFeatureDal + EfFeature2Dal + EfGuideDal + EfNewsletterDal + EfSubAboutDal + EfTestimonialDal
 
-# 12 Ders
+# 12 Ders (Business Katmanında Interface Ve Sınıflar)
 BusinessLayer içine new folder Abstract + Concrete + ValidationRule
 Abstract içine new interface IGenericService + IAboutService + IAbout2Service + IContactService + IDestinationService + IFeatureService + IFeature2Service + IGuideService + INewsletterService + ISubAboutService + ITestimonialService
 Concrete içine new class  AboutManager ( implement interface ediyoruz.) İçini dolduruyoruz diğerlerini zamanı gelince oluşturacağız.
 
-# 13 Ders
+# 13 Ders (Fluent Validation)
 BusinessLayer ve Presentation içine aşağıdaki paketleri yüklüyoruz.
 FluentValidation (10.3.6)
 FluentValidation.AspNetCore (10.3.6)
@@ -94,13 +95,13 @@ BusinessLayer içine ValidationRules içine new class AboutValidator
 
 UI katmanına new controller DefaultController + shared içide _UILayout ekliyoruz. DefaultController dan Index açıyoruz.
 
-# 14 Ders
+# 14 Ders (Layout Düzenlemeleri ve Partial Async)
 UILayout'ta template'daki indexi kopyalayıp layout kısmını aldık geri kalanı Default index in içine attık. Uzantıları düzelttik @RenderBody() kodunu indexin gelmesini istediğimiz yere koyduk.
 Layout u tamamladıktan sonra Partiallamak için Views içine new folder LayoutPartial içine new view razor view partial seçilecek _HeaderPartial.
 @await Html.PartialAsync("/Views/LayoutPartial/HeaderPartial.cshtml") kodu ile partial kısmı çalışacak.
 Bu işlemi _NavbarPartial.cshtml ve _FooterPartial.cshtml içinde yapıyoruz.
 
-# 15 Ders
+# 15 Ders (Default Index ve View Components)
 Partiallayama _ScriptPartial.cshtml için ed yapıyoruz.
 Daha sonrasında Partialları türkçeleştirdik.
 Default/Index'teki alanları ViewComponent yapmaya karar verdik.
@@ -117,42 +118,42 @@ Bu klasör içine new folder Default içine new class _SliderPartial.cs açıyor
 
 Daha sonra Shared içine new folder _SliderPartial bu klasörün içine de Default.cshtml ekliyoruz. Default a istediğimiz yeri yapıştırdıktan sonra @await Component.InvokeAsync("_SliderPartial") ile bu Componenti çağırıyoruz. Sonrasında sayfayı türkçeleştiriyoruz.
 
-# 16 Ders
+# 16 Ders (Tur Rotalarının Listelenmesi)
 Bir önceki Component işlemini _PopularDestinationsPartial içinde yapıyoruz.
 BusinessLayer içine DestinationManager classını açıyoruz. Sadece GetList kısmını doldurup _PopularDestinationsPartial da 
  DestinationManager destinationManager = new DestinationManager(new EfDestinationDal()); ile yeni bir nesne türetiyoruz.public kısmının içine de var values = destinationManager.TGetList(); ile listeleme işlemini gerçekleştiriyoruz (return View(values);).
  Sonrada PopularDestination un Default unu foreach'a soktuk.
 
-# 17 Ders
+# 17 Ders (Feature Statistics)
 Bu derste diğer bir Component olan _StatisticsPartial ı yapıyoruz. Bu sayfayı türkçeleştirip ViewBag lerle istatistikleri getiriyoruz.
 Feature Componenti açıyoruz ama bu componentte listeleme yapacağımız için BusinessLayer içindeki concrete içine new class ekliyoruz FeatureManager GetList kısmını doldurduktan sonra Component işlemlerini tamamlıyoruz.
 
-# 18 Ders
+# 18 Ders (SubAbout Testimonial)
 Bu Feature kısmının verilerini getirmek için if kullandım.
 Daha sonrasında SubAbout için aynı Component işlemlerini tekrarladık.
 Testimonial kısmınıda bu şekilde oluşturuyoruz.
 
-# 19 Ders
+# 19 Ders (Testimonial Listesi)
 Testimonial i türkçeleştirip foreach e soktuk. Daha sonrasında footer ıda türkçeleştirdik.
 
-# 20 Ders
+# 20 Ders (Tur Rotalarımız)
 Template in tam halini indirdik.
 DestinationController açtık. Index ekledik(Razor view + Loyout).
 services.html sayfasından yararlanarak Destination/Index i doldurup, türkçeleştirip, foreach a sokuyoruz.
 
-# 21 Ders
+# 21 Ders (Layout Düzenlemeleri ve Single Page Sayfası)
 DestinationDetails için DestinationControllerda  HttpGet ve HttpPost controller satırları oluşturduk. Template de ilgi sayfayı bu details sayfasına ekledik. Düzgün çalışmadığı için layout katmanında köklü bir değişiklik yaptık.
 
-# 22 Ders
+# 22 Ders (Mini Proje Tur Rotaları)
 * Anasayfa slider fotorafları gelmiyor.
 Bu derste DestinationDetails sayfası için 2 tablo olmaması adına Destination Entitysine eklemeler yaptık. Daha sonra GetByID kısmı yoktu bizde DataAccessLayerda onu yazdık ve DestinationManager da içini doldurduk. Controller tarafındada HttpGette bu id yi getirme kodunu kullandık. Devamında @Model.Details1 istediğimiz satırı çağırdık. DestinationDetailste sadeleştirmeler yaptık.
 
-# 23 Ders
+# 23 Ders (Yorum Listesi ve Yeni Yorum Alanları)
 Bu derste DestinationDetails kısmındaki yorum kısmı için yeni bir tablo oluşturduk ve bu tabloyu Destination tablosuna bağladık.Migration yaptık.
 _CommentListPartial için bir component yapıyoruz.
 _AddCommentPartial İçin de component işlemini yapıyoruz.
 
-# 24 Ders
+# 24 Ders (Destinasyon Yorumları)
 Yorumları listeleyebilmek için IGenericDal'a List<T> GetListByFilter(Expression<Func<T,bool>> filter); yazdık. Bu işlemi yaptıktan sonra GenericReposityor'de
 
  public List<T> GetListByFilter(Expression<Func<T, bool>> filter)
@@ -177,12 +178,12 @@ kodu ile id ye göre getirme işlemini yapıyoruz.
 
 id ile işlem yapacağımız için @await Component.InvokeAsync("_CommentListPartial",new { id = ViewBag.DestinationID }) ile id yi alıyoruz.
 
-# 25 Ders
+# 25 Ders (Yorum Yapma İşleminin Hazırlanması)
 Yorum yap alanını türkçeleştirdik.
 Bu alanı componentte yapmaya çalıştık fakat olmadı bu yüzden CommentController açtık partialview olarak yapacağız.
 Controllerda HttpGet ve Post işlemlerini tamamladıktan sonra açtığımız AddComment view inde sayfa düzgün bir şekilde geldi fakat yorum yaptırmadı bu işlemi Ajaxla yapmaya karar verdik. 26 derste...
 
-# 26 Ders
+# 26 Ders (Yorum Yapma İşlemi)
 Bu ders çok önemli Ajax işleminden vazgeçtik. CommentController tarafında aynı methodu hem bir partial view hemde Iactionresult olarak tanımladık.
 
 [HttpGet]
@@ -227,7 +228,7 @@ AddComment kısmında da ;
 </div> 
 olarak id yi kayıt ettirdim.
 
-# 27 Ders
+# 27 Ders (Identity Kütüphanesi)
 Bu derste identity paketlerini yüklüyoruz.
 BusinessLayer hariç tüm katmanlara yüklediğimiz paketler;
 - Microsoft.AspNetCore.Identity (2.2.0)
@@ -235,12 +236,12 @@ BusinessLayer hariç tüm katmanlara yüklediğimiz paketler;
 
 Daha sonra EntityLayer a AppUser ve AppRole classı açıyoruz. Bu işlemleri yaptıktan sonra public class Context : IdentityDbContext<AppUser, AppRole, int> olarak Context'i güncelliyoruz. Daha sonra migration yapıyoruz.
 
-# 28 Ders
+# 28 Ders (Login ve Resigter Sayfaları)
 Giriş ve kullanıcı templatelerini yükledikten sonra LoginController açıyoruz.
 Daha sonra SingUp ve SingIn controllerlarını tanımladıktan sonra SingUp için bire view ekliyoruz. ( Partial değil Layoutsuz.) SingIn içinde aynı işlemi yapıyoruz.
 İndirdiğimiz templatelari bu view dosyalarına koyup türkçeleştiriyoruz.
 
-# 29 Ders
+# 29 Ders (Identity ile Register İşlemi)
 startup.cs te 28. satıra services.AddDbContext<Context>(); yazdık.
 29. satıra services.AddIdentity<AppUser,AppRole>().AddEntityFrameworkStores<Context>(); yazdık.
 34-38 arası services.AddMvc(config =>
@@ -271,18 +272,17 @@ Daha sonrasında UserRegisterViewModel modelini oluşturduk.
 
 Devamında modelden gelen değerlerle elimizdeki AppUser tablosunu eşleştirdik. Bunları yaptıktan sonra  kaydetme işlemi gerçekleşti.
 
-# 30 Ders
+# 30 Ders (Asp-Validation-For Mesajları)
 SingUp templat i işimize yaramıyacağı için yeni bir template indirdik ve bunu tekrardan modelimize uydurduk, türkçeleştirdik.
 
-# 31 Ders
+# 31 Ders (Custom Identity Validator)
 <div class="text-danger" asp-validation-summary="ModelOnly">
-                            
 </div> 
 kodu ile şifredeki kuralları görebiliyoruz. Ama ingilizce olarak geliyor. Bu yapıyı türkçeleştirmemiz lazım. Türkçeleştirmek için Bir model ekliyoruzz bu model önemli CustomIdentityValidator.
 daha sonrasında bu modelin çalışabilmesi için startup'ın 32. satırını
 services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>().AddErrorDescriber<CustomIdentityValidator>().AddEntityFrameworkStores<Context>();
 
-# 32 Ders
+# 32 Ders (Areas ve Member Layout)
 Dashbord template si indirdik. Kullanıcı için bir layout oluşturup adını _UserLayout koyduk. Areas adında yeni bir klasör oluşturduk. Sağ tık add area diyip mvc area seçip adını Member koyduk. Bu işlemle birlikte gelen Scaffolding sayfasındaki
 
 app.UseEndpoints(endpoints =>
@@ -306,7 +306,7 @@ Bu Partialları oluşturmak için MemberLayouPartial adlı klasörün içine aç
 -> _HeaderPartial
 -> _NavbarPartial
 
-# 33 Ders
+# 33 Ders (Member Sayfasında Verilerin Listelenmesi)
 -> _Navbar2Partial
 -> _RightbarPartial
 -> _FooterPartial
@@ -315,7 +315,7 @@ Bu Partialları oluşturmak için MemberLayouPartial adlı klasörün içine aç
 Daha sonrasında DestinationController ekliyoruz Member daki controller'a. Açtığımız bu controller için index açtık layoutu _UserLayout.
 Bu indexi aktif tur rotalarımız olarak kullandık. Dashboard tan gelen tabloyu kullandım ben.
 
-# 34 Ders
+# 34 Ders (Identity ile Login İşlemi)
         private readonly SignInManager<AppUser> _singInManager;
 Login işlemi için LoginController'a 
 private readonly SignInManager<AppUser> _singInManager; 
@@ -335,7 +335,7 @@ Devamında LoginController'da SinIn kısmının post kısmını yazıyoruz.
 Daha sonra SingIn de @model TraversalCoreProje.Models.UserSingInViewModel kodu ile form içini düzenliyoruz.
 Sisteme otantike olmuş olduk.
 
-# 35 Ders
+# 35 Ders (User Bilgilerinin Profilde Listelenmesi)
 Bu bölümde prfil düzenleme kısmını yapacağız öncelikle area içindeki ProfileController dan index açıyorum, devamında area içinde ki model klasörüne UserEditViewModel ini ekliyoruz. Açtığımız index sayfasında bir form kodu yazıyoruz bu kodları @model TraversalCoreProje.Areas.Member.Models.UserEditViewModel ile eşleştiriyoruz.
 Bu işlemlerden sonra ProfileController ın son hali 
 
@@ -369,7 +369,7 @@ oluyor.
 
 Bu yönlendirme sağlandıktan sonra Dashboard template'inden beğendiğim kısımla birlikte hocanın yaptığı form kısmını birleştirip güzel bir profil düzenleme kısmı yaptım.
 
-# 36 Ders
+# 36 Ders (Identity ile Profil & Resim Bilgisi Güncelleme)
 Bu derste amacımız kullanıcan profil resmi almak. Bu işlem için sırayla şunları yapıyoruz ;
 
 UserEditViewModel e 
@@ -409,13 +409,13 @@ ekliyoruz.
 
 Son olarak Profile/Indecte form kısmını <form method="post" enctype="multipart/form-data"> olarak güncelledik.
 
-# 37 Ders
+# 37 Ders (Rezervasyon Tablosu)
 Bu derste rezervasyon kısmıyla ilgileneceğiz.
 Bunun için EntityLayer da class oluşturuyoruz. Reservation classını context tede tanımlıyıp migration yapıyoruz. 
 Devamında Memberde yeni bir controller açıyoruz. ReservationController. Bu controller ın içinde ;
 MyCurrentReservation, MyOldReservation ve Getli Postlu NewRezervation controller larını oluşturuyoruz. Sonrasında NewRezervation için bir layoutlu View ekliyoruz.
 
-# 38 Ders
+# 38 Ders (Rezervasyon Sayfası)
 Bu derste il olarak ReservationController'da
 [HttpGet]
         public IActionResult NewRezervation()
@@ -441,11 +441,11 @@ Sonrasında ReservationController'a dönüp HttpPost kısmını ;
 olarak güncelledik. Id yi daha sonra dinamik hale getircez.
 NewReservation sayfasında form oluşturduk. Bu form ile yeni bir rezervasyon sqlde eklendi fakat gittiği sayfa olmadığı için hata verdi.
 
-# 39 Ders
+# 39 Ders (Rezervasyon İşlemleri Devamı)
 Bu derste ilk olarak ReservationController'da p.Status = "Onay bekliyor..."; olarak güncelledik.
 MyCurrentReservation için bir index ekledik. MyOldReservation içinde bir index ekledik. Sonrasında sidebar a bu sayfaların linkini verdik.
 
-# 40 Ders
+# 40 Ders (Giriş Yapan Kullanıcının Rezervasyonları)
 ReservationController'a 
 public IActionResult MyApprovalReservation()
         {
@@ -494,7 +494,7 @@ işlemini yapıyoruz.
 Daha sonra bu controllerin indeksinde bir tablo oluşturduk.
 Bu şekilde giriş yapmış kullanıcının tüm rezervasyon sitesi gelmiş oldu gelecek ders onu düzelticez.
 
-# 41 Ders
+# 41 Ders (Reservation Destination İlişkisi)
 Öncelikle onay bekleyen rezarvosyanların gelmesi için ReservationManager'da
 
 public List<Reservation> GetListApprovalReservation(int id)
@@ -525,7 +525,7 @@ public Destination Destination { get; set; }
 
 satırlarını ekleyip migration yaptık. FAKAT RESERVATİON SAYFASINA ZATEN APPUSER TABLOSU BAĞLI OLDUĞU İÇİN 2. TABLOYU BAĞLAYAMAZSIN DİYE HATA VERDİ.
 
-# 42 Ders
+# 42 Ders (Entitye Özel List Metodu Tanımlama ve Include)
 Aldığımız hatayı düzeltmek için tabloyu sıfırlıyoruz.
 truncate table Reservations kodunu sql'e yazıp update database dedik ve oldu. :)))
 
@@ -568,40 +568,40 @@ Daha sonrasında ReservationController'da
 değişikliğini yapıp Viewinde <td>@item.Destination.City</td> yazdığımızda artık Destinationda ki city ismi geliyor..
 Şimdi diğerleri içinde aynı şeyi yapacağız. Diğer kısımları da tamamladıktan sonra hepsi istediğimiz gibi geliyor. İf else kullanarak eğer herhangi bir veri yoksa bu durumu h4 etiketiyle yazdırdım.
 
-# 43 Ders
+# 43 Ders (Member Profile Dashboard)
 Bu derste profil kısmını güncellemeye karar verdik. Bunun için DahsboardController açıyoruz. Dashboard template'inde profile.html sayfasını  kullandık ordan işimize yarayan kısmı aldık ve Controllerdan açtığımız indexe yapıştırıyoruz. Daha conra controllerda oluşturduğumuz Viewbagler ile istediğimiz bilgiyi çektik. Devamını 44. derste yapacağız.
 
-# 44 Ders
+# 44 Ders (Dashboardda Verilerin Listelenmesi)
 Oluşturduğumuz Index'i Componente ayırmaya karar verdik ama bu Componenti Memberin dışında oluşturduk.
     
 ViewComponent içine new folder MemberDashboar içine new class _ProfileInformation ve Component içine new folder _ProfileInformation içine new view Default açtık. Bu default sayfasına istediğimiz yeri kestik ve yerne @await kodunu yazdık devamında Viewbagler ile istediğimiz bilgiyi çektik.
 
-# 45 Ders
+# 45 Ders (Tur Rehberleri Listesi)
 Bu derste profilin içinde yeni bir component açacağız. _GuideList classını açıyoruz MemberDashboard içine.
 GuideManager olmadığı için öncelikle BusinessLayer içindeki Concrete klasörü içine bu classı oluşturuyoruz. Sadece GetList kısmını doldurduk. Daha sonra Component içine _GuideList klasörü devamında Default view ini oluşturduk.
 Bunları yaptıktan sonra Guide tablosuna 5 rehber ekledik. Bu 5 rehberin listelenmesi için GuideList te Getlist komutunu kullandık.
 Devamında İstediğimiz yeri kesip foreach'e sokmak için sadeleştirdik döngüye soktuk. Bilgiler geldikten sonra dersi bitirdik.
 
-# 46 Ders
+# 46 Ders (Platform Ayarları View Component)
 Bu derste componentleme işlemine _PlatformSetting kısmı ile başladık. Gerekli işlemleri yaptıktan sınra türkçeleştirip navbar kısmındaki linkleri de düzelttik.
 
-# 47 Ders
+# 47 Ders (Admin Areas)
 Admin layoutu indirdik. Yani admin kısmına geçiş yaptık. Dashboard kısmına geri döneceğiz.
 Öncelikle Views klasörü içinde yeni bir view açıyoruz _AdminLayout. devamında areaya yeni bir area ekliyoruz adı Admin. Sonra içine bir controller ekledik. DestinationController ([Area("Admin")] yazdık.) ve ardından Index e Razor view ekledik. Layout'u AdminLayout seçtik. Layoutta hata almamak için Renderbody kodunu yazdık. Areayı ekledikten sonra gelen Scaffolding içindeki koduda startup'ta en sona yapıştırdık.
 Yaptığımız işlemlerden sonra Index sayfası geldi.
 Layout'u düzenledik.
 
-# 48 Ders
+# 48 Ders (Admin Destination)
 Bu derste öncelikle açtığımız DestinationController'da Getlist metodu ile listelemek için kodumuzu yazdık. Daha sonra indexinde tablo yapısı oluşturduk. Daha sonra CRUD işlemleri için controllerı doldurduk ADD ve UPDATE için yeni viewler oluşturup add için bir form yapısı oluşturduk eklerken hata verdi çünkü TAdd metodunun içi dolu değildi. Doldurunca düzeldi.
 
-# 49 Ders
+# 49 Ders (Admin Destination İşlemlerinin Tamamlanması)
 Bu derste Indexte oluşturduğumuz forma linkler verdik. Deavmında UpdateDestination sayfasını oluşturduk. DestinationManagerdaki içleri boş olan ama bize gerekli olan kısmını doldurduk. RedirecToAction kısmını düzelttik. Herşey olması gerektiği gibi oldu.
 
 Daha sonra AdminLayout'u partiallara ayırmaya karar verdik. Bunin için AdminController oluşturup;
 -> PartialHeader
 -> PartialAppBrandDemo controllerların oluşturup partial view ekledik. İlgili alanı kesip @await kodu ile Partial'ı çağırdık. Navbar kısmını 50. Derse bıraktık.
 
-# 50 Ders
+# 50 Ders (Admin Layout Partial View)
 Bu derste partial'lamaya devam ediyoruz.
 -> PartialSideBar
 -> PartialNavbar
@@ -612,17 +612,17 @@ Bu partialları oluşturduktan sonra side bar partial'ı bize uygun hale getirdi
 
 CRUD işlemlerinin formlarını ve listeleme kısmındaki tabloyu templateden çekerek düzenledim.
 
-# 51 Ders
+# 51 Ders (Admin Layout İkons)
 Bu derste admin side bara yeni ikon ve menü ekledik.
 
-# 52 Ders
+# 52 Ders (Admin Dashboard 1)
 Admin areada yeni bir controller oluşturuyoruz DashbordController ve View ekliyoruz. Daha sonra admin templatedaki index sayfasını alıp kendi indeximize yapıştırıp düzenledik.
 Daha sonra bu dashboard sayfasını componentlere ayırmaya karar verdik. Bunun için ViewComponents içine new folder AdminDashboard ekledik daha sonra içine new class ekledik _DashboardBanner. Devamında shared içindeki Componetns içine new folder _DashboardBanner ve içine Razor Partial View ekledik (Default).
 Daha sonra aynı işlemi
 -> _Card1Statistic içinde yaptık.
 Devamında bu componenti viewbagler ile dinamik hale getirdik.
 
-# 53 Ders
+# 53 Ders (Admin Dashboard 2)
 -> _TotalRevenue
 -> _Card2Statistic
 -> _DestinationStatistic
@@ -631,7 +631,7 @@ Devamında bu componenti viewbagler ile dinamik hale getirdik.
 
 Hoca _AdminHeaderPartialda yaptı ama ben içindeki eksik linkleri direk layout partial a koyduğum için yapmadım.
 
-# 54 Ders
+# 54 Ders (Include Metodu ve Ef Bağımlı. Kaldırılması)
 Bu derste Admin içine new controller açıyoruz ismi CommentController. TGetList in içini dolduruyoruz ve Index ekliyoruz. Açtığımız indekte yorumları görebilmek için bir tablo oluşturduk.
 
 Elimizdeki tarih verisinin formatını değiştirebilmek için @(((DateTime)item.CommentDate).ToString("dd-MMM-yyyy")) kodunu yazdık.
@@ -677,7 +677,7 @@ startup'ta
 
  Devamında yorum silme için controllerda DeleteComment'ı yazdık ve silme işlemini de yaptırdıktan sonra dersi bitirdik. (Manager'da boş alanları doldurduk.)
 
-# 55 Ders
+# 55 Ders (App User İşlemleri)
 DestinationController'da
 
 DestinationManager destinationManager = new DestinationManager(new EfDestinationDal()); 
@@ -700,7 +700,7 @@ Daha sonra newlememek için start upda kodları yazıyoruz.
 
 Bu işlemlerden sonra açmış olduğumuz UserController'dan index oluşturduyoruz ve içine tablo yapısını kuruyoruz. Tabloyu oluşturduktan sonra controller ı doldurduk ve dersi bitirdik.
 
-# 56 Ders
+# 56 Ders (Container Dependencies ve Startup Refactoring)
 Bu derste newleme işlemi için startupta yazdığımız
 
 services.AddScoped<IDestinationService, DestinationManager>();
@@ -750,13 +750,13 @@ yazıp yeni bir view oluşturuyoruz bu view'i tablo ile dolduruğ grekli bilgile
 
 Member areasında tablo ve form güncellemesi yaptım.
 
-# 57 Ders
+# 57 Ders (Hata Sayfaları ve Rehber Listesi)
 404 sayfasını kodlamak için önce startup'ta 65. satıra  app.UseStatusCodePagesWithReExecute("/ErrorPage/Error404", "?code{0}"); kodunu yazdık.
 Daha sonra ErrorPage için bir controller ekliyoruz. Devamında add view diyip indirdiğimiz template'i içine kopyalayıp linkleri verdik.
 
 Devamında admin içindeki controller'a GuideController açıyoruz. Bu controller'a view ekleyip tablo ile listelettiriyoruz. Bu tabloda oluşturulan rehberi aktif ve pasif yapma içine ve CRUD işlemleri içinde controller yazıp AddGuide için bir view açıp içine form yapısını kurdum. Devamında Edit ve Delete kısmınıda tamamladım.True-False'ı yapamadım.
 
-# 58 Ders
+# 58 Ders (Serilog ve Rehber İşlemleri)
 Bu derste ilk olarak serilog işlemi ile ilgilendik.
 İlk olarak startup'ta configure services içine 
 services.AddLogging(x =>
@@ -787,7 +787,7 @@ değişikliği yaptık. Bu değişiklik sayesinde UI katmanında Logs klasörü 
 Bu dersin devamında hocam style yazdı Admin/ Index'te resimlerin yuvarlak olması için ama bizim ki zaten yuvarlak o yüzden yazmadım.
 Sonrasında AddGuide dosyasını yaptı. AddGuideyi yaparken ders yarıda kaldı.
 
-# 59 Ders
+# 59 Ders (Excel Raporları)
 Bu derste amacımız excel dosyası yapmak öncelikle ExcelController adında bir controller açıyoruz. Devamında UI katmanına paket indiriyoruz.
 -> EPPlus (6.0.7)
 Sonrasında conroller'ı
@@ -897,7 +897,7 @@ bu hale getirip açılan index sayfasına 2 buton koyup hem statik hemde dinamik
 
 Bu dersin 2. kısmında AddGuide'ye devam ediyoruz. Bu index sayfası için ValidationRule içine new class GuideValidator açıp istediğimiz gibi doldurum bu kuralları controller tarafında çağırım indextede span etiketi ile yazdırdık.
 
-# 60 Ders
+# 60 Ders (Pdf Raporları)
 Bu derste öncelikle PdfReportController açıyoruz. Devamında UI katmanına paket indiriyoruz.
 -> iTextSharp.LGPLv2.Core (1.9.2).
 Sonrasında  açtığımız controller'da
@@ -955,7 +955,7 @@ Devamında
 
 yazarak 2.dosyayı oluşturuyoruz. Bunları daha dinamik hale getirmem lazım.
 
-# 61 Ders
+# 61 Ders (Raporların Business'a Taşınması)
 Bu derste excel ve pdf dosyalarını business'a taşıyacağız.
 BusinessLayer Abstract içine new interface açıyoruz IExcel Service. Daha sonra Concrete içine new class ExcelManager. Daha sonra sında Business katmanına EPPlus (6.0.7) paketini indirip, ExcelManagerı doduruyoruz.
 Devamında ExcelController'da 
@@ -1041,13 +1041,13 @@ public IActionResult ChangeToTrue(int id)
 
 yazdıktan sonra kontrolü sağladığımızda butonların çalıştığını görüyoruz. Hoca bu derste return RedirectToAction("Guide", "Admin"); kısmında takıldı route falan yazdı ama ben yazmadım çalıştığı için.
 
-# 62 Ders
+# 62 Ders (Mail Gönderme İşlemi)
 Bu derste mail işlemleriyle ilgili işlemler yapacağız.
 İlk olarak Admin Areaya MailController açıyoruz. DEvamında http get ve post olarak IActionResult larını yazdık devamında MailRequest adında bir Model oluşturduk. Modelin ardından UI Katmanına 
 -> MailKit (3.4.1) paketini indirdik. 
 Bu paketi indirdikten sonra MailController'ın Post kısmını doldurup index açtık. İndexte bir form yapısı oluşturduk. traversalcoree@gmail.com Traversal123. adlı mailden 2 faktörlü korumayı açıp uygulama şifreleri kısmını yaparken hata verdi. Farklı bir mail açıp bu işlemleri tekrarladığımızda gönderme işlemi başarı ile tamamlandı. Body kısmını ilk kısımda yapamamıştık daha sonra o kısmı yapıp forma satır ekledik. Mail'in başarılı bir şekilde gönderdi.
 
-# 63 Ders
+# 63 Ders (Ajax İşlemleri 1)
 Bu derste ajax işmelerine giricez. Öncelikle admin areada CityController açıyoruz. Ardından CityClass modelini ekleyip istediğimiz propertyleri ekliyoruz.
 Ardından CityController'da 
 
@@ -1081,7 +1081,7 @@ public IActionResult CityList()
 
 düzenlemesini yapıp index açıyoruz. Açtığımız indexte bir script yazıyoruz fakat ben bunu template in içinde admin.js içine yazıp script partialında çağırdım. Hocanın yapmış olduğu indexi kendime göre düzenledim. Devamında bu index sayfasınanbir kaç buton daha ekledik.
 
-# 64 Ders 
+# 64 Ders (Ajax İşlemleri 2)
 area admindeki city controllerda
 
  private readonly IDestinationService _destinationService;
@@ -1200,7 +1200,7 @@ ve devamında indexte
 
 yaptık ama gelmedi bir sonraki derste tamamlayacağız.
 
-# 65 Ders
+# 65 Ders (Ajax İşlemleri 3)
 CityController'ı
 
 public IActionResult GetByID(int DestinationID)
@@ -1290,7 +1290,7 @@ yazıyoruz daha sonrasında index tarafında
 
 değişikliklerini yapıyoruz ve dersi bitiriyoruz.
 
-# 66 Ders
+# 66 Ders (Data Transfer Object (DTO) Katmanı)
 Bu derste DTO katmanı ekleyeceğiz.
 Bu katmanda model klasörü üzerinde çalışmıycaz. Bunların tamamı data transör object katmanında yer alan DTOs klasörünün üzerine çalışıcaz.
 
@@ -1397,7 +1397,7 @@ public IActionResult Index()
 
 yaptığımızda true olanlar gelecek ve sile bastığımızda durumu false olacak yani silinmiycek.
 
-# 67 Ders
+# 67 Ders (DTO Katmanı ve Auto Mapper)
 Bu derste öncelikle Entity katmanına Announcement classını ekliyoruz ve context'te bunu tanımladıktan sonra migration yapıyoruz. Migrationdan sonra DataAccessLayer ve BusinessLayer katmanlarında Announcement sınıfının interface ve sınıflarını açıyoruz.
 Bu işlerim yaptıktan sonra Admin areada AnnouncementController açtık ve içini doldurduk daha sonra DTOs katmanına yeni bir dosya ekledik.
 
@@ -1435,7 +1435,7 @@ public IActionResult Index()
 
 güncellemesini yapıyoruz. Bu güncellemeden sonra Index ekleyip tablo yapısı kurduk. Verilerin geldiğini gördük.
 
-# 68 Ders
+# 68 Ders (Dto Katmanı ve Auto Mapper 2)
 Şimdi bu derste ilk olarak AnnouncementController de
 
  private readonly IMapper _mapper;
@@ -1532,7 +1532,7 @@ CreateMap<Announcement, AnnouncementUpdateDTO>();
 
  Devamında BusinessLayer içindeki ValidationRule içine AnnouncementValidationRules klasörünü içine AnnouncementUpdateValidator clasını ekleyip kuralları yazdık. Update kısmının İndexini oluşturduktan sonra test ettik ve oldu.
 
- # 69 Ders
+ # 69 Ders (Api Projesi)
 Yeni bir proje açıyoruz adı TraversalApiProject ve Asp.Net Wep Api seçiyoruz. Confugure kutucuğunu seçili değil yapıyoruz. Sonrasında yeni bir APİ Controller VisitorController ekledik. Bu işlemden sonra projeye 
 
 -> DAL 
@@ -1658,7 +1658,7 @@ Son olarak güncelleme işlemi için
 
 yapıp güncellemek istediğimiz bilgileri girdiğimizde güncellendiğini gördük.
 
-# 70 Ders
+# 70 Ders (Api Projesinin Ana Projede Kullanılması)
 Bu ders çok önemli bu derste yeni proje ile eskisini bağlıycaz. Aradaki configurasyon'u sağlamak için
 
 straptupta;
@@ -1819,7 +1819,7 @@ yazdık ve devamında güncelleme işlemi için controller'da
 
 kısmını yazdık ve index ekledik index'e add sayfasının formunu kopyaladık ama ID'yi inputla gizledik ve güncelle işlemini de başarı ile tamamladık.
 
-# 71 Ders
+# 71 Ders (Api Projesinin Ana Projede Kullanılması)
 https://rapidapi.com sitesine üye olduk. Devamında App tagına tılayıp add New App dedik ve MyNewApi isimli yeni uygulamayı oluşturduk. Devamında anasayfaya gelip IMDB Top 100 Movies Apisine tıkladık. Daha sonra Subscribe To Test'e tıklayıp ücretsiz kısımdan üye olduk. Devamında en sağdaki kısımdan C# -> HttpClient'i seçtik ve bu kodu kopyalayıp Admin arasında açtığımız ApiMovieController'ın içine yapıştırıyoruz. Ardından bir index ekliyoruz ve Admina areasında ApiMovieViewModel classını oluşturup propertyler yazıp controller tarafını;
 
 public async Task<IActionResult> Index()
@@ -1909,7 +1909,7 @@ güncellemesini yapıp index'te bu modeli
 
 ile bu array'ı çağırdık ve tablo yapısını oluşturup verilerin geldiğini gördük.
 
-# 72 Ders
+# 72 Ders (Rapid Api Booking Üzerinden Otel Listesi Çekme)
 Bu derste öncelikle RapidApi -> Booking.com -> Hotels -> Search Hotels'de gerekli ayarlamaları yapıp C# -> HttpClient i kopyalayıp açtığımız BookingHotelSearchController a yapıştırıyoruz ve ardından BookingHotelSearchViewModel modeline resulttaki kodu kopyalayıp Json türünde özel olarak yapıştırıyoruz. Devamında controller'a
 
 public class BookingHotelSearchController : Controller
@@ -2013,3 +2013,169 @@ Devamında şehiri seçebilmek için Controller'da
         }
 
 yazıyoruz ve index ekleyip dersi bitiriyoruz.
+
+# 73 Ders (CQRS Design Pattern Kullanılması) (Tekrar edilecek.)
+UI Katmanına aşağıdaki klasör yapılanmasını oluşturuyoruz.
+
+-> CQRS
+    
+    - Commands
+        
+    - Handlers
+        - DestinationHandlers
+            - GetAllDestinationQueryHandler.cs
+
+    - Queries
+        - DestinationQueries
+            - GetAllDestinationQuery.cs
+
+    - Result
+        - DestinationResults
+            - GetAllDestinationQueryResult.cs
+
+devamında admin areasına DestinationCQRSController ekliyoruz. Controller'ı
+
+private readonly GetAllDestinationQueryHandler _getAllDestinationQueryHandler;
+
+        public DestinationCQRSController(GetAllDestinationQueryHandler getAllDestinationQueryHandler)
+        {
+            _getAllDestinationQueryHandler = getAllDestinationQueryHandler;
+        }
+
+        public IActionResult Index()
+        {
+            var values = _getAllDestinationQueryHandler.Handle();
+            return View(values);
+        }
+
+şeklinde doldurup startupta
+
+services.AddScoped<GetAllDestinationQueryHandler>();
+
+ile çağırıyoruz.
+
+Daha sonra index ekleyip bu indexin içine tablo yapısı oluşturuyoruz. @using'i kullanmamak i.in viewimporta
+@using TraversalCoreProje.CQRS.Result.DestinationResult
+dahil ettik.
+
+Devamında CQRS dosyasının içindeki Result - DestinationResults içine GetDestinationByIDQueryResult ve Queries - DestinationQueries içine GetDestinationByIDQuery classlarını ekledik. Ardından Handlers - DestinationHandlers içine de GetDestinationByIDQueryHandler classını ekledik.
+
+private readonly GetAllDestinationQueryHandler _getAllDestinationQueryHandler;
+        private readonly GetDestinationByIDQueryHandler _getDestinationByIDQueryHandler;
+
+        public DestinationCQRSController(GetAllDestinationQueryHandler getAllDestinationQueryHandler, GetDestinationByIDQueryHandler getDestinationByIDQueryHandler)
+        {
+            _getAllDestinationQueryHandler = getAllDestinationQueryHandler;
+            _getDestinationByIDQueryHandler = getDestinationByIDQueryHandler;
+        }
+
+        public IActionResult Index()
+        {
+            var values = _getAllDestinationQueryHandler.Handle();
+            return View(values);
+        }
+
+        public IActionResult GetDestination(int id)
+        {
+            var values = _getDestinationByIDQueryHandler.Handle(new GetDestinationByIDQuery(id));
+            return View(values);
+        }
+
+controller'ı bu şekilde güncelledik ve gelen hatayı GetDestinationByIDQuery clasında generate constructor diyerek çözdük ve index ekledik. dersi burda sonlandırdık.
+
+# 74 Ders (CQRS Design Pattern Kullanılması - 2)
+
+Açtığımız indexi güncelleme kısmı için kullanıcaz bu yüzden ilk olarak controller'ı Httpget yaptık ve form yapısını kurduk bu formun açılması için
+
+services.AddScoped<GetDestinationByIDQueryHandler>();
+
+kodunu ekledik.
+Devamında AddDestination için Commands - DestinationCommands içine CreateDestinationCommand class ekliyoruz. Bu classtan sonra Handlers - DestinationHandlers içine CreateDestinationCommandHandler clasınıda ekleyip DestinationCQRSController içine
+
+        [HttpGet]
+        public IActionResult AddDestination()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddDestination(CreateDestinationCommand command)
+        {
+            _createDestinationCommandHandler.Handle(command);
+            return RedirectToAction("DestinationCQRS", "Admin");
+        }
+
+ekleyip index ekliyoruz. İndexe form yapısını kurup startupta controller'a readonly ile eklediğimiz herşeyi tanıtıyoruz. Add kısmını test ediyoruz.
+
+Silme işlemi için yukarıdaki işlemleri tekrarlıyoruz.
+Güncelleme işlemi içinde aynı işlemleri yapıyoruz.
+
+<-- Startup tarafı çok önemli -->
+
+(KAYDETMEDEN KAPATTIĞIM KISIM 74.DERSTE EKSİKLER OLABİLİR BAKACAĞIM.)
+
+# 75 Ders (MediatR Kütüphanesi)
+İlk olarak admin areasına yeni bir GuideMediatRController ekledik. DestinationMediatr. Devamında UI Katmanına
+->MediatR.Extensions.Microsoft.DependencyInjection (11.1.0) paketini yükledik.
+Devamında CQRS klasöründe
+Result içine GuideResult klasörünü içine GetAllGuideQueryResult classını ekledik.
+Queries içine GuideQueries klasörünü içine GetAllGuideQuery classını ekledik.
+Handlers içine GuideHandlers klasörünü içine GetAllGuideQueryHandler classını ekledik.
+
+Devamında GuideMediatRController'e geçiyoruz.
+
+[Area("Admin")]
+    [AllowAnonymous]
+    public class GuideMediatRController : Controller
+    {
+        private readonly IMediator _mediator;
+
+        public GuideMediatRController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var values = await _mediator.Send(new GetAllGuideQuery());
+            return View(values);
+        }
+    }
+
+controller'ı bu şekilde güncelledikten sonra index ekleyip tablo yapısını kuruyoruz.
+@model List<GetAllGuideQueryResult> kodunu kullanabilmek için Viewimportta yol belirttik. Listeleme işlemini yaptıktan sonra idye göre getirme işlemine geçtik ve
+GuideResult -> GetGuideByIDQueryResult
+GuideQueries -> GetGuideByIDQuery
+GuideHandlers -> GetGuideByIDQueryHandler
+
+classlarını ekleyip doldurduk.
+
+Daha sonra Controller'da
+
+ [HttpGet]
+        public async Task<IActionResult> GetGuides(int id)
+        {
+            var values = await _mediator.Send(new GetGuideByIDQuery(id));
+            return View(values);
+        }
+
+ekledik ve index ekleyip form yapısı kurduk.
+
+Devamında  Commands -> GuideCommands -> CreateGuideCommand ve ardından GuideHandlers -> CreateGuideCommandHandle classlarını ekledik.
+
+Bu işlemlerden sonra controller'a geçip
+
+ [HttpGet]
+        public IActionResult AddGuide()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddGuide(CreateGuideCommand command)
+        {
+            await _mediator.Send(command);
+            return RedirectToAction("GuideMediatR", "Admin");
+        }
+
+güncellemisini yapıp index ekledik ve form yapısı kurduk test edip dersi bitirdik.

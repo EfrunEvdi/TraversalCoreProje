@@ -1,0 +1,45 @@
+﻿@model CreateDestinationCommand
+
+@{
+    ViewData["Title"] = "AddDestination";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card mb-4">
+    <h5 class="card-header">Yeni Rota Oluşturma Sayfası</h5>
+    <form method="post">
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="form-label">ŞEHİR :</label>
+                <input class="form-control"
+                       type="text"
+                       asp-for="City"
+                       placeholder="Tur hangi şehire düzenliyor?" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">GECE / GÜN :</label>
+                <input class="form-control"
+                       type="text"
+                       asp-for="DayNight"
+                       placeholder="Tur kaç gün kaç geceden oluşuyor?" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">FİYAT :</label>
+                <input class="form-control"
+                       type="text"
+                       asp-for="Price"
+                       placeholder="Turun fiyatı nedir?" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Kapasite :</label>
+                <input class="form-control"
+                       type="text"
+                       asp-for="Capacity"
+                       placeholder="Turun kapasitesi kaçtır?" />
+            </div>
+            <br />
+            <button class="btn btn-outline-info col-12">Rotayı Oluştur!</button>
+        </div>
+    </form>
+</div>
+
