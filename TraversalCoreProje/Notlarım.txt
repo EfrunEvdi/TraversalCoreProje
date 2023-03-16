@@ -2180,4 +2180,26 @@ Bu işlemlerden sonra controller'a geçip
 
 güncellemisini yapıp index ekledik ve form yapısı kurduk test edip dersi bitirdik.
 
-# 75 Ders (Unit Of Work İmplementasyonu)
+# 76 Ders (Unit Of Work İmplementasyonu) 
+İlk olarak entity kaymanına yen bir class Account ekliyoruz ve ardından DataAccessLayer'a IAccountDal +IGenericUomDal interfacelerini ekliyoruz. Devamında Repository klasörüne GenericUowRepository classını ekliyoruz.
+Devamında DataAccessLayer içine new folder UnitOfWork ne içine IUowDal interface i ve UowDal classını ekleyip ardıdan EntityFramework içine EfAccountDal classını ekledik.
+Bu işlemlerden sonra BusinessLayer'a geçiyoruz ve Abstract klasörü içine new folder AbstractUow ve içine IAccountService + IGenericUowService interfacelerini ardından Concrete içine ConcreteUow klasörünü ve içine de AccountManager classını ekliyoruz. Bu işlemlerin ardından Container içinde çağırma işlemi yapıyoruz.(Burası önemli).
+Bu işlemden sonra admin areasında yeni bir controller AccountController açıyoruz ve ardından AccountViewModel'i ekliyoruz. ID'ye göre getirme işlemi olmadığı için onları tüm katmanlara ekleyip bu getirme işlemini kullandık. Devamında index ekleyip form yapısını oluşturduk ve işlemin başarılı bir şekilde gerçekleştiğini gördük.
+
+# 77 Ders (Tasarımsal Düzenlemeler - 1)
+Bu derste işlem yapılan sayfalar
+
+-> DefaultController (Slider için)
+-> _PopularDestinationsPartial (Resmi eksik olan turlar için)
+-> _FeaturePartial (Öne çıkan turlar)
+-> Yorumlar gelmiyordu js eksik olduğu için düzeltildi.
+-> _FooterPartial
+-> _NavbarPartial
+
+# 78 Ders (Tasarımsal Düzenlemeler - 2)
+
+-> DestinationController ve Index'i
+-> _NavbarPartial link verme
+-> DestinationDetails
+
+# 79 Ders (Tasarımsal Düzenlemeler - 3)

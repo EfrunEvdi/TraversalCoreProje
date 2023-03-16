@@ -1,0 +1,37 @@
+﻿@model AccountViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card mb-4">
+    <h5 class="card-header">Personal Prim Transferi (Unit Of Work)</h5>
+    <form method="post">
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="form-label">GÖNDEREN :</label>
+                <input class="form-control"
+                       type="text"
+                       asp-for="SenderID"
+                       placeholder="Gönderen kişi kim?" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">ALICI :</label>
+                <input class="form-control"
+                       type="text"
+                       asp-for="ReceiverID"
+                       placeholder="Alıcı kişi kim?" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">MİKTAR :</label>
+                <input class="form-control"
+                       type="text"
+                       asp-for="Amount"
+                       placeholder="Gönderilen para miktarı nedir?" />
+            </div>
+            <br />
+            <button class="btn btn-outline-info col-12">Hesaba Aktar!</button>
+        </div>
+    </form>
+</div>

@@ -73,6 +73,24 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Abouts2");
                 });
 
+            modelBuilder.Entity("EntityLayer.Concrete.Account", b =>
+                {
+                    b.Property<int>("AccountID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AccountID");
+
+                    b.ToTable("Accounts");
+                });
+
             modelBuilder.Entity("EntityLayer.Concrete.Announcement", b =>
                 {
                     b.Property<int>("AnnouncementID")
