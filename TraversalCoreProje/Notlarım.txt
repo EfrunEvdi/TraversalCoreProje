@@ -2197,9 +2197,19 @@ Bu derste işlem yapılan sayfalar
 -> _NavbarPartial
 
 # 78 Ders (Tasarımsal Düzenlemeler - 2)
-
 -> DestinationController ve Index'i
 -> _NavbarPartial link verme
 -> DestinationDetails
 
 # 79 Ders (Tasarımsal Düzenlemeler - 3)
+-> Comment - AppUser ilişkilendirildi. (Buna bağlı olarak DAL ve BusinessLayer, ViewComponent _CommentListPartial ardından bu Componente ait Default)
+-> AddComment
+
+# 80 Ders (Tasarımsal Düzenlemeler - 4)
+-> DestinationController
+-> CommentController
+-> AddComment
+-> Destination - Guide ilişkilendirildi. (Dolayısıyla Business ve DAL'da)
+-> Destination'a Date eklendi.
+
+# 81 Ders (Tasarımsal Düzenlemeler - 5)
