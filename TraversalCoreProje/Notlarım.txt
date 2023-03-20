@@ -2213,3 +2213,19 @@ Bu derste işlem yapılan sayfalar
 -> Destination'a Date eklendi.
 
 # 81 Ders (Tasarımsal Düzenlemeler - 5)
+-> Gelmeyen yorum kısmını byrda düzelttik. Destinationda DAL be Business'ta List tipini sildik çünkü tek değer geri dönücek.
+-> Guide Description2 eklendi.
+-> GuideDetails DescriptionDeatils'e dahil edildi.
+-> Guide tablosunu düzenledik.
+-> GuideController açtık. Rehberlerimiz kısmını yapacağız.
+-> Guide entitysine GuideListImage ekledik ama ben kullanmadım.
+-> navbar'a link verildi.
+-> ContactController açtık ve indexi'ini yapacağız.  
+
+# 82 Ders
+-> Index ekleyip templateden istediğimiz kısmı kopyalıyoruz. Validation eklemek için önce DTOs - ContactDTOs içine SendMessageDto classını açıyoruz ve Business içine ValidationRule içine ContactUs içine SendContactUsValidator açıp dolduruyoruz. Ardında Mapping içine
+
+CreateMap<SendMessageDto, ContactUs>().ReverseMap();
+
+kodunu ekliyoruz. Bu işlemin ardından ContactUsController'ı düzenleyip Index'ini düzeltiyoruz.
+

@@ -239,10 +239,12 @@ C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\TraversalCoreProje\obj\Debug\net5.0\Razor\Views\Admin\PartialScript.cshtml.g.cs
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\TraversalCoreProje\obj\Debug\net5.0\Razor\Views\Admin\PartialSideBar.cshtml.g.cs
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\TraversalCoreProje\obj\Debug\net5.0\Razor\Views\Comment\AddComment.cshtml.g.cs
+C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\TraversalCoreProje\obj\Debug\net5.0\Razor\Views\ContactUS\Index.cshtml.g.cs
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\TraversalCoreProje\obj\Debug\net5.0\Razor\Views\Default\Index.cshtml.g.cs
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\TraversalCoreProje\obj\Debug\net5.0\Razor\Views\Destination\DestinationDetails.cshtml.g.cs
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\TraversalCoreProje\obj\Debug\net5.0\Razor\Views\Destination\Index.cshtml.g.cs
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\TraversalCoreProje\obj\Debug\net5.0\Razor\Views\ErrorPage\Error404.cshtml.g.cs
+C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\TraversalCoreProje\obj\Debug\net5.0\Razor\Views\Guide\Index.cshtml.g.cs
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\TraversalCoreProje\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\TraversalCoreProje\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\TraversalCoreProje\obj\Debug\net5.0\Razor\Views\Home\Test.cshtml.g.cs
