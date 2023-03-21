@@ -2222,10 +2222,44 @@ Bu derste işlem yapılan sayfalar
 -> navbar'a link verildi.
 -> ContactController açtık ve indexi'ini yapacağız.  
 
-# 82 Ders
+# 82 Ders (Contact Us Sayfası)
 -> Index ekleyip templateden istediğimiz kısmı kopyalıyoruz. Validation eklemek için önce DTOs - ContactDTOs içine SendMessageDto classını açıyoruz ve Business içine ValidationRule içine ContactUs içine SendContactUsValidator açıp dolduruyoruz. Ardında Mapping içine
 
 CreateMap<SendMessageDto, ContactUs>().ReverseMap();
 
-kodunu ekliyoruz. Bu işlemin ardından ContactUsController'ı düzenleyip Index'ini düzeltiyoruz.
+kodunu ekliyoruz. Bu işlemin ardından ContactUsController'ı düzenleyip Index'ini düzeltiyoruz. Navbarda link verdik ve dersi bitirdik.
 
+# 83 Ders (Projeye PostgreSQL Veri Tabanı Eklenmesi)
+Projeye new Asp.Net Web Api Projesi ekliyoruz (SignalRApi). (Confugure https kısmını seçili değil yapıyoruz.) Bu projesi ekledikten sonra içine Dall klasörünü içinede Visitor classını ekledik.
+
+Ardından şu paketleri SignalRApi katmanına ekliyoruz.
+
+-> Microsoft.EntityFrameworkCore (5.0.17)
+-> Microsoft.EntityFrameworkCore.Design (5.0.17)
+-> Microsoft.EntityFrameworkCore.SqlServer (5.0.17)
+-> Microsoft.EntityFrameworkCore.Tools (5.0.17)
+-> Npgsql (5.0.16)
+-> Npgsql.EntityFrameworkCore.PostgreSQL (5.0.10)
+-> Swashbuckle.AspNetCore (5.6.3) (Bu paket kendi geldi.)
+
+ekledikte sonra bu katmandaki appsettings.json içine
+
+"ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Port=5432;Database=MyVisitDb;User Id=postgres;Password=root"
+  }
+
+kodunu yazdık PostreSQL'e bağlanma için. Ardından DAL klasörü içine Context sınıfını oluşturduk ve startupta'da
+
+services.AddEntityFrameworkNpgsql().AddDbContext<Context>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
+satırını yazdık.
+
+BU GÜNÜ ASLA UNUTMA....
+
+Devamında migration yaptık. Daha sonra PostgreSQL'de bir kaç veri girişi yaptık.
+
+# 84 Ders (Api Üzerinden Ziyaretçi Veri Seti Oluşturma) (Tekrar izlenecek)
+İlk olarak Model klasörü oluşturuğ içine VisitorChart ve VisitorService classlarını ekliyoruz. Ardında Hubs klasörünü oluşturup içine VisitorHub classını ekliyoruz.
+Devamında VisitorController api controller ekliyoruz.
+ 
+Bu işlemlerden sonra PostManı indirip http://localhost:5000/api/Visitor yazıp Send dedik ve 404 döndü ama bir sonraki ders eksikleri kapatacağız.
