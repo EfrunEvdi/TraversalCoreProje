@@ -2263,3 +2263,98 @@ Devamında migration yaptık. Daha sonra PostgreSQL'de bir kaç veri girişi yap
 Devamında VisitorController api controller ekliyoruz.
  
 Bu işlemlerden sonra PostManı indirip http://localhost:5000/api/Visitor yazıp Send dedik ve 404 döndü ama bir sonraki ders eksikleri kapatacağız.
+
+# 85 Ders (CrossTab ile Ziyaretçiler İçin Pivot Tablo)
+Bu derste ilk olarak CrossTab'ı öğrenebilmek için 
+
+ create Table ProductSales
+  (    Productname varchar(50),
+      Year int,
+      Sales int
+  );
+  Insert into ProductSales values
+      ('A',2017,100),
+      ('A',2018,150),
+      ('A',2019,300),
+      ('A',2020,500),
+      ('A',2021,450),
+      ('A',2022,675),
+      ('B',2017,0),
+      ('B',2018,900),
+      ('B',2019,1120),
+      ('B',2020,750),
+      ('B',2021,1500),
+      ('B',2022,1980);
+      
+    Select * from ProductSales;
+
+    create extension tablefunc;
+
+Select * from
+  crosstab('select Productname,year,sales from ProductSales order by 1,2')
+  as ProductSales(Productname varchar(50),year1 int,y2 int, y3 int,y4 int,y5 int,y6 int);
+
+  sorgusu ile ürün ve yıla göre tablomuzu oluşturduk. Aynı tabloyu kendi tablomuza uydurabilmek için bizim tablomuza ait sorguyu yazdık saniye değerinden dolayı ilk olarak gelmedi ama düzeltince geldi.
+
+# 86 Ders (SignalR Bağlantı Yapılandırması)
+Bu derste Visitors tablosuna pgadminden sağ tık properties diyoruz ve column'dan VisitDate sütununu date yaptık.
+
+Bu sorgu ile istediğimiz gibi geliyor bu tablo
+
+Select * From crosstab
+(
+'Select "VisitDate","City","CityVisitCount"
+	From "Visitors"
+	order by 1,2'
+) as ct("VisitDate" Date,City1 int, City2 int, City3 int, City4 int, City5 int);
+
+Ardından projeye yeni bir SignalRConsume Asp.Net Web App projesi ekleyip Configure Http yi seçili değil yapıyoruz.
+
+Ardında SignalRApi katmanındaki startup'a
+
+services.AddCors(options => options.AddPolicy("CorsPolicy",
+                builder =>
+                {
+                    builder.AllowAnyHeader()
+                           .AllowAnyHeader()
+                           .SetIsOriginAllowed((host) => true)
+                           .AllowCredentials();
+                }));
+
+kodlarını ekledik ve ardından 
+
+app.UseCors("CorsPolicy");
+
+endpoints.MapHub<VisitorHub>("/VisitorHub"); 
+
+kodunu ekledik.
+
+Daha sonra SignalRConsume katmanına sağ tıklayıp add diyip Client-Side-Librery dedik ve gelen pencerede unpg seçip @microsoft/signalr@5.0.17 yazıp Choose diyip signalr.js ve signalr.min.js dosyalarını seçip Install diyoruz. Bu işlemden sonra SignalRConsume katmanındaki Homedaki indexte
+
+@section Scripts
+    {
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(() => {
+            var connection = new signalR.HubConnectionBuilder().withUrl("http://localhost:5000/VisitorHub").build();
+
+            $("#connectionStatus").text(connection.connectionState);
+
+            connection.start().then(() => {
+                $("#connectionStatus").text(connection.connectionState);
+            }).catch((err) => { console.log(err) });
+        })
+    </script>
+}
+
+<div class="container">
+    <br />
+    <div class="alert alert-warning">
+        Bağlantınızın durumu : <b id="connectionStatus"></b>
+    </div>
+</div>
+
+kodlarını yazıp önce Startup projede SignalRApi yi seçip CTRL+F5 ardında SignalRConsume'yi seçip CTRL+F5 yapıyoruz ve connected yazısını görüp dersi bitirdik.
+
+// Allahu Ekberrrrrr :D

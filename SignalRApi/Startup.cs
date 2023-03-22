@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SignalRApi.DAL;
+using SignalRApi.Hubs;
 using SignalRApi.Model;
 
 namespace SignalRApi
@@ -24,6 +25,15 @@ namespace SignalRApi
         {
             services.AddScoped<VisitorService>();
             services.AddSignalR();
+
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+                builder =>
+                {
+                    builder.AllowAnyHeader()
+                           .AllowAnyHeader()
+                           .SetIsOriginAllowed((host) => true)
+                           .AllowCredentials();
+                }));
 
             services.AddEntityFrameworkNpgsql().AddDbContext<Context>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -45,12 +55,13 @@ namespace SignalRApi
             }
 
             app.UseRouting();
-
+            app.UseCors("CorsPolicy");
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<VisitorHub>("/VisitorHub");
             });
         }
     }
