@@ -2230,7 +2230,7 @@ CreateMap<SendMessageDto, ContactUs>().ReverseMap();
 kodunu ekliyoruz. Bu işlemin ardından ContactUsController'ı düzenleyip Index'ini düzeltiyoruz. Navbarda link verdik ve dersi bitirdik.
 
 # 83 Ders (Projeye PostgreSQL Veri Tabanı Eklenmesi)
-Projeye new Asp.Net Web Api Projesi ekliyoruz (SignalRApi). (Confugure https kısmını seçili değil yapıyoruz.) Bu projesi ekledikten sonra içine Dall klasörünü içinede Visitor classını ekledik.
+Projeye new Asp.Net Web Api Projesi ekliyoruz (SignalRApi). (Confugure https kısmını seçili değil yapıyoruz.) Bu projesi ekledikten sonra içine DAL klasörünü içinede Visitor classını ekledik.
 
 Ardından şu paketleri SignalRApi katmanına ekliyoruz.
 
@@ -2357,4 +2357,24 @@ Daha sonra SignalRConsume katmanına sağ tıklayıp add diyip Client-Side-Libre
 
 kodlarını yazıp önce Startup projede SignalRApi yi seçip CTRL+F5 ardında SignalRConsume'yi seçip CTRL+F5 yapıyoruz ve connected yazısını görüp dersi bitirdik.
 
-// Allahu Ekberrrrrr :D
+# 87 Ders (SignalR Verilerinin MSSQL'e Taşınması)
+Bu derste postgre ile sorun yaşadığımız için SignalRApiForSql isimli yeni bir Asp.net web api projesi oluşturduk ve içine DAL ve Hubs klasörleri ekledik. Ardından sql için gerekli 4 paketi yükledik. Daha sonra DAL içine Context ve Visitor sınıflarını ekleyip appsettins.json sayfasına 
+
+    "DefaultConnection": "Data Source=(localdb)\\MSSQLLOCALDB; initial catalog=TraversalSignalRDB;integrated security=true",
+
+kodunu ekledik.
+Bu kodu ekledikten sonra start up'ta 
+
+services.AddDbContext<Context>(options =>
+            {
+                options.UseSqlServer(Configuration["DefaultConnection"]);
+            });
+
+kodunu ekledik. Daha sonra migration yaptık. Daha önce SignalRApi katmanında oluşturduğumuz herşeyi bu katmanada oluşturduk. Daha sonra SingalRConsume  katmanının controllerına index3 adlı conrollerı ekledik ve bu indexe ait view'i ekledik. Valla çok uğraştım bu derste bişeyler yanlış oldu onu düzelttim ve hem sayfadan hemde postgre den 50 tane veri yükleyip dersi bitirdik.
+
+# 88 Ders (SignalR ile Grafikte Anlık Veri Görüntüleme)
+Bu derste ilk olarak SQL sorgumuzu yazdık ve VisitorService'ye kopyaladık. Daha sonra SignalRApiForSQL katmanına ShareText adlı dosyayı ekledik bu dosyanın içindeki text dosyasını index^e kopyalayıp gerekli düzenlemeleri yaptıktan sonra sqldeki verilerin tablosunun geldiğini gördük ve tabloyu silip yeniden postgrede send ettikten sonra verilerin gelişini tablo üstünden canlı canlı gördükkkkkkkkkkkk. Bazı hatalar vardı ama ben hocadan kopyaladığım için hata almadım.
+
+
+# 89 Ders (Rol Listesi ve Rol Ekleme İşlemleri)
+Bu derste rol işlemleri için öncelikle Admin areasında RoleController açıyoruz ve ardından bu controller'a ait view ekliyoruz. SideBarda link verip Index kısmına table yapısı kurduk. Daha sonra controller'da CreateRole adlı controller'ı yazıp indexine form yapısı kurduk ve dersi bitirdik.

@@ -1,0 +1,6 @@
+2023-03-25T22:38:06.4831702+03:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2023-03-25T22:38:06.5126730+03:00  [INF] Hosting environment: "Development" (c3307c92)
+2023-03-25T22:38:06.5134971+03:00  [INF] Content root path: "C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\TraversalCoreProje" (b5d60022)
+2023-03-25T22:43:19.5369752+03:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2023-03-25T22:43:19.5521648+03:00  [INF] Hosting environment: "Development" (c3307c92)
+2023-03-25T22:43:19.5523605+03:00  [INF] Content root path: "C:\Users\efrun\OneDrive\Desktop\Yazılım\Murat Yücedağ MVC\TraversalCoreProje\TraversalCoreProje" (b5d60022)
