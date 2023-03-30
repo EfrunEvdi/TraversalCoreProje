@@ -64,6 +64,12 @@ namespace TraversalCoreProje
             });
 
             services.AddMvc();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Login/SingIn";
+                options.LogoutPath = "/Default/Index";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

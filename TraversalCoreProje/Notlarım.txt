@@ -2378,3 +2378,45 @@ Bu derste ilk olarak SQL sorgumuzu yazdık ve VisitorService'ye kopyaladık. Dah
 
 # 89 Ders (Rol Listesi ve Rol Ekleme İşlemleri)
 Bu derste rol işlemleri için öncelikle Admin areasında RoleController açıyoruz ve ardından bu controller'a ait view ekliyoruz. SideBarda link verip Index kısmına table yapısı kurduk. Daha sonra controller'da CreateRole adlı controller'ı yazıp indexine form yapısı kurduk ve dersi bitirdik.
+
+# 90 Ders (Rol Silme Rol Düzenleme ve Area Route Ayarları)
+Bu derste ilk olarak DeleteRole controllerını yazıp test ettik ve silindi. Ardında bu işlemi UpdateRole içinde yaptık ama bu efer viev ekledik.
+Ayrıca dersin devamında startupTa
+
+services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Login/SingIn";
+                options.LogoutPath = "/Default/Index";
+            });
+
+kodu ile giriş gerektiren sayfalara girerken hata almamak için login e yönlendirdik.
+
+# 91 Ders (Kullanıcıları Rolleri ile Listeleme)
+Bu derste öncelikle RoleController kısmına
+
+ public IActionResult UserList()
+        {
+            var values = _userManager.Users.ToList();
+            return View(values);
+        }
+
+kodunu ekleyip view ekledik ve bu view'de bir tablo yapısı kurduk burda kullanıcıların listelenmesini sağladık. Ardından tekrar role controller kısmına dönüp 
+
+ public async Task<IActionResult> AssignRole(int id)
+        {
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == id);
+            var roles = _roleManager.Roles.ToList();
+            var userRoles = await _userManager.GetRolesAsync(user);
+            List<RoleAssignViewModel> roleAssignViewModels = new List<RoleAssignViewModel>();
+            foreach (var item in roles)
+            {
+                RoleAssignViewModel model = new RoleAssignViewModel();
+                model.RoleID = item.Id;
+                model.RoleName = item.Name;
+                model.RoleExist = userRoles.Contains(item.Name);
+                roleAssignViewModels.Add(model);
+            }
+            return View(roleAssignViewModels);
+        }
+
+kodunu eklerken Admin areasına RoleAssignViewModel modelini ekledik ve bu controller'a ait olan view ekledik. Bu controller'a ait form yapını kurduk ve çok önemli bir kısımdı bu. Sql'de insert into ile rol eklediğimizde bu kısma check boxların seçili geldiğini gördük ve dersi bitirdik.
