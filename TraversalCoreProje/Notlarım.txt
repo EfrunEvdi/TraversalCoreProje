@@ -2420,3 +2420,32 @@ kodunu ekleyip view ekledik ve bu view'de bir tablo yapısı kurduk burda kullan
         }
 
 kodunu eklerken Admin areasına RoleAssignViewModel modelini ekledik ve bu controller'a ait olan view ekledik. Bu controller'a ait form yapını kurduk ve çok önemli bir kısımdı bu. Sql'de insert into ile rol eklediğimizde bu kısma check boxların seçili geldiğini gördük ve dersi bitirdik.
+
+#92 Ders (Rol Atama İşlemleri)
+
+Daha önce yazdığımız controller'ın HttpPost kısmını yazıyoruz.
+
+[HttpPost]
+        public async Task<IActionResult> AssignRole(List<RoleAssignViewModel> model)
+        {
+            var userID = (int)TempData["UserId"];
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == userID);
+            foreach (var item in model)
+            {
+                if (item.RoleExist)
+                {
+                    await _userManager.AddToRoleAsync(user, item.RoleName);
+                }
+                else
+                {
+                    await _userManager.RemoveFromRoleAsync(user, item.RoleName);
+                }
+            }
+            return LocalRedirect("/Admin/Role/UserList");
+        }
+
+ve artık rol atama işleminin gayet başarılı bir şekilde gerçekleştiğini görüyoruz.
+
+# 93 Ders (Bazı Düzenlemeler)
+-> Member Areasındali Dashboard/Index için yeni bir Component oluşturduk.(_LastDestinations).
+-> Bu component için gerekli düzenlemeleri yapıp dersi bitirdik.

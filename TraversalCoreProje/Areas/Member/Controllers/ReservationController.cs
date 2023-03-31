@@ -60,9 +60,10 @@ namespace TraversalCoreProje.Areas.Member.Controllers
         public IActionResult NewReservation(Reservation p)
         {
             p.AppUserID = 2;
+            p.DestinationID = ViewBag.v;
             p.Status = "Onay bekliyor...";
             reservationManager.TAdd(p);
-            return RedirectToAction("MyCurrentReservation");
+            return RedirectToAction("MyCurrentReservation","Member");
         }
     }
 }
