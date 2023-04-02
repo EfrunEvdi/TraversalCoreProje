@@ -2448,4 +2448,4 @@ ve artık rol atama işleminin gayet başarılı bir şekilde gerçekleştiğini
 
 # 93 Ders (Bazı Düzenlemeler)
 -> Member Areasındali Dashboard/Index için yeni bir Component oluşturduk.(_LastDestinations).
--> Bu component için gerekli düzenlemeleri yapıp dersi bitirdik.
+-> Bu component için gerekli düzenlemeleri yapıp dersi bitirdik..
