@@ -3,63 +3,85 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
 
-<h1>Aktif Tur Rotalarımız</h1>
-
-<div class="col-12">
-    <div class="card mb-4">
-        <div class="card-header pb-0">
-            <h6>Tur Rotaları</h6>
-        </div>
-        <div class="card-body px-0 pt-0 pb-2">
-            <div class="table-responsive p-0">
-                <table class="table align-items-center mb-0">
-                    <thead>
-                        <tr>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Görsel</th>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Ülke / Şehir</th>
-                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kapasite</th>
-                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fiyat</th>
-                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Detaylar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    <div class="d-flex px-2 py-1">
-                                        <div>
-                                            <img src="@item.Image" class="avatar avatar-sm me-3" alt="user1">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p class="text-xs font-weight-bold mb-0">@item.City</p>
-                                    <p class="text-xs text-secondary mb-0">@item.DayNight</p>
-                                </td>
-                                <td class="align-middle text-center text-sm">
-                                    <span class="badge badge-sm bg-gradient-success">@item.Capacity</span>
-                                </td>
-                                <td class="align-middle text-center">
-                                    <span class="text-secondary text-xs font-weight-bold">@item.Price ₺</span>
-                                </td>
-                                <td class="align-middle text-center">
-                                    <span class="text-secondary text-xs font-weight-bold">
-                                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                            Detaya Git
-                                        </a>
-                                    </span>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+<div class="content-wrapper-before"></div>
+<div class="content-header row">
+    <div class="content-header-left col-md-4 col-12 mb-2">
+        <h3 class="content-header-title">Aktif Tur Rotalarımız</h3>
+    </div>
+    <div class="content-header-right col-md-8 col-12">
+        <div class="breadcrumbs-top float-md-right">
+            <div class="breadcrumb-wrapper mr-1">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">Ana Sayfa</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        Aktif Tur Rotalarımız
+                    </li>
+                </ol>
             </div>
         </div>
     </div>
 </div>
 
-
+<!-- Basic Tables start -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Aktif Tur Rotalarımız</h4>
+                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                        <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                        <li><a data-action="close"><i class="ft-x"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-content collapse show">
+                <div class="card-body">
+                    <p class="card-text">Alanında uzman rehberlerimiz eşliğinde Balkanlar'dan Orta Asya'ya, Doğu Avrupa'dan Anadolu'nun dört bir yanına en uygun fiyatlarla sunduğumuz tur listemize ve tur detaylarına aşağıdaki tablodan erişebilirsiniz.</p>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Rota Görseli</th>
+                                    <th>Lokasyon</th>
+                                    <th>Kişi Sayısı</th>
+                                    <th>Fiyat</th>
+                                    <th>Detaylar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <th scope="row">@item.DestinationID </th>
+                                        <td><img src="@item.Image" class="avatar avatar-sm rounded-circle me-2" alt="spotify"></td>
+                                        <td>@item.City <p class="text-xs text-secondary mb-0">@item.DayNight</p></td>
+                                        <td>@item.Capacity</td>
+                                        <td>@item.Price ₺</td>
+                                        <td>
+                                            <span class="text-secondary text-xs font-weight-bold">
+                                                <a href="/Destination/DestinationDetails/@item.DestinationID" class="text-primary font-weight-bold text-xs" target="_blank" data-toggle="tooltip" data-original-title="Traversal">
+                                                    Detaya Git
+                                                </a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Basic Tables end -->

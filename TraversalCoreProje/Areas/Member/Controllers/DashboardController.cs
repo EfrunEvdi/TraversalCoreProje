@@ -22,5 +22,10 @@ namespace TraversalCoreProje.Areas.Member.Controllers
             ViewBag.UserImage = values.ImageUrl;
             return View();
         }
+
+        public async Task<IActionResult> MemberDashboard()
+        {
+            return View();
+        }
     }
 }
