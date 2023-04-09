@@ -2484,3 +2484,44 @@ Ardından MemberLayout için aşağıdakiler için componentleme yapısı kuruyo
 - _MemberLayoutSidebar
 
 # 96 Ders (Çoklu Dil Desteği)
+Bu derste öncelikle UI katmanına InformationController ekleyip içindeki index'e MemberLayouta bağlı bir index ekliyoruz. 
+Devamında startup'a
+
+services.AddLocalization(opt =>
+            {
+                opt.ResourcesPath = "Resources";
+            });
+
+            services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
+
+yazıp ardında UI katmanına Resources adlı dosyayı dahil edip tekrar startup'a
+
+var suppertesCultures = new[] { "en", "fr", "es", "gr", "tr", "de" };
+var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(suppertesCultures[4]).AddSupportedCultures(suppertesCultures).AddSupportedUICultures(suppertesCultures);
+app.UseRequestLocalization(localizationOptions);
+
+kodlarını ekleyip Resources klasörüne Views klasörünü içine Information kalsörünü dahil ettikten sonra bu klasörün içine aşağıdaki resx dosyalarını dahil ediyoruz.
+-> Index.de
+-> Index.en
+-> Index.es
+-> Index.fr
+-> Index.gr
+-> Index.tr
+
+ardından Information/Index'e gidip
+
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer 'i enjekte edip? :D
+
+ <div class="card-content collapse show">
+         <div class="card-body">
+              <p class="card-text">@localizer["Merhaba"] @localizer["Bugün"] @localizer["Hava"] @localizer["Çok"] @localizer["Güzel"] </p>
+              <h2>@localizer["Bize"] @localizer["Ulaşın"]</h2>
+
+         </div>
+</div>
+
+kodu ile resx dosyalarına tanımladığımız kelimelerin istediğiniz dilini
+
+https://localhost:44368/Information/Index/?culture=tr ile çağırabiliyoruz.
+
+
