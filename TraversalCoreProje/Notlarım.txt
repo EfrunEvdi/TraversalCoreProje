@@ -2453,10 +2453,34 @@ ve artık rol atama işleminin gayet başarılı bir şekilde gerçekleştiğini
 # 94 Ders (Member Sayfası Son Revizeler)
 Bu derste UserLayout'u member Layout olarak değiştiriyoruz. Bu değişimden dolayı aşağıdaki sayfaları güncelliyoruz.
 
-->
-->
-->
-->
-->
-->
-->
+-> MyApprovalReservation
+-> MyCurrentReservation
+-> MyOldReservation
+-> NewReservation
+-> Destination/Index
+-> Profile/Index
+
+Daha sonra Dashboard controller'a
+
+public async Task<IActionResult> MemberDashboard()
+        {
+            return View();
+        }
+
+ekliyoruz ve buna ait view i yeni templateden alıyoruz. Bu view'de aşağıdaki Componentleme yapılarını kuruyoruz.
+-> MemberStatistik
+-> (Template'e güncelleme) _GuideList
+
+# 95 Ders (Bazı Revizeler)
+Bu derste ilk olarak Member areasına LastDestinations controllerını ekleyip bu controllera ait sayfayı templatemize uyduruyoruz.
+Ardından MemberLayout için aşağıdakiler için componentleme yapısı kuruyoruz.
+
+- _MemberLayoutFooter
+- _MemberLayoutHead
+- _MemberLayoutLanguages
+- _MemberLayoutNevbar
+- _MemberLayoutScript
+- _MemberLayoutSearch
+- _MemberLayoutSidebar
+
+# 96 Ders (Çoklu Dil Desteği)
