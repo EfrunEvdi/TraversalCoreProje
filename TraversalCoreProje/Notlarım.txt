@@ -2524,4 +2524,39 @@ kodu ile resx dosyalarına tanımladığımız kelimelerin istediğiniz dilini
 
 https://localhost:44368/Information/Index/?culture=tr ile çağırabiliyoruz.
 
+# 97 Ders (Menülerde Dil Desteği ve Arama İşlemi)
+Bu derste MemberLayouttaki sidebarı ingilizce ve fransızca olarak 2 dil seçeneği ekledik.
 
+Arama için yaptıklarımız
+Member areasında
+
+[Route("Member/[controller]/[action]")]
+
+
+public IActionResult GetCitiesSearchByName(string searchString)
+        {
+            ViewData["CurrentFilter"] = searchString;
+            var values = from x in destinationManager.TGetList() select x;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                values = values.Where(y => y.City.Contains(searchString));
+            }
+
+            return View(values.ToList());
+        }
+
+yazdıktan sonra index ekleyip İndexin tamamını destination/indexten kopyaladıktan sonra
+
+ <form asp-action="GetCitiesSearchByName" method="get" asp-area="Member">
+                        <div class="input-group search-box">
+                            <div class="row">
+                                <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Aranacak kelimeyi giriniz.">
+                            </div>
+                        </div>
+  </form>
+
+ile aranacak kelimeyi yazdıktan sonra dersi bitirdik.
+
+# 98 Ders (Şifremi Unuttum & Reset Password)
+Bu derste ilk olarak ForgetPasswordViewModel classını ve ardından PasswordChangeController'ını projeye hahil edip controller'ı yazdıktan sonra view ekleyip form yapısını kuruyoruz. Devamından E-posta adresine tokenın geldiğini görüyoruz ardından ResetPasswordViewModel ve PasswordChangeController 'e bu model için bir controller ekleyip bu sayfayada değişecek password için form yapısını kurduktan sonra şifre işleminin başarılı bir şekilde değiştiğini görüyoruz.

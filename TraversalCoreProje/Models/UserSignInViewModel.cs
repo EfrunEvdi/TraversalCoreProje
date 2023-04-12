@@ -2,7 +2,7 @@
 
 namespace TraversalCoreProje.Models
 {
-    public class UserSingInViewModel
+    public class UserSignInViewModel
     {
         [Required(ErrorMessage = "Lütfen kullanıcı adını giriniz.")]
         public string UserName { get; set; }

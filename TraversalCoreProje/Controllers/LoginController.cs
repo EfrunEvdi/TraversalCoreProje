@@ -20,12 +20,12 @@ namespace TraversalCoreProje.Controllers
         }
 
         [HttpGet]
-        public IActionResult SingUp()
+        public IActionResult SignUp()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> SingUp(UserRegisterViewModel p)
+        public async Task<IActionResult> SignUp(UserRegisterViewModel p)
         {
             AppUser appUser = new AppUser()
             {
@@ -40,7 +40,7 @@ namespace TraversalCoreProje.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("SingIn");
+                    return RedirectToAction("SignIn");
                 }
                 else
                 {
@@ -54,12 +54,12 @@ namespace TraversalCoreProje.Controllers
         }
 
         [HttpGet]
-        public IActionResult SingIn()
+        public IActionResult SignIn()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> SingIn(UserSingInViewModel p)
+        public async Task<IActionResult> SignIn(UserSignInViewModel p)
         {
             if (ModelState.IsValid)
             {
@@ -70,7 +70,7 @@ namespace TraversalCoreProje.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("SingIn", "Login");
+                    return RedirectToAction("SignIn", "Login");
                 }
             }
             return View();

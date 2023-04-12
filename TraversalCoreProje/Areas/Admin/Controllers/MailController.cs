@@ -33,12 +33,12 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
 
             SmtpClient client = new SmtpClient();
             client.Connect("smtp.gmail.com", 587, false);
-            client.Authenticate("coretraversal@gmail.com", "ouludrntalawranf");
+            client.Authenticate("coretraversal@gmail.com", "zwbuhmiadkcbbmop");
 
             client.Send(mimeMessage);
             client.Disconnect(true);
 
-            return RedirectToAction("Mail","Admin");
+            return RedirectToAction("Mail", "Admin");
         }
     }
 }
