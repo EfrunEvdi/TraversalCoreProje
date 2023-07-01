@@ -1,6 +1,7 @@
 # TraversalCoreProje
 Traversal Rezervasyon Asp.Net Core 5.0 Mini Proje 
-### Kamp Youtube Kanalı: https://www.youtube.com/playlist?list=PLKnjBHu2xXNMK5MBogdXmsXVi3K_eEZT5
+
+[![Kamp Youtube Kanalı](https://img.shields.io/badge/Kamp%20Youtube%20Kanalı-izlemek%20için%20tıklayın-red)](https://www.youtube.com/playlist?list=PLKnjBHu2xXNMK5MBogdXmsXVi3K_eEZT5)
 
 ## Proje Hakkında: 
 Veri tabanı olarak SQL Server kullanılarak, BusinessLayer, DataAccessLayer, DTOLayer, EntityLayer, PresentationLayer, SignalRApiForSQL ve SingalRConsume katmanlarından oluşan N Tier Architecture mimarisi, ASP.Net Core 5.0 ve Entity Framework Core teknolojileri kullanılarak Codefirst yaklaşımı ile API'lerle desteklenmiş ve kodlanmıştır. Ayrıca MSSQL ve Postgre SQL veri tabanları da kullanılmıştır.
